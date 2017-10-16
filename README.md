@@ -21,8 +21,7 @@ Use the following terminal commands to prepare to build your application:
 *  Create a Firebase account at https://firebase.google.com/. 
 *  Configure Authentication for the web app:
   >  ![firebaseauth](https://user-images.githubusercontent.com/210413/30171158-b036b8dc-93b6-11e7-9698-b355544d0c00.png)
-*  Sample db Firebase database with sample-db.json
-   ``` you can find this in the ModCon base folder :) 
+*  Sample for Firebase database can be found in the root in this file sample-db.json
    
 *  Gather your Firebase configuration information:
   >  ![firebaseconfig](https://user-images.githubusercontent.com/210413/30178188-b219c6b4-93cd-11e7-854d-788a2c2d99b1.jpg)
