@@ -1,0 +1,19 @@
+<div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-magic" aria-hidden="true"></i>
+  <input placeholder="Vanity Title" name="titleJS" class="input" [(ngModel)]="vanity.title"
+   onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddVanity').click()" 
+   required minlength="2" maxlength="23" #title='ngModel' autofocus>
+  </span>
+  <button id="btnAddVanity" class="btn btn-success" (click)='createItem()' [disabled]="!title.valid">Add</button>
+</div>
+<div *ngIf="title.dirty">
+  <span *ngIf='title.errors; then errors else valid'>template renders here...</span>
+</div>
+
+<ng-template #valid>
+  <p class="help is-success">looks good!</p>
+</ng-template>
+
+<ng-template #errors>
+  <p class="help is-danger">form contains errors!</p>
+</ng-template>

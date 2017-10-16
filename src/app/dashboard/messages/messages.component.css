@@ -1,0 +1,66 @@
+
+  .wrapper {
+    display: grid;
+    grid: "h h h"
+          "a b c"
+          "f f f";
+    grid-template-columns: auto 1fr 25%; 
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+  .messages {
+    grid-area: b; 
+    min-width: 12rem;
+  }
+
+  .aside {
+    grid-area: a;
+  }
+
+  .thread {
+    grid-area: c;
+  }
+
+  .fa-quote-left {
+    font-size: .8rem;
+    position: relative;
+    top: -1rem;
+    padding-left: 1rem;
+  }
+
+  .mes p {
+    border-radius: 1rem;    
+    padding: .5rem;
+  }
+
+  .mes p:hover {
+    text-decoration: none;
+    color: rgb(236, 236, 236);
+    background-color: rgb(44, 62, 80);
+    cursor: pointer;
+  }
+
+  .hover:hover {
+    cursor: pointer;
+    background-color: rgb(60, 85, 110);
+  }
+
+  .m-top {
+    margin-top: 1rem;
+  }
+
+  .conversation{
+    max-height: 59vh;
+    overflow: auto;
+  }
+  .panel-group {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .panel-body {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }

@@ -1,0 +1,38 @@
+<div class="col-sm-6 col-md-4 col-xs-6" >
+    <div class="panel panel-default">
+        <div class="panel-heading"> 
+            {{ color.title || 'missing title' }}
+        </div>
+        <div class="panel-body">          
+            <img class="ColorImg" src="{{ color.color?.url }}" alt=" {{ color.title || 'missing title' }}">    
+            <ul>   
+                <li class="list" *ngIf="!toggle; else edit" >
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setToggle()"></i>
+                    <span class="min" (click)="setToggle()">{{ color.price }}</span>
+                    <button type="button" class="btn btn-danger btn-xs" (click)="remove()">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </button>
+                </li>
+            </ul> 
+
+        </div>
+        <div class="panel-footer">              
+            <label for="upload-photo{{ color.title || 'missing title' }}">
+                <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                <input type="file" name="photo" id="upload-photo{{ color.title || 'missing title' }}" class="upload-photo" (change)="detectFiles($event)">
+            </label>
+            <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+            <div class="btn-group pull-right">
+                <span type="button" class="btn btn-success btn-xs" *ngIf='color.active' (click)='updateActive(false)'><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+                <span type="button" class="btn btn-warning btn-xs" *ngIf='!color.active' (click)='updateActive(true)'><i class="fa fa-square-o" aria-hidden="true"></i></span>  
+                <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<ng-template #edit>
+    <form class="form-group">
+        <input #text name="text" (keyup.enter)="updateText(text.value)" class="form-control" [(ngModel)]="color.price" placeholder="euro/paint/tm/waoa" type="text"/>
+    </form>
+</ng-template>

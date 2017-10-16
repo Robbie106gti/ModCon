@@ -1,0 +1,14 @@
+<div *ngFor="let instance of instance | async" class="col-sm-12 col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <span type="button" class="btn btn-info btn-xs pull-right" (click)='updateTimeStamp()'><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
+        <h3>Edit {{ instance.title || 'missing title' }}</h3>
+    </div>
+    <div class="panel-body"><img src="{{ instance.images.mainImg.url || 'sorry wrong url' }}" alt="{{ instance.title || 'missing title' }}" class="img-thumbnail"> </div>    
+    <div class="panel-footer">Active:  {{ instance.active || 'Not Active' }}  |  TimeStamp:  {{ instance.timeStamp | date:'medium' }}
+    <span type="button" class="btn btn-danger btn-xs pull-right" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span></div>
+  </div> 
+</div>  
+<div class="col-sm-12 col-md-6">
+    <colors></colors>  
+</div>

@@ -1,0 +1,60 @@
+.wrapper {
+    display: grid;
+    grid-gap: 1em;
+    grid-auto-rows: minmax(100px, auto);
+}
+@media screen and (min-width: 1750px){
+    .wrapper {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+}
+@media screen and (max-width: 1750px){
+    .wrapper {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+}
+@media screen and (max-width: 1560px){
+    .wrapper {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+}
+@media screen and (max-width: 1450px){
+    .wrapper {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+}
+@media screen and (max-width: 1200px){
+    .wrapper {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+}
+@media screen and (max-width: 1000px){
+    .wrapper {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+}
+@media screen and (min-width: 705px) and (max-width: 910px){
+    .wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media screen and (max-width: 705px){
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.wrapper > div {
+    background: rgb(224, 224, 224);
+    padding: 1em;
+}
+
+.wrapper > div:nth-child(odd) {
+    background: rgb(212, 212, 212)
+}

@@ -1,0 +1,44 @@
+<div *ngIf="sku$ | async as sku">
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['']">Home</a></li>
+    <li><a [routerLink]="['../../']">Vanities</a></li>
+    <li><a [routerLink]="['../']">{{ sku.cabinet?.line }}</a></li>
+    <li class="active">{{ sku.cabinet?.sku }}</li>
+  </ol>
+  <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+    <div class="thumbnail">
+      <img src="{{(vanity | async)?.images.mainImg.url}}" >
+      <div class="caption">
+        <h3><small>Vanity:</small> {{ sku.cabinet?.line }} - {{ sku.cabinet?.sku }}</h3>
+        <hr>
+        <img class="skew" src="{{ sku.cabinet?.urlSketch }}" >
+        <!-- <button (click)="resetCabinet()">reset</button>
+        <button (click)="editCabinet()">edit</button> 
+        <code *ngIf="sku$ | async as sku">
+          {{ sku | json }}
+        </code>-->
+      </div>
+    </div>
+    <div class="mods">
+      <value-mods [skew]='skew'></value-mods>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-8 col-xs-12 col-lg-9 mods">   
+      <mods-order></mods-order>
+  </div>
+  <div class="col-sm-6 col-md-8 col-xs-12 col-lg-9 mods">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="wrapper">
+    <div id="review" class="alert alert-warning">
+        <a [routerLink]="['options']">
+            <i class="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>
+            <br><small>Review</small>
+        </a>
+    </div>
+    <div id="toBasket" *ngIf="sku.material" class="alert alert-danger" role="alert" (click)="setOrder()">
+        <i class="fa fa-shopping-basket fa-3x" aria-hidden="true"></i>
+        <br><small>To basket</small>
+    </div>
+  </div>
+</div>

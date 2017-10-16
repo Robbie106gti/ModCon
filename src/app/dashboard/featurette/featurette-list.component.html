@@ -1,0 +1,46 @@
+<div class="row">
+  <br><hr>
+    <div class="col-md-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle btn-xs" type="button" data-toggle="dropdown">{{featurette.title}} - <i class="fa fa-picture-o" aria-hidden="true"></i>
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <image-dropdown *ngFor="let image of images | async" [image]='image' [cat]='cat'></image-dropdown>    
+          <upload-dropdown [cat]='cat'></upload-dropdown>        
+        </ul>
+      </div>
+      <br>
+      <img src="{{featurette.imgUrl}}" alt="" class="max">
+    </div>
+    <div class="col-md-2">
+      <span class="list" (click)="setToggle()" *ngIf="!toggle; else edit">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{featurette.title}}
+      </span> || 
+      <span class="change"><i (click)='toRight()' *ngIf="featurette.left; else right" class="fa fa-arrow-circle-left" aria-hidden="true"> 
+        Image on left side</i><span class="do"> change to right?</span></span>
+    </div>
+    <div class="col-md-8">
+    <form class="form-group">
+      <div class="input-group col-md-4 col-sm-6 col-lg-3">
+        <span class="input-group-addon btn" (click)="add(feat.value)"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
+        <input class="form-control" #feat type="text" name="feat" (keyup.enter)="add(feat.value)" type="text" placeholder="text">
+      </div>
+    </form>
+       <button type="button" class="btn btn-danger btn-xs pull-right" (click)="remove()">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+       </button>
+      <ul>
+        <featurette-point *ngFor="let list of lists | async" [list]='list' [featurette]='featurette' ></featurette-point>
+      </ul>     
+    </div>
+</div>
+
+<ng-template #right>
+  <span class="change1"><i class="fa fa-arrow-circle-right" aria-hidden="true" (click)='toLeft()'> Image on right side</i><span class="do"> change to left?</span></span>
+</ng-template>
+
+<ng-template #edit>
+    <form class="form-group">
+        <input #text name="text" (keyup.enter)="updateTitle(text.value)" class="form-control" [(ngModel)]="featurette.title" type="title"/>
+    </form>
+</ng-template>

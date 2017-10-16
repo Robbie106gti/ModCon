@@ -1,0 +1,13 @@
+
+  <div class="form-row align-items-center">
+    <div class="col-auto">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Send a message to:</label>
+      <select class="custom-select mb-4 mr-sm-4 mb-sm-0" id="inlineFormCustomSelect" [(ngModel)]="toUser">
+        <option selected>Choose...</option>
+        <option *ngFor="let user of toUsers | async" [ngValue]="user">{{ user.name }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <textarea  class="form-control" ref-textarea [(ngModel)]="textValue" required name="message" (keyup.enter)="sendMessage(textarea.value)" placeholder="Write a message" type="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>

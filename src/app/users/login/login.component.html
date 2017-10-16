@@ -1,0 +1,27 @@
+<ul class="nav navbar-nav navbar-right" *ngIf="user$ | async as user">
+    <li *ngIf="!auth.currentUser; else alreadyLoggedIn" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Login <span class="caret"></span></a>
+        <ul class="dropdown-menu">   
+            <!--<li><a class="fb" (click)="signInWithFacebook()"><img id="fb" [src]="facebookImg" alt="Facebook"> Facebook</a></li>            
+            <li role="separator" class="divider"></li>-->
+            <li><a class="gl" (click)="signInWithGoogle()"><img id="google" [src]="googleImg" alt="Google"> Google</a></li>
+            <!--<li role="separator" class="divider"></li>
+            <li><a class="tw" (click)="signInWithTwitter()"><img id="twitter" [src]="twitterImg" alt="Twitter"> Twitter</a></li>-->
+        </ul> 
+    </li>
+    <ng-template #alreadyLoggedIn>
+        <li *ngIf="user.orderId"><a routerLink="/home/order/{{ user.orderId }}"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span class="badge">{{ qtyOrder }}</span></a></li>
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-usd" aria-hidden="true"></i> {{ user.currency | uppercase }}<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a (click)="changeCurrency('usd')"><i class="fa fa-usd" aria-hidden="true"></i> USD</a></li>
+                <li><a (click)="changeCurrency('can')"><i class="fa fa-usd" aria-hidden="true"></i> CAN</a></li>
+            </ul>
+        </li>
+        <li><a (click)="logout()">Logout</a></li>   
+        <li *ngIf="user.image">
+            <img src='{{ user.image }}' class="img-circle profile" alt="{{ user.displayName }}">
+            <img class="provider" *ngIf="user.provider =='facebook.com'" [src]="facebookImg" alt="Facebook">
+            <img class="provider" *ngIf="user.provider =='google.com'" [src]="googleImg" alt="Google">
+            <img class="provider" *ngIf="user.provider =='twitter.com'" [src]="twitterImg" alt="Twitter">
+        </li>
+    </ng-template> 
+</ul>

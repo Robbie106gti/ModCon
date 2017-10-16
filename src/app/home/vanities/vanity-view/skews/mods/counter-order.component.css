@@ -1,0 +1,123 @@
+.skew {
+    max-height: 200px;
+}
+.wrapper {
+  display: grid;
+  grid-gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+}
+@media screen and (min-width: 1350px){
+  .wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+}
+@media screen and (max-width: 1350px){
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+.wrapper-counter {
+  display: grid;
+  grid-gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+  position: relative;
+  top: 12.5%;
+  left: 12.5%;
+  width: 75%;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 6px;  
+}
+@media screen and (min-width: 1525px){
+  .wrapper-counter {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+}
+@media screen and (max-width: 1525px){
+  .wrapper-counter {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+}
+@media screen and (max-width: 1525px){
+  .wrapper-counter {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+@media screen and (max-width: 1200px){
+  .wrapper-counter {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+@media screen and (max-width: 1000px){
+  .wrapper-counter {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+.modal {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(48, 2, 2, 0.49);
+}
+
+.jumbotron {
+  position: relative;
+  top: 25%;
+  left: 25%;
+  min-height: 50%;
+  width: 50%;
+  background-color: #fff;
+}
+
+.color {
+    max-height: 50px;
+    margin-left: 10px;
+    margin-top: 5px;
+    box-shadow: 5px 5px 3px #ccc;
+    border: 1px solid #F5F5F5;
+}
+
+.Paint {
+    border-left: 2px solid #22BDFD;
+    border-top: 2px solid #22BDFD;
+    padding-left: 3px;
+    padding-top: 3px;
+    max-width: 80px;
+}
+
+.Wood {
+    border-left: 2px solid #FCE24C;
+    border-top: 2px solid #FCE24C;
+    padding-left: 3px;
+    padding-top: 3px;
+    max-width: 80px;
+}
+
+.Euro {
+    border-left: 2px solid #238500;
+    border-top: 2px solid #238500;
+    padding-left: 3px;
+    padding-top: 3px;
+    max-width: 80px;
+}
+
+.Textured {
+    border-left: 2px solid #FF3032;
+    border-top: 2px solid #FF3032;
+    padding-left: 3px;
+    padding-top: 3px;
+    max-width: 80px;
+}
+  a {
+    color: #fff;
+  }
+  .badge {
+    margin-left: 20px;
+  }

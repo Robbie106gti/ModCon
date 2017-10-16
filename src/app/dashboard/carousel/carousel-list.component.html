@@ -1,0 +1,41 @@
+<div class="row">
+  <br><hr>
+    <div class="col-md-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle btn-xs" type="button" data-toggle="dropdown">{{slide.title}} - <i class="fa fa-picture-o" aria-hidden="true"></i>
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <image-dropdown *ngFor="let image of images | async" [image]='image' [cat]='cat'></image-dropdown>  
+          <upload-dropdown [cat]='cat'></upload-dropdown>
+        </ul>
+      </div>
+      <br>
+      <img src="{{slide.image}}" alt="" class="max">
+    </div>
+    <div class="col-md-10">
+      
+       <button type="button" class="btn btn-danger btn-xs pull-right" (click)="remove()">
+         <i class="fa fa-times-circle" aria-hidden="true"></i>
+       </button>
+
+      <span class="list" (click)="setToggle()" *ngIf="!toggle; else edit">
+        <h1>{{slide.title}}<small><i class="fa fa-pencil-square-o" aria-hidden="true"></i></small></h1>        
+      </span>
+
+      <span class="list" (click)="setToggleText()" *ngIf="!toggle2; else text">
+        <p>{{slide.text}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p> 
+      </span>
+    </div>
+</div>
+
+<ng-template #edit>
+    <form class="form-group">
+        <input #title name="title" (keyup.enter)="updateTitle(title.value)" class="form-control" [(ngModel)]="slide.title" type="title"/>
+    </form>
+</ng-template>
+
+<ng-template #text>
+    <form class="form-group">
+        <input #text name="text" (keyup.enter)="updateText(text.value)" class="form-control" [(ngModel)]="slide.text" type="title"/>
+    </form>
+</ng-template>

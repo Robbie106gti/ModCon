@@ -1,0 +1,57 @@
+{
+    "short_name": "Modcon",
+    "name": "Modcon Vanity",
+    "start_url": "/",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "gcm_sender_id": "103953800507",
+    "icons": [
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-36x36.png?alt=media&token=c994ae6e-706b-4b40-a21a-114036892dd5",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-48x48.png?alt=media&token=a700a99b-e47c-4846-ac35-d79f04226b14",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-72x72.png?alt=media&token=e8de9067-e7ff-445b-bb42-ecee0ed85347",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-96x96.png?alt=media&token=dbbfb1af-09da-4483-92ba-1ddfb0191131",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-144x144.png?alt=media&token=255282f5-f28b-43c9-a7f1-944ffed94730",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-144x144.png?alt=media&token=255282f5-f28b-43c9-a7f1-944ffed94730",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-256x256.png?alt=media&token=d22e7d35-f3be-453b-ab51-1280cc144adc",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-384x384.png?alt=media&token=f1ff85d7-93ce-4734-8287-14b8928d3339",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Fandroid-chrome-512x512.png?alt=media&token=166dcca2-5946-4706-978e-c92e4909ca36",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

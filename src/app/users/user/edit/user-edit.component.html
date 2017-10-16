@@ -1,0 +1,31 @@
+<div class="">
+  <div class="thumbnail">
+    <div class="caption">
+      <h3 class="userName">{{ user.name || 'missing title' }}</h3>
+      <dl>
+        <dt>Provider: </dt>
+        <dd> {{ user.provider }}</dd>
+        <dt>Email: </dt>
+        <dd> {{ user.email }}</dd>
+        <dt>Last login: </dt>
+        <dd> {{ user.lastLogin | date : 'medium'}}</dd>
+        <dt>Zone: </dt>
+        <!-- Single button -->
+        <div class="btn-group ">
+        <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.zone }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let zone of zones | async"><a (click)='updateActive(zone.$key)'>{{ zone.$key }}</a></li>
+        </ul>
+        </div>
+      </dl>
+      <hr>
+      <p>
+        <label class="badge"><i class="fa fa-linode" aria-hidden="true"><small>13</small></i> Orders</label>
+        <label class="badge"><i class="fa fa-mobile" aria-hidden="true"><small>2</small></i> Messages</label>
+      </p>
+    </div>
+  </div>
+</div>
+

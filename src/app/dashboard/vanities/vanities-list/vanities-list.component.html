@@ -1,0 +1,11 @@
+<div class="row">  
+  <div class="col-xs-6 col-sm-7 col-sm-offset-">
+    <h1>Vanities</h1>    
+  </div>
+  <vanity-form class="col-xs-6 col-sm-3"></vanity-form>    
+</div>
+<div class="row">   
+  <div *ngFor="let vanity of vanities | async" class="card">
+    <vanity-detail [vanity]='vanity'></vanity-detail>
+  </div>  
+</div>

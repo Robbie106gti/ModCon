@@ -1,0 +1,60 @@
+
+<ol class="breadcrumb">
+    <li><a [routerLink]="['../..']">Home</a></li>
+    <li><a [routerLink]="['../../vanities']">Vanities</a></li>
+    <li *ngIf="!completed" class="active"><a [routerLink]="['../../../dashboard/orders']">Review order - back to "My Orders"</a></li>
+    <li *ngIf="completed" class="active">Your order</li>
+</ol>
+<div *ngIf="!completed"><h2>Order ID: {{ title }}</h2></div>
+<div *ngIf="completed"><h2>Your order ID: {{ title }}</h2></div>
+<div *ngIf="alert" class="modal">
+    <div class="jumbotron-alert alert">
+        <div class="notification">
+            <button class="delete" (click)="closeModal()"></button>
+            <div class="col-md-10 col-sm-9 col-xs-9">
+                <h1>Order has been created and sent off to Order-Desk!</h1>
+                <p>The Order-Desk will process your order and you will hear back from them. For you reverence  this order has been saved in "My Orders".</p>  
+                <p>We have marked this order as complete and have created a new one. No pressure, this is so you can start a new order whenever you're ready.</p>              
+            </div>
+            <div class="col-md-1 col-sm-2 col-xs-2">
+                <i class="fa fa-ticket fa-5x" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-2 col-lg-push-10 col-md-3 col-md-push-9 col-sm-6 col-xs-12"  *ngIf="orderInfo | async as info">
+    <div class="thumbnail">
+        <div class="caption">
+            <h3>{{ info?.name }}</h3>
+            <dl>
+                <dt>Order date: </dt>
+                <dd> {{ info?.timeStamp | date:"medium" }}</dd>
+                <dt>Completed: </dt>
+                <dd> {{ info?.completed }}</dd>
+                <dt>Currency: </dt>
+                <dd>$ {{ info?.type }}</dd>
+                <dt>Email: </dt>
+                <dd> {{ info?.email }}</dd>
+                <dt>UID: </dt>
+                <dd> <small>{{ info?.UID }}</small></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="thumbnail">
+        <order-totals *ngFor="let arr of array" [arr]="arr" [cur]="cur"></order-totals>
+        <div class="caption">
+            <h3>Order total: </h3>
+            <h4>{{ info?.type | uppercase }} $ {{ orderTotal * cur | number:'1.2-2' }}</h4>
+        </div>
+    </div>
+</div>
+<div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2 col-sm-6 col-xs-12">
+    <order-item *ngFor="let orderItem of orderItems | async" [orderItem]="orderItem" [completed]="completed" [cur]="cur"></order-item>
+</div>
+<div class="wrapper">
+    <div id="buy" *ngIf="completed" class="alert alert-success" role="alert" (click)="alertMe()">
+        <p>Confirm order<br>  
+        <i class="fa fa-credit-card fa-3x" aria-hidden="true"></i><br> 
+        $ {{ orderTotal * cur | number:'1.2-2' }}</p>
+    </div>
+</div>

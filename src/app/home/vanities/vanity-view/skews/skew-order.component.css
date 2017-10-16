@@ -1,0 +1,33 @@
+.skew {
+    max-height: 200px;
+}
+.mods {    
+    position: relative;
+    z-index: 0;
+}
+.wrapper {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 33%;
+    z-index: 9999;
+    width: 14rem;
+  }
+
+#toBasket {
+    position: relative;
+    margin: 1.25rem 2.5rem 1.25rem 1.5rem;
+    text-align: center;
+    height: 9.5rem;
+}
+
+#review {
+    position: relative;
+    margin: 1.25rem 2.5rem 1.25rem 1.5rem;
+    text-align: center;
+    height: 9.5rem;
+}
+
+#review a {
+    color: #ffffff;
+}

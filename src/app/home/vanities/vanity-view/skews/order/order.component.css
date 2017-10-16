@@ -1,0 +1,210 @@
+.wrapper {
+    position: fixed;
+    bottom: 50px;
+    right: 16%;
+    z-index: 9999;
+    width: 14rem;
+  }
+
+#buy {
+    position: relative;
+    margin: 1.25rem 2.5rem 1.25rem 1.5rem;
+    text-align: center;
+}
+
+.notification {
+    position: relative;
+  }
+
+  .notification > .delete {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+  }
+
+.alert {
+  position: relative;
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  margin-bottom: 5px;
+}
+.alert-info {
+  background-color: rgba(94, 175, 193, 0.62);
+}
+.alert-warning {
+  background-color: rgba(255, 157, 0, 0.59);
+}
+.alert-danger {
+  background-color: rgba(255, 0, 0, 0.49);
+}
+.alert-success {
+  background-color: rgba(32, 158, 103, 0.62);
+}
+.success {
+  color: rgba(32, 158, 103, 0.62);
+}
+.alert > .fa {
+  position: absolute;
+  right: 0.15em;
+  top: 0em;
+}
+td {
+  padding: 3px;
+  margin-right: 3px;
+  min-width: 80px;
+}
+.mattd {
+  min-width: 135px;
+}
+.access{
+  max-height: 250px;
+  border-left: 1px solid #f1f1f1;
+  box-shadow: 5px 5px 3px #ccc;
+}
+
+.access:hover {
+  border: 1px solid #80D0FF;
+  max-height: 260px;
+  padding-top: 0px;
+  margin-bottom: -10px;
+}
+.modal {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(48, 2, 2, 0.49);
+}
+
+.jumbotron {
+  position: relative;
+  top: 25%;
+  left: 25%;
+  min-height: 25%;
+  width: 50%;
+  background-color: #fff;
+}
+
+.jumbotron-alert {
+  position: relative;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  min-height: 33%;
+  background-color: rgb(2, 45, 73);
+  color: rgb(255, 255, 255);
+}
+.center {
+  text-align: center;
+}
+
+@media(max-width: 992px){
+  .col-xs-4, .col-sm-4 {
+    width: 32%;
+    margin-right: 3px;
+  }
+
+}
+  
+.delete {
+    margin-right: 0.375em;
+    margin-left: auto;
+}
+
+  .delete {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: rgba(255, 0, 0, 0.20);
+    border: none;
+    border-radius: 290486px;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    font-size: 1rem;
+    height: 20px;
+    max-height: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    outline: none;
+    position: relative;
+    vertical-align: top;
+    width: 20px;
+  }
+
+  .delete:before, .delete:after {
+    background-color: white;
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+            transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+  }
+
+  .delete:before {
+    height: 2px;
+    width: 50%;
+  }
+
+  .delete:after {
+    height: 50%;
+    width: 2px;
+  }
+
+  .delete:hover, .delete:focus {
+    background-color: rgb(255, 0, 0);
+  }
+
+  .delete:active {
+    background-color: rgb(255, 105, 0);
+  }
+
+  .delete.is-small {
+    height: 16px;
+    max-height: 16px;
+    max-width: 16px;
+    min-height: 16px;
+    min-width: 16px;
+    width: 16px;
+  }
+
+  .delete.is-medium {
+    height: 24px;
+    max-height: 24px;
+    max-width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    width: 24px;
+  }
+
+  .delete.is-large {
+    height: 32px;
+    max-height: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    min-width: 32px;
+    width: 32px;
+  }
+
+  .delete {
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    margin-left: 0.75em;
+  }

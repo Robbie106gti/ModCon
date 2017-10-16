@@ -1,0 +1,19 @@
+label {
+   cursor: pointer;
+   /* Style as you please, it will become the visible UI component. */
+}
+
+.upload-photo {
+   opacity: 0;
+   display: none;
+   position: absolute;
+   z-index: -1;
+}
+
+.skewImg {
+    max-height: 100px;
+}
+
+.btn-group {
+    padding: 1px;
+}

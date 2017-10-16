@@ -1,0 +1,9 @@
+<h1>Items</h1>
+
+<item-form></item-form>
+
+<hr>
+
+<div *ngFor="let item of items | async" class="card">
+  <item-detail [item]='item'></item-detail>
+</div>

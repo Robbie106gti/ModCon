@@ -1,0 +1,55 @@
+<div class="col-sm-6 col-md-4 col-xs-6 col-lg-2">
+  <div class="thumbnail">
+    <img class="skewImg" src="{{ skew.drawing?.url }}" alt=" {{ skew.title || 'missing title' }}">
+    <div class="caption">
+      <h3>
+        {{ skew.title || 'missing title' }}
+      </h3>
+      <form class="form-group">
+          <div class="input-group input-group-sm col-sm-12">
+              <span class="input-group-addon" id="basic-addon2">
+              usd <i class="fa fa-dollar" aria-hidden="true"></i>
+              <p>{{ calUsd() | number:'2.2-2'}}</p>
+              </span>
+          </div>    <br>
+          <div class="input-group input-group-sm col-sm-12">
+              <span class="input-group-addon" id="basic-addon2">
+              can <i class="fa fa-dollar" aria-hidden="true"></i>
+              </span>
+              <input currencyMask (keyup.enter)="updateCan(candollar.value)" type="text" name="candollar" #candollar [(ngModel)]="skew.canDollar" placeholder="Canadian" class="form-control" required maxlength="10">
+          </div>  
+      </form>
+        <br> 
+        <div class="btn-group">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-cube" aria-hidden="true"></i> Accessories
+        <span class="badge"><small>{{countNrs('accessories')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <access-edit *ngFor="let access of accesss | async" [access]='access' [skew]='skew'></access-edit>
+        </ul>
+        </div> 
+          <div class="btn-group">
+            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-minus" aria-hidden="true"></i> Counters-tops
+            <span class="badge"><small>{{countNrs('counter-tops')}}</small></span>
+            </button>
+            <ul class="dropdown-menu">
+              <tops-edit *ngFor="let top of tops | async" [top]='top' [skew]='skew'></tops-edit>
+            </ul>
+          </div>  
+      <hr>           
+        <label for="upload-photo{{ skew.title || 'missing title' }}">
+            <i class="fa fa-file-image-o" aria-hidden="true"></i>
+            <input type="file" name="photo" id="upload-photo{{ skew.title || 'missing title' }}" class="upload-photo" (change)="detectFiles($event)">
+        </label>
+        <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+        <div class="btn-group pull-right">
+            <span type="button" class="btn btn-success btn-xs" *ngIf='skew.active' (click)='updateActive(false)'><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+            <span type="button" class="btn btn-warning btn-xs" *ngIf='!skew.active' (click)='updateActive(true)'><i class="fa fa-square-o" aria-hidden="true"></i></span>  
+            <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        </div> 
+    </div>
+  </div>
+</div>
+

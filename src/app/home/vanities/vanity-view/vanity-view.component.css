@@ -1,0 +1,11 @@
+.mainImg {
+     max-height: 25vw;
+}
+
+li:hover {
+    background-color: #647DB3;
+}
+
+.btn-group {
+    padding: 1px;
+}

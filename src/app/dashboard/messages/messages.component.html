@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="wrapper">
+      <div class="aside">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a data-toggle="tab" href="#home"><i class="fa fa-newspaper-o" aria-hidden="true"> </i> System and Admin messages</a></li>
+            <li class="active"><a data-toggle="tab" href="#menu1"><i class="fa fa-envelope-open" aria-hidden="true"> </i> Received Messages</a></li>
+            <li><a data-toggle="tab" href="#menu2"><i class="fa fa-exchange" aria-hidden="true"> </i> Sent Messages</a></li>
+          </ul>
+      </div>
+      <div class="messages">
+        <div class="tab-content">
+
+          <div id="home" class="tab-pane fade">
+            <beta-message class="col-md-8 col-md-push-2"></beta-message>
+            <new-message class="col-md-8 col-md-push-2" *ngIf="auth.currentZoneNew"></new-message>
+          </div>
+          
+          <div id="menu1" class="tab-pane fade in active">
+            <div class="mes" *ngFor="let message of messages | async | reverse2 ">
+              <h3>
+                From: {{ message.from }} 
+              </h3>
+              <h5>To: {{ message.to }} - 
+                <i *ngIf="message.read === false" class="fa fa-envelope" aria-hidden="true"> </i> 
+                <i *ngIf="message.read === true" class="fa fa-envelope-open" aria-hidden="true"> </i>
+              </h5>
+              <p (click)="threadOpenReceived(message)">
+                <small>Message:</small> <br>
+                <i class="fa fa-quote-left" aria-hidden="true"> </i> 
+                {{ message.message }}
+              </p>
+              <hr>
+            </div>
+          </div>
+
+          <div id="menu2" class="tab-pane fade">
+            <div class="mes" *ngFor="let message of sentMessages | async | reverse2 ">
+                <h3>
+                  To: {{ message.to }}
+                </h3>
+                <h5>From: {{ message.from }} - 
+                  <i *ngIf="message.read === false" class="fa fa-envelope" aria-hidden="true"></i> 
+                  <i *ngIf="message.read === true" class="fa fa-envelope-open" aria-hidden="true"></i>
+                </h5>
+                <p (click)="threadOpenSent(message)">
+                  <small>Message:</small> <br>
+                  <i class="fa fa-quote-left" aria-hidden="true"> </i> 
+                  {{ message.message }}
+                </p>
+                <hr>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="thread">
+        <div class="panel-group hover" *ngIf="!newMessage" (click)="openNew()">
+          <div class="panel panel-primary" >
+            <div class="panel-heading">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"> </i> 
+              New Message
+            </div>
+          </div>
+        </div>
+        <div class="panel-group" *ngIf="newMessage">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"> </i> 
+              New Message
+            </div>
+            <div class="panel-body">
+              <create-message></create-message>
+            </div>
+          </div>
+        </div>
+        <div class="panel-group m-top" *ngIf="thread">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <i class="fa fa-comments" aria-hidden="true"> </i> 
+              Thread - <small>{{ thread.message }}</small>
+            </div>
+            <div class="panel-body conversation">
+              <thread-message [thread]="thread" [onGoingThread]="onGoingThread" [user]="user"></thread-message>
+            </div>
+            <div class="panel-footer">
+              <div class="form-group">
+                <textarea  class="form-control" ref-textarea [(ngModel)]="textValue" required name="message" (keyup.enter)="sendMessage(textarea.value)" placeholder="Write a message" type="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="col-md-12">
+    <hr>
+    <h2>Your last 10 completed orders.</h2>
+    <div class="thumbnail" *ngFor="let order of orders | async | reverse2">
+        <div class="caption">
+            <h3>Order ID: <a routerLink="/home/order/{{order?.orderId}}">{{ order?.orderId }}</a><small> || {{ order.timeStamp |  date:"medium" }} - <i *ngIf="order.completed === true" class="fa fa-check-square-o success" aria-hidden="true"></i> </small></h3>
+            <past-order-view [order]="order"></past-order-view>
+        </div>
+    </div>
+</div>
