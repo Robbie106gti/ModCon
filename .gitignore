@@ -82,6 +82,7 @@ npm-debug.log
 testem.log
 /typings
 yarn-error.log
+/back-up db
 
 # e2e
 /e2e/*.js
