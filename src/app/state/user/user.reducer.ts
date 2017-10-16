@@ -23,7 +23,7 @@ export function userReducer(state: User = defaultUser, action: Action) {
         return { ...state, loading: true, zone: 'new' };
 
     case userActions.AUTHENTICATED:
-        return { ...state, ...action.payload, loading: false };
+        return { ...state, ...action.payload, loading: false, error: false };
 
     case userActions.NOT_AUTHENTICATED:
         return { ...state, ...defaultUser, loading: false };
@@ -35,7 +35,7 @@ export function userReducer(state: User = defaultUser, action: Action) {
       return { ...state, ...action.payload, loading: false, error: true };
 
     case userActions.LOGOUT:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
 
     default:
       return state;

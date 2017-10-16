@@ -12,6 +12,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { Sum } from '../../state/sum/sum.model';
 import { OrderItem } from '../../home/vanities/vanity-view/skews/order/orderItem';
 import * as UserActions from '../../state/user/user.actions';
+import { UserFacade } from '../../state/user/user.facade';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ import * as UserActions from '../../state/user/user.actions';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  user$: Observable<User>;
+  user$: Observable<User> = this.userService.user$;
   message: string;
   order: FirebaseListObservable<OrderItem[]>;
   qtyOrder: number = 0;
@@ -35,9 +36,9 @@ export class LoginComponent {
       public flashMessage: FlashMessagesService,
       private router: Router,
       private mods: ModsService,
-      private store: Store<AppState>
+      private store: Store<AppState>,
+      private userService: UserFacade
     ) {
-      this.user$ = this.store.select(state => state.user);
       this.user$.subscribe( user => {
         if (user.loading === false) {
           this.order = this.db.list(`orders/orderItems/${user.orderId}/items`);
@@ -82,11 +83,14 @@ export class LoginComponent {
 
   }
 
-  logout() {
+  login()         {  this.userService.login();      }
+  logout()        {  this.userService.logout();     }
+
+/*   logout() {
     this.auth.signOut();
     this.store.dispatch(new UserActions.Logout());
     this.router.navigateByUrl('')
       .then(() => this.flashMessage.show('You are now logged out', {cssClass: 'alert-success', timeout: 3000}));
-  }
+  } */
 
 }

@@ -18,7 +18,6 @@ import * as userActions from './user.actions';
 import { AuthService } from '../../users/auth/auth.service';
 import { Sum } from '../sum/sum.model';
 import { SumQuery } from '../sum/sum.reducer';
-import { OrderIdService } from '../../users/shared/order-id.service';
 type Action = userActions.All;
 
 
@@ -39,23 +38,12 @@ export class UserFacade {
 
   @Effect() getUser$: Observable<Action> = this.actions$.ofType(userActions.GET_USER)
                .map((action: userActions.GetUser) => action.payload )
-               .switchMap(payload => this.afAuth.authState )
-               .switchMap(authPayload => this.getUserProfile(authPayload) )
+               .switchMap(payload => this.afAuth.authState)
+               .switchMap(authPayload => this.getUserProfile(authPayload))
                .map( s => {
                    if (s.$key) {
                         /// User logged in
-                        if (!s.currency) {
-                            s['currency'] = 'can';
-                            s['c'] = 1;
-                        }
-                        if (!s.image) {
-                            s['image'] = this.auth.currentUser.photoURL;
-                        }
-                        if (!s.orderId) {
-                            this.createOrder(s);
-                            s['orderId'] = 'none';
-                        }
-                        this.updateUserData(s);
+                        s = this.updateUserData(s);
                         const user = new User(s.$key, s.name, s.zone, s.email, s.provider, s.orderId, s.currency, s.image, s.c);
                         return new userActions.Authenticated(user);
                    } else {
@@ -64,7 +52,7 @@ export class UserFacade {
                    }
 
                })
-               .catch(err =>  Observable.of(new userActions.AuthError()) );
+               .catch(err =>  Observable.of(new userActions.AuthError({error: err.message})) );
 
 
     /**
@@ -106,11 +94,10 @@ export class UserFacade {
 
   constructor(
       private actions$: Actions,
-      public auth: AuthService,
       private store: Store<AppState>,
       private afAuth: AngularFireAuth,
-      private db: AngularFireDatabase,
-      private orderId: OrderIdService
+      private auth: AuthService,
+      private db: AngularFireDatabase
   ) { }
 
   /**
@@ -134,15 +121,15 @@ export class UserFacade {
   // ******************************************
 
 
-  protected googleLogin(): firebase.Promise<any> {
-       const provider = new firebase.auth.GoogleAuthProvider();
-       return this.afAuth.auth.signInWithPopup(provider);
-   }
+    protected googleLogin(): firebase.Promise<any> {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        return this.afAuth.auth.signInWithPopup(provider);
+    }
 
-   protected  githubLogin(): firebase.Promise<any> {
-       const provider = new firebase.auth.GithubAuthProvider();
-       return this.afAuth.auth.signInWithPopup(provider);
-     }
+    protected  githubLogin(): firebase.Promise<any> {
+        const provider = new firebase.auth.GithubAuthProvider();
+        return this.afAuth.auth.signInWithPopup(provider);
+    }
 
     protected  facebookLogin(): firebase.Promise<any> {
         const provider = new firebase.auth.FacebookAuthProvider();
@@ -155,8 +142,9 @@ export class UserFacade {
     }
 
    getUserProfile(auth) {
-    this.s = this.db.object(`/users/${auth.uid}`);
-    return this.s;
+       if (auth === null) { return new Observable<User2>(Object); }
+       this.s = this.db.object(`/users/${auth.uid}`);
+       return this.s;
    }
 
      //// Helpers ////
@@ -164,6 +152,17 @@ export class UserFacade {
   private updateUserData(s) {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
+    if (!s.currency) {
+        s['currency'] = 'can';
+        s['c'] = 1;
+    }
+    if (!s.image || s.image !== this.auth.currentUser.photoURL) {
+        s['image'] = this.auth.currentUser.photoURL;
+    }
+    if (!s.orderId) {
+        this.createOrder(s);
+        s['orderId'] = 'none';
+    }
       const uid = s.uid;
       const path = `users/${uid}`; // Endpoint on firebase
       const ref = `users/${uid}/zone`;
@@ -179,22 +178,23 @@ export class UserFacade {
         if (uid) {
          this.db.object(ref).subscribe((obj) => {
           // console.log(obj.$exists());
-          if (obj.$exists()) {
-              // object exists
-              this.db.object(path).update(data)
-               .catch(error => console.log(error));
-              return;
+            if (obj.$exists()) {
+            // object exists
+                this.db.object(path).update(data)
+                .catch(error => console.log(error));
+                return s;
             } else {
             // object does not exist
-              let value = Object.assign({zone: 'new'}, data);
-              this.db.object(path).update(value)
-               .catch(error => console.log(error));
-              this.db.object(`zones/new/`).update(dataNew)
-               .catch(error => console.log(error));
-              return;
+                let value = Object.assign({zone: 'new'}, data);
+                this.db.object(path).update(value)
+                .catch(error => console.log(error));
+                this.db.object(`zones/new/`).update(dataNew)
+                .catch(error => console.log(error));
+                return s;
             }
         });
       }
+      return s;
     }
 
    createOrder(s: User2) {

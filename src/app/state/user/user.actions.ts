@@ -30,7 +30,9 @@ export class NotAuthenticated implements Action {
 
 export class AuthError implements Action {
     readonly type = AUTH_ERROR;
-    constructor(public payload?: any) {}
+    constructor(public payload?: any) {
+        console.log(this.payload);
+    }
 }
 
 /// Google Login Actions
