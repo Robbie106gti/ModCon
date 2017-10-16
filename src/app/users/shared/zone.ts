@@ -1,4 +1,4 @@
-export class User {
+export class User3 {
   $key: string;
   name: string;
   email: string;

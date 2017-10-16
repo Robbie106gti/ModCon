@@ -1,41 +1,43 @@
-<div class="col-sm-4 col-md-3 col-xs-6 col-lg-2">
-  <div class="thumbnail">
-    <img class="img-responsive mainImg" src="{{ (userAuth | async)?.providerData['0'].photoURL }}" alt="{{ (userAuth | async)?.displayName }}">
-    <div class="caption">
-      <h3>{{ (userAuth | async)?.displayName }}</h3>
-      <dl>
-        <dt>Provider: </dt>
-        <dd> {{ (userAuth | async)?.providerData["0"].providerId }}</dd>
-        <dt>Email: </dt>
-        <dd> {{ (userAuth | async)?.email }}</dd>
-        <dt>UID: </dt>
-        <dd> <small>{{ (userAuth | async)?.uid }}</small></dd>
-      </dl>
+<div *ngIf="user$ | async as u">
+  <div class="col-sm-4 col-md-3 col-xs-6 col-lg-2">
+    <div class="thumbnail">
+      <img class="img-responsive mainImg" src="{{ u?.image }}" alt="{{ u?.displayName }}">
+      <div class="caption">
+        <h3>{{ u?.displayName }}</h3>
+        <dl>
+          <dt>Provider: </dt>
+          <dd> {{ u?.provider }}</dd>
+          <dt>Email: </dt>
+          <dd> {{ u?.email }}</dd>
+          <dt>UID: </dt>
+          <dd> <small>{{ u?.uid }}</small></dd>
+        </dl>
+      </div>
     </div>
   </div>
-</div>
-<div *ngIf="!auth.currentZoneAdmin; else admin">
-  <div class="col-md-6 col-lg-8 col-xs-10 col-xs-push-1 col-sm-10 col-sm-push-1">
-      <beta-message></beta-message>
-  </div>  
-</div>
-<div *ngIf="auth.currentZoneNew">
-  <new-message></new-message>
-</div>
+  <div *ngIf="u.zone !== 'admin'; else admin">
+    <div class="col-md-6 col-lg-8 col-xs-10 col-xs-push-1 col-sm-10 col-sm-push-1">
+        <beta-message></beta-message>
+    </div>  
+  </div>
+  <div *ngIf="u.zone ==='new'">
+    <new-message></new-message>
+  </div>
 
-<ng-template #admin>
-  <div class="col-sm-8 col-md-9 col-xs-6 col-lg-10">
-    <br>
-    <h2>New Users</h2>
-    <hr>
-    <user-edit *ngFor="let user of usersNew | async"  [user]='user'></user-edit>
-  </div>
-  <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
-    <br>
-    <h2>All Users</h2>
-    <hr>
-    <div class="wrapper">
-      <user-edit *ngFor="let user of users | async | user"  [user]='user'></user-edit>
+  <ng-template #admin>
+    <div class="col-sm-8 col-md-9 col-xs-6 col-lg-10">
+      <br>
+      <h2>New Users</h2>
+      <hr>
+      <user-edit *ngFor="let user of usersNew | async"  [user]='user'></user-edit>
     </div>
-  </div>
-</ng-template>
+    <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+      <br>
+      <h2>All Users</h2>
+      <hr>
+      <div class="wrapper">
+        <user-edit *ngFor="let user of users | async | user"  [user]='user'></user-edit>
+      </div>
+    </div>
+  </ng-template>
+</div>

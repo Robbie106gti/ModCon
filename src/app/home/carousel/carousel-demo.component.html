@@ -5,9 +5,10 @@
       <img [src]="slidez.image" style="margin:auto;">
 
       <div class="carousel-caption">
-        <h4>{{slidez.title}}</h4>
-
-        <p>{{slidez.text}}</p>
+        <a routerLink="/home/vanities/{{slidez.title}}">
+          <h1>{{slidez.title}}</h1>
+          <p>{{slidez.text}}</p>
+        </a>
       </div>
     </slide>
   </carousel>

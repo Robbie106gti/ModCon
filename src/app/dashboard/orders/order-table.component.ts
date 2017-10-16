@@ -1,7 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { User } from '../../users/shared/zone';
-import { AuthService } from '../../users/auth/auth.service';
 
 @Component({
   selector: 'order-table',
@@ -18,15 +15,11 @@ import { AuthService } from '../../users/auth/auth.service';
   styleUrls: ['../../home/vanities/vanity-view/skews/order/order.component.css']
 })
 export class OrderTableComponent implements OnInit {
-    user: User;
     @Input() item: any;
 
-  constructor(
-    private auth: AuthService
-      ) { }
+  constructor() {
+      }
 
   ngOnInit() {
-    this.auth.curUser.subscribe(user => this.user = user);
-   // this.vanities.subscribe(() => this.showSpinner = false);
   }
 }

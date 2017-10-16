@@ -5,7 +5,7 @@ import { User } from './user.model';
 
 export type Action = userActions.All;
 
-const defaultUser = new User(null, 'GUEST', null, null, null, null, null, null, NaN);
+const defaultUser = new User(null, 'GUEST', null, null, null, null, null, null, NaN, null, null, null );
 
 /**
  * Define all store queries for Post(s)

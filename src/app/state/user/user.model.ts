@@ -25,8 +25,16 @@ export class User {
         public image: string,
         public c: number,
         public loading: boolean = true,
-        public error: boolean = false
+        public error: boolean = false,
+        public numbers: Numbers
     ) { }
+}
+
+export interface Numbers {
+    favorites: number;
+    orderqty: number;
+    replies: number;
+    unread: number;
 }
 
 export interface User2 {
@@ -40,4 +48,5 @@ export interface User2 {
     orderId: string;
     currency?: string;
     c?: number;
+    numbers?: Numbers;
   }

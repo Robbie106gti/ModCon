@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import { User } from '../shared/zone';
+import { User3 } from '../shared/zone';
 import { Effect, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/state';
@@ -17,7 +17,7 @@ export class AuthService {
 
   authState: any = null;
  // user: FirebaseObjectObservable<User> = null; //   single object
-  private user: BehaviorSubject<User> = new BehaviorSubject(null);
+  private user: BehaviorSubject<User3> = new BehaviorSubject(null);
   curUser = this.user.asObservable();
   isProvider;
   zone;

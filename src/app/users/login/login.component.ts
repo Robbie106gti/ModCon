@@ -44,6 +44,7 @@ export class LoginComponent {
           this.order = this.db.list(`orders/orderItems/${user.orderId}/items`);
           this.order.subscribe( order => {
             this.qtyOrder = order.length;
+            this.db.object(`users/${user.uid}/numbers`).update({ orderqty: this.qtyOrder });
           });
         }
       });
@@ -73,18 +74,23 @@ export class LoginComponent {
   private afterSignIn(): void {
     // Do after login stuff here, such router redirects, toast messages, etc.
     // console.log(this.auth.currentUserId);
-    if (this.auth.currentUserId) {
-      this.db.object(`users/${this.auth.currentUserId}`).update({'image': this.auth.currentUser.photoURL});
-      // this.store.dispatch(new UserActions.GetUser());
-    }
     this.router.navigate(['/home/vanities'])
       // tslint:disable-next-line:max-line-length
       .then(() => this.flashMessage.show('You are now logged in with ' + (this.auth.provider) , {cssClass: 'alert-success', timeout: 3000}));
 
   }
 
-  login()         {  this.userService.login();      }
-  logout()        {  this.userService.logout();     }
+  login()         {
+    this.userService.login();
+    this.router.navigate(['/home/vanities'])
+      // tslint:disable-next-line:max-line-length
+      .then(() => this.flashMessage.show('You are now logged in with ' + (this.auth.provider) , {cssClass: 'alert-success', timeout: 3000}));
+  }
+  logout()        {
+    this.userService.logout();
+    this.router.navigateByUrl('')
+      .then(() => this.flashMessage.show('You are now logged out', {cssClass: 'alert-success', timeout: 3000}));
+    }
 
 /*   logout() {
     this.auth.signOut();

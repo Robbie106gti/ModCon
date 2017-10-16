@@ -16,7 +16,7 @@ import { SpinnerService } from '../../../ui/loading-spinner/spinner.service';
     <li class="active">Vanities</li>
   </ol>
   <div class="wrapper">
-    <vanity-view *ngFor="let vanity of vanities | async" [vanity]='vanity'></vanity-view>
+    <vanity-view class="thumbnail" *ngFor="let vanity of vanities | async" [vanity]='vanity'></vanity-view>
   </div>
 </div>
   `,

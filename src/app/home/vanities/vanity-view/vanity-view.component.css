@@ -9,3 +9,7 @@ li:hover {
 .btn-group {
     padding: 1px;
 }
+.caption {
+    position: relative;
+    bottom: 0;
+}

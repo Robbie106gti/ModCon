@@ -2,25 +2,25 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { User, Zone } from './zone';
+import { User3, Zone } from './zone';
 
 @Injectable()
 export class ZoneService {
 
   private baseItem = 'users';
-  users: FirebaseListObservable<User[]> = null; //  list of objects
-  user: FirebaseObjectObservable<User> = null; //   single object
+  users: FirebaseListObservable<User3[]> = null; //  list of objects
+  user: FirebaseObjectObservable<User3> = null; //   single object
   zones: FirebaseListObservable<Zone[]> = null; //  list of objects
 
   constructor(private db: AngularFireDatabase) { }
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
-  getItemsList(): FirebaseListObservable<User[]> {
+  getItemsList(): FirebaseListObservable<User3[]> {
       this.users = this.db.list(this.baseItem);
     return this.users;
   }
-  getNewList(): FirebaseListObservable<User[]> {
+  getNewList(): FirebaseListObservable<User3[]> {
     this.users = this.db.list(this.baseItem, {
             query: {
                 orderByChild: 'zone',
@@ -37,7 +37,7 @@ export class ZoneService {
   }
 
   // Return a single observable item
-  getItem(key: string): FirebaseObjectObservable<User> {
+  getItem(key: string): FirebaseObjectObservable<User3> {
     const matPath =  `/${this.baseItem}/${key}`;
     console.log(matPath);
     this.user = this.db.object(matPath);
@@ -45,7 +45,7 @@ export class ZoneService {
   }
 
   // Return a single item
-  findMatByTitle(title): FirebaseListObservable<User[]> {
+  findMatByTitle(title): FirebaseListObservable<User3[]> {
         this.users = this.db.list(this.baseItem, {
             query: {
                 orderByChild: 'title',

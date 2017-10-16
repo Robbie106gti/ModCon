@@ -80,7 +80,7 @@ export class MessagesComponent implements OnInit {
     this.msgService.updateReceived(key, this.thread.toUID, value);
     this.onGoingThread = this.msgService.getThread(this.thread.threadId);
   }
-  
+
   threadOpenSent (message) {
     this.thread = null;
     let key = message.$key;

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { User } from '../shared/zone';
+import { User3 } from '../shared/zone';
 import { ZoneService } from '../shared/zone.service';
-import { AuthService } from '../auth/auth.service';
+import { AppState } from '../../state/state';
+import { Store } from '@ngrx/store';
+import { User } from '../../state/user/user.model';
 
 @Component({
   selector: 'app-user',
@@ -13,23 +13,21 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  userAuth: Observable<firebase.User>;
+  user$: Observable<User>;
 
-  users: FirebaseListObservable<User[]>;
-  usersNew: FirebaseListObservable<User[]>;
+  users: FirebaseListObservable<User3[]>;
+  usersNew: FirebaseListObservable<User3[]>;
 
   constructor(
-      public auth: AuthService,
-      public afAuth: AngularFireAuth,
-      private zoneSrv: ZoneService
+      private zoneSrv: ZoneService,
+      private store: Store<AppState>
     ) {
-      this.userAuth = afAuth.authState;
+      this.user$ = this.store.select(state => state.user);
   }
 
   ngOnInit() {
     this.usersNew = this.zoneSrv.getNewList();
     this.users = this.zoneSrv.getItemsList();
-   // this.vanities.subscribe(() => this.showSpinner = false);
   }
 
 }

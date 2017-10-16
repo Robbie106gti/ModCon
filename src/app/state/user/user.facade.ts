@@ -44,7 +44,7 @@ export class UserFacade {
                    if (s.$key) {
                         /// User logged in
                         s = this.updateUserData(s);
-                        const user = new User(s.$key, s.name, s.zone, s.email, s.provider, s.orderId, s.currency, s.image, s.c);
+                        const user = new User(s.$key, s.name, s.zone, s.email, s.provider, s.orderId, s.currency, s.image, s.c, null, null, s.numbers);
                         return new userActions.Authenticated(user);
                    } else {
                        /// User not logged in
@@ -152,6 +152,7 @@ export class UserFacade {
   private updateUserData(s) {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
+    // console.log(s);
     if (!s.currency) {
         s['currency'] = 'can';
         s['c'] = 1;

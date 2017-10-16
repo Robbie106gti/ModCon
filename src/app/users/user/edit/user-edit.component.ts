@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User, Zone } from '../../shared/zone';
+import { User3, Zone } from '../../shared/zone';
 import { ZoneService } from '../../shared/zone.service';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
@@ -12,7 +12,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 export class UserEditComponent implements OnInit {
   zones: FirebaseListObservable<Zone[]> = null; //  list of objects
 
-  @Input() user: User;
+  @Input() user: User3;
 
   constructor(private zoneSrv: ZoneService) {
     this.zones = this.zoneSrv.getZonesList();
