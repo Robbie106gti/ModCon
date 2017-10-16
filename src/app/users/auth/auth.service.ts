@@ -6,9 +6,11 @@ import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable,
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import { User } from '../shared/zone';
+import { Effect, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/state';
-import * as UserActions from '../../state/user/user.actions';
+import * as userActions from '../../state/user/user.actions';
+type Action = userActions.All;
 
 @Injectable()
 export class AuthService {
@@ -70,66 +72,6 @@ export class AuthService {
   get provider(): string {
     return this.afAuth.auth.currentUser.providerData[0].providerId;
   }
-
-  get currentZoneAdmin(): boolean {
-    const uid = this.currentUserId;
-    if (uid) {
-      const ref = `zones/admin/${uid}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.zone = obj.$exists();
-       });
-      // console.log(`admin: ` + this.zone);
-       return this.zone;
-    }
-  }
-
-  get currentZoneNickel(): boolean {
-    const uid = this.currentUserId;
-    if (uid) {
-      const ref = `zones/nickel/${uid}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.zone = obj.$exists();
-       });
-      // console.log(`nickel: ` + this.zone);
-       return this.zone;
-    }
-  }
-
-  get currentZoneOrderDesk(): boolean {
-    const uid = this.currentUserId;
-    if (uid) {
-      const ref = `zones/orderDesk/${uid}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.zone = obj.$exists();
-       });
-      // console.log(`orderDesk: ` + this.zone);
-       return this.zone;
-    }
-  }
-
-  get currentZoneDealer(): boolean {
-    const uid = this.currentUserId;
-    if (uid) {
-      const ref = `zones/dealer/${uid}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.zone = obj.$exists();
-       });
-      // console.log(`dealer: ` + this.zone);
-       return this.zone;
-    }
-  }
-
-  get currentZoneNew(): boolean {
-      const uid = this.currentUserId;
-      if (uid) {
-        const ref = `zones/new/${uid}`;
-        this.db.object(ref).subscribe((obj) => {
-            return this.zone = obj.$exists();
-        });
-       // console.log(`new: ` + this.zone);
-        return this.zone;
-      }
-    }
 
  //// Social Auth ////
 
@@ -217,6 +159,7 @@ export class AuthService {
   private updateUserData(): void {
   // Writes user name and email to realtime db
   // useful if your app displays information about users or for admin features
+    this.store.dispatch(new userActions.GetUser());
     const uid = this.currentUserId;
     const path = `users/${uid}`; // Endpoint on firebase
     const ref = `users/${uid}/zone`;
@@ -230,7 +173,6 @@ export class AuthService {
       if (uid) {
        this.db.object(ref).subscribe((obj) => {
         // console.log(obj.$exists());
-        this.store.dispatch(new UserActions.GetUser());
         if (obj.$exists()) {
             // object exists
             this.db.object(path).update(data)
