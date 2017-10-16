@@ -159,7 +159,7 @@ export class AuthService {
   private updateUserData(): void {
   // Writes user name and email to realtime db
   // useful if your app displays information about users or for admin features
-    this.store.dispatch(new userActions.GetUser());
+    this.store.dispatch(new userActions.GoogleLogin);
     const uid = this.currentUserId;
     const path = `users/${uid}`; // Endpoint on firebase
     const ref = `users/${uid}/zone`;

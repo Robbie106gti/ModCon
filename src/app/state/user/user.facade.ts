@@ -47,16 +47,15 @@ export class UserFacade {
                         if (!s.currency) {
                             s['currency'] = 'can';
                             s['c'] = 1;
-                            this.db.object(`users/${s.$key}`).update({ 'currency': s.currency });
                         }
                         if (!s.image) {
                             s['image'] = this.auth.currentUser.photoURL;
-                            this.db.object(`users/${s.$key}`).update({ 'image': s.image });
                         }
                         if (!s.orderId) {
                             this.createOrder(s);
                             s['orderId'] = 'none';
                         }
+                        this.updateUserData(s);
                         const user = new User(s.$key, s.name, s.zone, s.email, s.provider, s.orderId, s.currency, s.image, s.c);
                         return new userActions.Authenticated(user);
                    } else {
@@ -140,10 +139,63 @@ export class UserFacade {
        return this.afAuth.auth.signInWithPopup(provider);
    }
 
+   protected  githubLogin(): firebase.Promise<any> {
+       const provider = new firebase.auth.GithubAuthProvider();
+       return this.afAuth.auth.signInWithPopup(provider);
+     }
+
+    protected  facebookLogin(): firebase.Promise<any> {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        return this.afAuth.auth.signInWithPopup(provider);
+    }
+
+    protected  twitterLogin(): firebase.Promise<any> {
+        const provider = new firebase.auth.TwitterAuthProvider();
+        return this.afAuth.auth.signInWithPopup(provider);
+    }
+
    getUserProfile(auth) {
     this.s = this.db.object(`/users/${auth.uid}`);
     return this.s;
    }
+
+     //// Helpers ////
+
+  private updateUserData(s) {
+    // Writes user name and email to realtime db
+    // useful if your app displays information about users or for admin features
+      const uid = s.uid;
+      const path = `users/${uid}`; // Endpoint on firebase
+      const ref = `users/${uid}/zone`;
+      const data = {
+                    email: s.email,
+                    name: s.displayName,
+                    lastLogin: firebase.database.ServerValue.TIMESTAMP,
+                    provider: s.provider,
+                    image: s.image,
+                    currency: s.currency
+                  };
+      const dataNew = { [uid]: true };
+        if (uid) {
+         this.db.object(ref).subscribe((obj) => {
+          // console.log(obj.$exists());
+          if (obj.$exists()) {
+              // object exists
+              this.db.object(path).update(data)
+               .catch(error => console.log(error));
+              return;
+            } else {
+            // object does not exist
+              let value = Object.assign({zone: 'new'}, data);
+              this.db.object(path).update(value)
+               .catch(error => console.log(error));
+              this.db.object(`zones/new/`).update(dataNew)
+               .catch(error => console.log(error));
+              return;
+            }
+        });
+      }
+    }
 
    createOrder(s: User2) {
        console.log(s);
