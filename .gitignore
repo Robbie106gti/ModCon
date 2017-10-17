@@ -83,6 +83,7 @@ testem.log
 /typings
 yarn-error.log
 /back-up db
+/sample code
 
 # e2e
 /e2e/*.js
