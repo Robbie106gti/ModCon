@@ -42,6 +42,8 @@ export const environment = {
 
 ## Additional Details
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+* For build use `ng build pwa` = "pwa": "ng build --prod && sw-precache --root=dist --config=precache-config.js"
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
 
 It uses AngularFire2 v4.0
