@@ -1,7 +1,4 @@
-.mainImg {
-     max-height: 25vw;
-}
-
+    
 li:hover {
     background-color: #647DB3;
 }
@@ -9,7 +6,21 @@ li:hover {
 .btn-group {
     padding: 1px;
 }
-.caption {
-    position: relative;
-    bottom: 0;
+#caption {
+    grid-area: caption;
+    padding: 1rem;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+}
+#image {
+    grid-area: image;
+    grid-row-start: 2;
+    grid-row-end: span 2;
+}
+.v-wrap {
+    grid-template-areas: "caption"
+                         "image";
+    display: grid;
+    grid-template-rows: 3fr;
+    grid-row-gap: 1rem;
 }

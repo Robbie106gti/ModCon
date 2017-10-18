@@ -1,79 +1,82 @@
-
+<div class="v-wrap">  
+  <div id="image">
     <a [routerLink]="[vanity.title]">        
-      <img class="img-responsive mainImg" src="{{ imageMain() }}" alt="{{ vanity.title || 'missing title' }}">
+      <img class="img-responsive" src="{{ imageMain() }}" alt="{{ vanity.title || 'missing title' }}">
     </a>
-    <div class="caption">
-      <a [routerLink]="[vanity.title]">
-        <h3>{{ vanity.title || 'missing title' }}</h3>
-      </a>
+  </div>
+  <div id="caption">
+    <a [routerLink]="[vanity.title]">
+      <h3>{{ vanity.title || 'missing title' }}</h3>
+    </a>
+    <hr>
+      <div class="btn-group">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-linode" aria-hidden="true"></i> SKU's
+          <span class="badge"><small>{{countNrs('skews')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let skew of skews | async">
+              <a routerLink="/home/vanities/{{ vanity.title }}/{{ skew.$key }}/options"><span type="button" class="btn btn-xs">{{skew.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-mobile" aria-hidden="true"></i> Pantries
+          <span class="badge"><small>{{countNrs('pantries')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let pantry of pantries | async">
+                <a routerLink="/home/demo/{{ vanity.title }}/{{ pantry.$key }}"><span type="button" class="btn btn-xs">{{pantry.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+      <!-- <label class="badge"><i class="fa fa-minus" aria-hidden="true"><small>{{countNrs('counters')}}</small></i> Counter Materials</label>
+      <label class="badge"><i class="fa fa-cube" aria-hidden="true"><small>{{countNrs('counters')}}</small></i> Accessories</label>-->
       <hr>
-        <div class="btn-group">
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-linode" aria-hidden="true"></i> SKU's
-            <span class="badge"><small>{{countNrs('skews')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let skew of skews | async">
-                <a routerLink="/home/vanities/{{ vanity.title }}/{{ skew.$key }}/options"><span type="button" class="btn btn-xs">{{skew.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-mobile" aria-hidden="true"></i> Pantries
-            <span class="badge"><small>{{countNrs('pantries')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let pantry of pantries | async">
-                  <a routerLink="/home/demo/{{ vanity.title }}/{{ pantry.$key }}"><span type="button" class="btn btn-xs">{{pantry.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-       <!-- <label class="badge"><i class="fa fa-minus" aria-hidden="true"><small>{{countNrs('counters')}}</small></i> Counter Materials</label>
-        <label class="badge"><i class="fa fa-cube" aria-hidden="true"><small>{{countNrs('counters')}}</small></i> Accessories</label>-->
-        <hr>
-        <div class="btn-group" *ngIf="countNrs('colors/Paint')" >
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tint" aria-hidden="true"></i> Paint
-            <span class="badge"><small>{{countNrs('colors/Paint')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let paint of paints | async">
-                <a routerLink="/home/demo/Paint/{{ paint.$key }}"><span type="button" class="btn btn-xs">{{paint.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-        <div class="btn-group" *ngIf="countNrs('colors/Wood')">
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tint" aria-hidden="true"></i> Wood
-            <span class="badge"><small>{{countNrs('colors/Wood')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let wood of woods | async">
-                <a routerLink="/home/demo/Wood/{{ wood.$key }}"><span type="button" class="btn btn-xs">{{wood.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-        <div class="btn-group" *ngIf="countNrs('colors/Textured Melamine')">
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tint" aria-hidden="true"></i> Textured Melamine
-            <span class="badge"><small>{{countNrs('colors/Textured Melamine')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let tm of tms | async">
-                <a routerLink="/home/demo/Textured Melamine/{{ tm.$key }}"><span type="button" class="btn btn-xs">{{tm.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-        <div class="btn-group" *ngIf="countNrs('colors/Euro Materials')">
-          <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tint" aria-hidden="true"></i> Euro Materials
-            <span class="badge"><small>{{countNrs('colors/Euro Materials')}}</small></span>
-          </button>
-          <ul class="dropdown-menu">
-              <li *ngFor="let em of ems | async">
-                <a routerLink="/home/demo/Euro Materials/{{ em.$key }}"><span type="button" class="btn btn-xs">{{em.$key}}</span></a>
-              </li>
-          </ul>
-        </div>
-    </div>
+      <div class="btn-group" *ngIf="countNrs('colors/Paint')" >
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-tint" aria-hidden="true"></i> Paint
+          <span class="badge"><small>{{countNrs('colors/Paint')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let paint of paints | async">
+              <a routerLink="/home/demo/Paint/{{ paint.$key }}"><span type="button" class="btn btn-xs">{{paint.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+      <div class="btn-group" *ngIf="countNrs('colors/Wood')">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-tint" aria-hidden="true"></i> Wood
+          <span class="badge"><small>{{countNrs('colors/Wood')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let wood of woods | async">
+              <a routerLink="/home/demo/Wood/{{ wood.$key }}"><span type="button" class="btn btn-xs">{{wood.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+      <div class="btn-group" *ngIf="countNrs('colors/Textured Melamine')">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-tint" aria-hidden="true"></i> Textured Melamine
+          <span class="badge"><small>{{countNrs('colors/Textured Melamine')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let tm of tms | async">
+              <a routerLink="/home/demo/Textured Melamine/{{ tm.$key }}"><span type="button" class="btn btn-xs">{{tm.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+      <div class="btn-group" *ngIf="countNrs('colors/Euro Materials')">
+        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-tint" aria-hidden="true"></i> Euro Materials
+          <span class="badge"><small>{{countNrs('colors/Euro Materials')}}</small></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let em of ems | async">
+              <a routerLink="/home/demo/Euro Materials/{{ em.$key }}"><span type="button" class="btn btn-xs">{{em.$key}}</span></a>
+            </li>
+        </ul>
+      </div>
+  </div>
+</div>
