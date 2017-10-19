@@ -9,17 +9,27 @@ li:hover {
 #caption {
     grid-area: caption;
     padding: 1rem;
-    grid-row-start: 1;
-    grid-row-end: span 1;
+    grid-row-start: 2;
 }
 #image {
     grid-area: image;
-    grid-row-start: 2;
-    grid-row-end: span 2;
+    grid-row-start: 1;
+    height: 27vw;
+    overflow: hidden;
+    position: relative;
+}
+
+#image a img {
+    max-height: 45vw;
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
 }
 .v-wrap {
-    grid-template-areas: "caption"
-                         "image";
+    grid-template-areas: "image" "caption" ;
     display: grid;
     grid-template-rows: 3fr;
     grid-row-gap: 1rem;
