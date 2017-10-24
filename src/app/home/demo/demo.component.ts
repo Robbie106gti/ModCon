@@ -11,8 +11,8 @@ import * as _ from 'lodash';
   template: `
     <div class="jumbotron" *ngIf="access | async as a">
       <div class="thumbnail wrapper">
-        <div>
-          <img class="image" src="{{ a.images['mainImg'].url }}" alt="{{ a.images['mainImg'].name }}">
+        <div class="image">
+          <img src="{{ a.images['mainImg'].url }}" alt="{{ a.images['mainImg'].name }}">
         </div>
         <div class="caption ">
           <h3>{{ a.title }}</h3>
@@ -82,7 +82,25 @@ import * as _ from 'lodash';
     grid-template-columns: repeat(2, 1fr);
   }
   .image {
+    position:relative;    
+    display: inline-block;
     max-height: 70vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   `]
 })

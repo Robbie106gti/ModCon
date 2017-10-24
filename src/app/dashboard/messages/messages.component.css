@@ -1,9 +1,7 @@
 
   .wrapper {
     display: grid;
-    grid: "h h h"
-          "a b c"
-          "f f f";
+    grid-template-areas: "a b c";
     grid-template-columns: auto 1fr 25%; 
     grid-gap: 1rem;
     grid-auto-rows: minmax(100px, auto);
