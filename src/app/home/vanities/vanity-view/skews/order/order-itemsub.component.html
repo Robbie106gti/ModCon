@@ -28,7 +28,10 @@
             <dt>Price each: </dt>
             <dd>$ {{ (item?.price * (itemSku | async)?.materialPrice) * cur | number:'1.2-2'}}</dd>
             <dt>Options: </dt>
-            <dd>Material: {{ (itemSku | async)?.material }}</dd>
+            <dd>
+                Material: {{ (itemSku | async)?.material }}
+                <img src="{{ (itemSku | async)?.matImage }}" alt="{{ (itemSku | async)?.color }}">
+            </dd>
             <dd>Color: {{ (itemSku | async)?.color }}</dd>
             <dd>Option: {{ item?.option || '-'}}</dd>
             <dd>Quantity: {{ item?.quantity || 1}}</dd>

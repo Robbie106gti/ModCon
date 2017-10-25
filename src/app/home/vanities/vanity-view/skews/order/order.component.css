@@ -24,12 +24,11 @@
     grid-area: totals;
   }
 
-  dd > img {
+  dd > img, h3 > img {
     max-height: 100%;
     max-width: 100%;
     position: absolute;
     display: none;
-    left: 100%;
     top: 0;
     background-color: #fff;
     z-index: 999;
@@ -38,7 +37,26 @@
     padding: .3rem;
   }
 
-  dd:hover > img {
+  dd > img {    
+    left: 100%;
+  }
+
+  h3 > img {    
+    left: 50%;
+    max-width: 50vh;
+  }
+
+  dd > small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: N; /* number of lines to show */
+    line-height: X;        /* fallback */
+    max-height: X*N;       /* fallback */
+  }
+
+  dd:hover > img, h3:hover > img {
     display: block;
   }
   

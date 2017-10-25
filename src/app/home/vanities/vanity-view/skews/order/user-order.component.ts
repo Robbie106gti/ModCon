@@ -54,7 +54,7 @@ export class UserOrderComponent implements OnInit {
         this.sum$.take(1).subscribe(
           sum => {
             this.cur = sum[user.currency];
-            console.log(this.cur);
+            // console.log(this.cur);
           }
         );
       });

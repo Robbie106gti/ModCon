@@ -24,9 +24,9 @@ export class OrderItemSubComponent implements OnInit {
 
   ngOnInit() {
     this.itemsSub = this.order.getCurrentOrderItemSub(this.arr.id);
-    this.itemsSub.subscribe( data => console.log(data));
-    console.log(this.arr);
-    console.log(this.array);
+    // this.itemsSub.subscribe( data => console.log(data));
+    // console.log(this.arr);
+    // console.log(this.array);
   }
   delete () {
     this.arr['totals'] = this.orderItem.totals;
