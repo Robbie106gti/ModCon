@@ -171,6 +171,15 @@ td {
   background-color: #fff;
 }
 
+.jumbotronMed {
+  position: relative;
+  top: 15%;
+  left: 15%;
+  min-height: 35%;
+  width: 70%;
+  background-color: #fff;
+}
+
 .jumbotron-alert {
   position: relative;
   top: 25%;
@@ -292,4 +301,73 @@ td {
     -ms-flex-negative: 0;
         flex-shrink: 0;
     margin-left: 0.75em;
+  }
+  .glass {
+    height: 100%;
+  }
+  .glass:hover {
+    border: 1px solid #199fc0;
+  }
+  .access{
+    max-height: 150px;
+    border-left: 1px solid #f1f1f1;
+    box-shadow: 5px 5px 3px #ccc;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+  }
+
+  .access:hover {
+    border: 1px solid #80D0FF;
+    max-height: 160px;
+    padding-top: 0px;
+    margin-bottom: -10px;
+  }
+  .right {
+    position: relative;
+    left: 75%;
+  }
+  .caption {
+      grid-area: caption;
+      padding: 1rem;
+  }
+  .image {
+      grid-area: image;
+      overflow: hidden;
+      position: relative;
+      padding: 1rem;
+      text-align: center;
+  }
+
+  .image a img {
+      max-height: 45vw;
+      position: absolute;
+      top: -9999px;
+      bottom: -9999px;
+      left: -9999px;
+      right: -9999px;
+      margin: auto;
+  }
+
+  .button {
+    grid-area: button;
+  }
+  .v-wrap {
+      grid-template-areas: "button" "image" "caption" ;
+      display: grid;
+      grid-template-rows: 3fr;
+      grid-row-gap: 1rem;
+  }
+  .medContent {
+    grid-area: content;
+
+  }
+  .medColors {
+    grid-area: color;
+  }
+  .medWrap {
+    grid-template-areas: "content color";
+    display: grid;
+    grid-template-columns:repeat(2, 1fr);
+    grid-gap: .5rem;
   }

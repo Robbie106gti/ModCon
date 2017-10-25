@@ -116,13 +116,10 @@ export class SharedService {
     return this.items;
   }
 
- /* getColors(key: string, query={}): FirebaseListObservable<Color[]> {
-    this.colors = this.db.list(`materials/${key}/colors`, {
-            query: {
-            }
-        });
+  getColorsMed(key: string): FirebaseListObservable<Color[]> {
+    this.colors = this.db.list(`materials/${key}/colors`);
     return this.colors;
-  }*/
+  }
 
   getColors(key: string, mat: string, query= {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`vanities/${key}/colors/${mat}`, {

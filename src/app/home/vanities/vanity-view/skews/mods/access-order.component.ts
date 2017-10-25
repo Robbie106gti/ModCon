@@ -14,7 +14,7 @@ import { ModsService } from '../../../../vanities/vanity-view/skews/mods/mods.se
   <span class="badge"><small>{{(itemsAccess | async)?.length}}</small> Accessories</span>
   <hr>
   <div class="wrapper">
-    <access-view *ngFor="let itemAccess of itemsAccess | async" [itemAccess]='itemAccess'></access-view >
+    <access-view  class="thumbnail" *ngFor="let itemAccess of itemsAccess | async" [itemAccess]='itemAccess'></access-view >
   </div>
   `,
   styleUrls: ['./counter-order.component.css']

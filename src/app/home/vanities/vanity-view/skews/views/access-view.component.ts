@@ -18,53 +18,107 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'access-view',
   template: `
-  <div class="">
-    <div class="thumbnail">
-      <img class="access" src="{{ (access | async)?.images?.mainImg.url || '#none'}}" >
-      <div class="caption">
-        <h3>{{(access | async)?.title}}</h3>
-        <form [formGroup]="optionForm" (ngSubmit)="addAcc(optionForm.value)" class="form-group">
+  <div *ngIf="access | async as a" class="glass">
+  <form [formGroup]="optionForm" (ngSubmit)="addAcc(optionForm.value)" class="form-group">
+    <div class="v-wrap" *ngIf="a?.title !== 'Medicine Cabinet'; else med">
+        <div class="image">
+          <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
+        </div>
+        <div class="caption">
+        <h3>{{ a?.title}}</h3>
+          <label>Options:</label><br>
+          <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
+            <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
+          </select>
+          <div>
+            <label>Quantity:</label>
+            <select formControlName="quantity">
+              <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
+            </select>
+          </div>
+          <div>
+            <label>Hinged/Location:</label>
+            <select formControlName="location">
+              <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+            </select>
+          </div>
+          <hr>
+          <div class="button">
+            <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
+          </div>
+        </div>
+    </div>
+    <ng-template #med>
+      <div class="image" (click)="modal()">
+        <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
+      </div>
+      <div class="caption" (click)="modal()">
+        <h3>{{ a?.title}}</h3>
         <label>Options:</label><br>
         <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
           <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
         </select>
         <div>
-        <label>Quantity:</label>
-        <select formControlName="quantity">
-          <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
-        </select>
+          <label>Quantity:</label>
+          <select formControlName="quantity">
+            <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
+          </select>
         </div>
         <div>
-        <label>Hinged/Location:</label>
-        <select formControlName="location">
-          <option *ngFor="let location of locations" [value]="location">{{location}}</option>
-        </select>
+          <label>Hinged/Location:</label>
+          <select formControlName="location">
+            <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+          </select>
         </div>
         <hr>
-        <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
-      </form>
       </div>
-    </div>
+      <div class="button">
+        <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
+      </div>
+
+      <div *ngIf="medModal" class="modal">
+        <div class="jumbotron jumbotronMed notification">
+          <button class="delete" (click)="modalClose()"></button>
+          <div class="medWrap">
+            <div class="medContent">
+              <div class="image">
+                <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
+              </div>
+              <div class="caption">
+                <h3>{{ a?.title}}</h3>
+                <label>Options:</label><br>
+                <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
+                  <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
+                </select>
+                <div>
+                  <label>Quantity:</label>
+                  <select formControlName="quantity">
+                    <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
+                  </select>
+                </div>
+                <div>
+                  <label>Hinged/Location:</label>
+                  <select formControlName="location">
+                    <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+                  </select>
+                </div>
+                <hr>
+              </div>
+              <div class="button">
+                <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
+              </div>
+            </div>
+            <div class="medColors">
+              <color-medicine *ngFor="let option of options | async" [option]="option"></color-medicine>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    </form>
   </div>
   `,
-  styles: [`
-  .access{
-    max-height: 150px;
-    border-left: 1px solid #f1f1f1;
-    box-shadow: 5px 5px 3px #ccc;
-  }
-
-  .access:hover {
-    border: 1px solid #80D0FF;
-    max-height: 160px;
-    padding-top: 0px;
-    margin-bottom: -10px;
-  }
-  .right {
-    position: relative;
-    left: 75%;
-  }
-  `]
+  styleUrls: ['../order/order.component.css']
 })
 
 export class AccessViewComponent implements OnInit {
@@ -82,6 +136,7 @@ export class AccessViewComponent implements OnInit {
   accessories$: Observable<Accessory[]>;
   obj: Accessory;
   obj2: Accessory[];
+  medModal: boolean = false;
 
   constructor(
       private route: ActivatedRoute,
@@ -139,6 +194,14 @@ export class AccessViewComponent implements OnInit {
   imageMain (access) {
     let images = access.images.mainImg.url;
     return images;
+  }
+
+  modal() {
+    this.medModal = true;
+  }
+
+  modalClose() {
+    this.medModal = false;
   }
 
 }
