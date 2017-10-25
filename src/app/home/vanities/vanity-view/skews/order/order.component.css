@@ -5,6 +5,73 @@
     z-index: 9999;
     width: 14rem;
   }
+  .v-wrap {
+      grid-template-areas: "title" "points" "totals";
+      display: grid;
+      grid-template-rows: 3fr;
+      grid-row-gap: 1rem;
+  }
+
+  .is-heading {
+    grid-area: title;
+  }
+
+  .is-points {
+    grid-area: points;
+  }
+
+  .is-totals {
+    grid-area: totals;
+  }
+
+  dd > img {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    display: none;
+    left: 100%;
+    top: 0;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: .5rem .5rem .1rem rgb(224, 224, 224);
+    border-radius: .5rem;
+    padding: .3rem;
+  }
+
+  dd:hover > img {
+    display: block;
+  }
+  
+  .grid {
+    display: grid;
+    grid-gap: 1em;
+    grid-auto-rows: minmax(100px, auto);
+  }
+  @media screen and (min-width: 1250px){
+    .grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+  }
+  @media screen and (max-width: 1250px){
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+  }
+  @media screen and (max-width: 1000px){
+      .grid {
+          grid-template-columns: repeat(3, 1fr);
+      }
+
+  }
+
+  @media screen and (max-width: 500px){
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
 
 #buy {
     position: relative;
@@ -19,7 +86,7 @@
   .notification > .delete {
     position: absolute;
     right: 0.5em;
-    top: 0.5em;
+    top: -0.7em;
   }
 
 .alert {

@@ -124,6 +124,9 @@ export class SkewOrderComponent implements OnInit  {
     this.user$.take(1).subscribe( user => {
     this.mods.saveOrder(user, totals, this.sku);
     this.router.navigate(['/home/order/' + user.orderId]);
+    console.log(user);
+    console.log(totals);
+    console.log(this.sku);
     });
   }
 

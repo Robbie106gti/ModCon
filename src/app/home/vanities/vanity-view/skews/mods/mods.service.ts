@@ -84,7 +84,7 @@ export class ModsService {
         let refItemId = `${ref2}/items/${itemId.key}/itemsSub`;
         let refVanId = `${ref}/${vanityOrder.key}/itemsSub`;
         let c: number;
-        if (user.currency === 'usd') { c = this.sum.usd; } else { c = this.sum.can; }
+        if (user.currency) { c = this.sum[user.currency]; } else { c = 1; }
         let saveToOrder = {
             'type': user.currency,
             'currency': c
@@ -110,7 +110,8 @@ export class ModsService {
                 'quantity': sku.pantry.quantity,
                 'uid': user.uid,
                 'sketch': sku.pantry.urlSketch,
-                'subItemOf': vanityOrder.key
+                'subItemOf': vanityOrder.key,
+                'hinged': sku.pantry.hinged
             };
             let pantryOrder = this.db.list(refOptions).push(pantry);
            let item = {
@@ -137,7 +138,10 @@ export class ModsService {
                 'color': sku.counterColor.color,
                 'matImage': sku.counterColor.materialImage,
                 'uid': user.uid,
-                'subItemOf': vanityOrder.key
+                'subItemOf': vanityOrder.key,
+                'spread': sku.counter.spread,
+                'size': sku.counter.size,
+                'drilling': sku.counter.drilling
             };
             let counterOrder = this.db.list(refOptions).push(counter);
            items = {

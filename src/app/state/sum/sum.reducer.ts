@@ -17,10 +17,10 @@ const defaultState: Sum = {
     WalnutOak: 1.1,
     euro: 1.2,
     ncDiscount: 0.5,
-    paint: 1.01,
+    paint: 1,
     usd: 0.8,
-    can: 1.01,
-    currency: 1.01,
+    can: 1,
+    currency: 1,
 };
 
 /// Helper function to create new state object

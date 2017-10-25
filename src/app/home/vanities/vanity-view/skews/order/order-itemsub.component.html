@@ -1,0 +1,82 @@
+
+<div class="notification v-wrap" *ngIf="itemsSub | async as item">
+    <button *ngIf="completed" class="delete" (click)="delete()"></button>
+    <h4 class="is-heading">{{ arr.type | titlecase}} - {{ (itemsSub | async)?.sku }}</h4>
+    <div *ngIf="arr.type !== 'accessory'; else accessory"></div>
+    <div *ngIf="arr.type !== 'pantry'; else pantry"></div>
+    <div *ngIf="arr.type !== 'counter'; else counter"></div>
+    <div class="is-totals">
+        <h5>Total item:</h5>
+        <p *ngIf="arr.type === 'pantry'">
+            $ {{ (item?.price * (itemSku | async)?.materialPrice) * (item?.quantity || 1) * cur | number:'1.2-2' }}
+        </p>
+        <p *ngIf="arr.type !== 'pantry'">
+            $ {{ (item?.price * (item?.quantity || 1)) * cur | number:'1.2-2' }}
+        </p>
+    </div>
+    <ng-template #price>
+        <p>{{ item?.price * cur | number:'1.2-2' }}</p>
+    </ng-template>
+    
+    <ng-template #pantry>
+        <dl class="is-points">
+            <dt>SKU: </dt>
+            <dd>
+                {{ item?.sku }}
+                <img src="{{ item?.sketch }}" alt="{{ item?.sku }}">
+            </dd>
+            <dt>Price each: </dt>
+            <dd>$ {{ (item?.price * (itemSku | async)?.materialPrice) * cur | number:'1.2-2'}}</dd>
+            <dt>Options: </dt>
+            <dd>Material: {{ (itemSku | async)?.material }}</dd>
+            <dd>Color: {{ (itemSku | async)?.color }}</dd>
+            <dd>Option: {{ item?.option || '-'}}</dd>
+            <dd>Quantity: {{ item?.quantity || 1}}</dd>
+            <dd>Location: {{ item?.hinged || '-'}}</dd>
+        </dl>
+    </ng-template>
+    
+    <ng-template #accessory>
+        <dl class="is-points">
+            <dt>SKU: </dt>
+            <dd>
+                {{ item?.sku }}
+                <img src="{{ item?.image }}" alt="{{ item?.sku }}">
+            </dd>
+            <dt>Price each: </dt>
+            <dd>$ {{ item?.price * cur | number:'1.2-2'}}</dd>
+            <dt>Options: </dt>
+            <dd>Color: {{ item?.color }}</dd>
+            <dd>Option: {{ item?.option || '-'}}</dd>
+            <dd>Quantity: {{ item?.quantity || 1}}</dd>
+            <dd>Location: {{ item?.location || '-'}}</dd>
+        </dl>
+    </ng-template>
+    
+    <ng-template #counter>
+        <dl class="is-points">
+            <dt>SKU: </dt>
+            <dd>
+                {{ item?.sku }}
+                <img src="{{ item?.topSketch }}" alt="{{ item?.sku }}">
+            </dd>
+            <dt>Price each: </dt>
+            <dd>$ {{ item?.price * cur | number:'1.2-2'}}</dd>
+            <dt>Options: </dt>
+            <dd>
+                Color: {{ item?.color }}
+                <img src="{{ item?.matImage }}" alt="{{ item?.color }}">
+            </dd>
+            <dd>Option: {{ item?.option || '-'}}</dd>
+            <dd>Quantity: {{ item?.quantity || 1}}</dd>
+            <dd>
+                Sink: {{ item?.sink || '-'}}
+                <img src="{{ item?.sinkImage }}" alt="{{ item?.sink }}">
+            </dd>
+            <dt>Faucet:</dt>
+            <dd>Drilling: {{ item?.drilling || 1}}</dd>
+            <dd>Spread: {{ item?.spread || 1}}</dd>
+            <dd>Size: {{ item?.size || 1}}</dd>
+        </dl>
+    </ng-template>
+</div>

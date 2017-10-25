@@ -33,8 +33,10 @@
             {{ ((itemSku | async)?.materialPrice * (itemSku | async)?.price) * cur | number:'1.2-2'}}</h6>
             <hr>
         </div>
-        <div class="col-sm-4" *ngFor="let arr of array">
-            <order-itemsub [arr]="arr" [array]="array" [orderItem]="orderItem" [itemSku]="itemSku" [completed]="completed" [cur]="cur"></order-itemsub>
+        <div class="col-sm-12">
+            <div class="grid">
+                <order-itemsub *ngFor="let arr of array" [arr]="arr" [array]="array" [orderItem]="orderItem" [itemSku]="itemSku" [completed]="completed" [cur]="cur"></order-itemsub>
+            </div>
         </div>
     </div>
 </div>
