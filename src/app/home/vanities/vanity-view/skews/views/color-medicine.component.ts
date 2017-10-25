@@ -42,4 +42,6 @@ export class ColorMedComponent implements OnInit {
     this.colors = this.itemSrv.getColorsMed(this.option.description);
     this.colors.subscribe(a => console.log(a));
   }
+
+
 }
