@@ -57,7 +57,7 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
         <h3>{{ a?.title}}</h3>
         <label>Options:</label><br>
         <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
-          <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
+          <option *ngFor="let option of options | async" [ngValue]="option" disabled>{{option.title}}</option>
         </select>
         <div>
           <label>Quantity:</label>
@@ -138,25 +138,19 @@ export class AccessViewComponent implements OnInit {
   color: Color;
 
   values = [{ 
-  'paint': {
-    key: 'Paint'
-    },
-  'TM': {
-    key: 'Textured Melamine'
-    },
-  'Wood': {
-    key: 'Wood'        
-    },
-  'Euro': {        
-    key: 'Euro Materials'   
-    }
+  'paint':  { key: 'Paint' },
+  'TM':     { key: 'Textured Melamine' },
+  'WalnutOak':   { key: 'Wood' },
+  'euro':   { key: 'Euro Materials'}
 }];
 
   colorChange(event) {
     this.color = event;
     this.optionForm.value['color'] = event;
     this.options.subscribe(options => {
+      console.log(event.price);
       let newCol = this.values[0][event.price].key;
+      console.log(newCol);
       options.forEach(element => {
         if (element.description === newCol) {
           this.optionForm.value['option'] = element;
