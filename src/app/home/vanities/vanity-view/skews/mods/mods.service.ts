@@ -161,17 +161,35 @@ export class ModsService {
         if (sku.accessories !== null) {
             sku.accessories.forEach(
                 data => {
-                    let accessery = {
-                        'sku': data.sku,
-                        'option': data.option,
-                        'total': data.total,
-                        'price': data.cost,
-                        'quantity': data.quantity,
-                        'location': data.location,
-                        'uid': user.uid,
-                        'subItemOf': vanityOrder.key,
-                        'image': data.url
-                    };
+                    let accessery: Object;
+                    if(data.sku !== 'Medicine Cabinet') {
+                        accessery = {
+                            'sku': data.sku,
+                            'option': data.option,
+                            'total': data.total,
+                            'price': data.cost,
+                            'quantity': data.quantity,
+                            'location': data.location,
+                            'uid': user.uid,
+                            'subItemOf': vanityOrder.key,
+                            'image': data.url
+                        };
+                    } else {
+                        accessery = {
+                            'sku': data.sku,
+                            'option': data.option,
+                            'total': data.total,
+                            'price': data.cost,
+                            'quantity': data.quantity,
+                            'location': data.location,
+                            'uid': user.uid,
+                            'subItemOf': vanityOrder.key,
+                            'image': data.url,
+                            'color': data.color,
+                            'matImage': data.colorImage
+                        };
+                        
+                    }
                     let accesseryOrder = this.db.list(refOptions).push(accessery);
                     items = {
                         'id': accesseryOrder.key,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as _ from 'lodash';
 import { Option } from '../../../../../dashboard/access/shared/access';
@@ -11,8 +11,10 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
   <label>{{ option.description }}</label>
   <div class="wrapper">
       <div *ngFor="let color of colors | async">
+        <a (click)="newColor(color)">
           <img class="image" src="{{ color?.color?.url }}" />
           <label><small>{{ color?.title }}</small></label>
+        </a>
       </div>
   </div>
   <br>
@@ -31,6 +33,7 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
 export class ColorMedComponent implements OnInit {
   @Input() option: Option;
   colors: FirebaseListObservable<Color[]>;
+  @Output() color: EventEmitter<Color> = new EventEmitter();
 
   constructor(
       private db: AngularFireDatabase,
@@ -40,8 +43,11 @@ export class ColorMedComponent implements OnInit {
 
   ngOnInit() {
     this.colors = this.itemSrv.getColorsMed(this.option.description);
-    this.colors.subscribe(a => console.log(a));
+    // this.colors.subscribe(a => console.log(a));
   }
 
+  newColor(color, option) {
+    this.color.emit(color);
+  }
 
 }

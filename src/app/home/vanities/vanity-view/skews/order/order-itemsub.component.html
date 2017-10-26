@@ -28,11 +28,11 @@
             <dt>Price each: </dt>
             <dd>$ {{ (item?.price * (itemSku | async)?.materialPrice) * cur | number:'1.2-2'}}</dd>
             <dt>Options: </dt>
+            <dd>Material: {{ (itemSku | async)?.material }}</dd>
             <dd>
-                Material: {{ (itemSku | async)?.material }}
+                Color: {{ (itemSku | async)?.color }}
                 <img src="{{ (itemSku | async)?.matImage }}" alt="{{ (itemSku | async)?.color }}">
             </dd>
-            <dd>Color: {{ (itemSku | async)?.color }}</dd>
             <dd>Option: {{ item?.option || '-'}}</dd>
             <dd>Quantity: {{ item?.quantity || 1}}</dd>
             <dd>Location: {{ item?.hinged || '-'}}</dd>
@@ -49,7 +49,10 @@
             <dt>Price each: </dt>
             <dd>$ {{ item?.price * cur | number:'1.2-2'}}</dd>
             <dt>Options: </dt>
-            <dd>Color: {{ item?.color }}</dd>
+            <dd>Color: 
+                {{ item?.color }}
+                <img *ngIf="item.sku === 'Medicine Cabinet'" src="{{ item?.matImage }}" alt="{{ item?.sku }}">
+            </dd>
             <dd>Option: {{ item?.option || '-'}}</dd>
             <dd>Quantity: {{ item?.quantity || 1}}</dd>
             <dd>Location: {{ item?.location || '-'}}</dd>

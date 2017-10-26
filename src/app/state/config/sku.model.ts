@@ -60,4 +60,5 @@ export interface Accessory {
     color?: string;
     hinged?: string;
     location?: string;
+    colorImage?: string;
 }

@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { Accessory } from '../../../../../state/config/sku.model';
 import * as SkuActions from '../../../../../state/config/sku.actions';
 import { Observable } from 'rxjs/Observable';
+import { Color } from '../../../../../dashboard/materials/shared/material';
 
 @Component({
   selector: 'access-view',
@@ -86,10 +87,7 @@ import { Observable } from 'rxjs/Observable';
               </div>
               <div class="caption">
                 <h3>{{ a?.title}}</h3>
-                <label>Options:</label><br>
-                <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
-                  <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
-                </select>
+                <label>Option: </label><span> {{ optionForm.value.option.title }}</span>
                 <div>
                   <label>Quantity:</label>
                   <select formControlName="quantity">
@@ -105,11 +103,11 @@ import { Observable } from 'rxjs/Observable';
                 <hr>
               </div>
               <div class="button">
-                <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
+                <button class="btn btn-sm btn-success right" [disabled]="!optionForm.value.option.title" type="submit">add</button>
               </div>
             </div>
             <div class="medColors">
-              <color-medicine *ngFor="let option of options | async" [option]="option"></color-medicine>
+              <color-medicine *ngFor="let option of options | async" [option]="option" (color)="colorChange($event)"></color-medicine>
             </div>
           </div>
         </div>
@@ -137,6 +135,37 @@ export class AccessViewComponent implements OnInit {
   obj: Accessory;
   obj2: Accessory[];
   medModal: boolean = false;
+  color: Color;
+
+  values = [{ 
+  'paint': {
+    key: 'Paint'
+    },
+  'TM': {
+    key: 'Textured Melamine'
+    },
+  'Wood': {
+    key: 'Wood'        
+    },
+  'Euro': {        
+    key: 'Euro Materials'   
+    }
+}];
+
+  colorChange(event) {
+    this.color = event;
+    this.optionForm.value['color'] = event;
+    this.options.subscribe(options => {
+      let newCol = this.values[0][event.price].key;
+      options.forEach(element => {
+        if (element.description === newCol) {
+          this.optionForm.value['option'] = element;
+        }
+      });
+    });
+    
+    console.log(this.optionForm);
+  }
 
   constructor(
       private route: ActivatedRoute,
@@ -152,7 +181,8 @@ export class AccessViewComponent implements OnInit {
         option: [{}, Validators.required],
         quantity: [1, Validators.required],
         size: [null],
-        location: ['left']
+        location: ['left'],
+        color: [null]
       });
       this.accessories$ = this.store.select(state => state.sku.accessories);
 
@@ -178,17 +208,35 @@ export class AccessViewComponent implements OnInit {
     } else {
       nr = this.obj2.length;
     }
-    this.obj = {
-      sku: this.access2.title,
-      option: value.option.title,
-      url: value.url,
-      location: value.location,
-      cost: value.option.price,
-      quantity: value.quantity,
-      total: newTotal,
-    };
-    this.obj2[nr] = this.obj;
-    this.store.dispatch(new SkuActions.AddAccessory(this.obj2));
+    if(this.access2.title !== 'Medicine Cabinet') {
+      this.obj = {
+        sku: this.access2.title,
+        option: value.option.title,
+        url: value.url,
+        location: value.location,
+        cost: value.option.price,
+        quantity: value.quantity,
+        total: newTotal,
+      };
+      this.obj2[nr] = this.obj;
+      this.store.dispatch(new SkuActions.AddAccessory(this.obj2));
+    }
+    if(this.access2.title === 'Medicine Cabinet') {
+      this.obj = {
+        sku: this.access2.title,
+        option: value.option.title,
+        url: value.url,
+        location: value.location,
+        cost: value.option.price,
+        quantity: value.quantity,
+        total: newTotal,
+        color: value.color.title,
+        colorImage: value.color.color.url
+      };
+      this.obj2[nr] = this.obj;
+      console.log(this.obj);
+      this.store.dispatch(new SkuActions.AddAccessory(this.obj2));
+    }
   }
 
   imageMain (access) {
