@@ -236,6 +236,7 @@ export class AccessViewComponent implements OnInit {
       this.obj2[nr] = this.obj;
       console.log(this.obj);
       this.store.dispatch(new SkuActions.AddAccessory(this.obj2));
+      this.modalClose();
     }
   }
 
