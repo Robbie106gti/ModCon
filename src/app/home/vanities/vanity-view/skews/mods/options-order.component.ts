@@ -28,6 +28,17 @@ import * as SkuActions from '../../../../../state/config/sku.actions';
       margin-left: -10px;
       color: red;
   }
+  span > img {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    max-width: 50%;
+    z-index: 999;
+  }
+  span:hover > img {
+    display: block;
+  }
   `]
 })
 

@@ -48,13 +48,13 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
           <label>Faucet drillings per sink:</label><br>
           <select formControlName="drilling">
             <option *ngFor="let drilling of drillings" [value]="drilling">{{ drilling }}</option>
-          </select>
+          </select><br>
         </div>
       </div>
 
       <div class="col-xs-4">
         <div>
-          <label>Size drilling:</label>
+          <label>Size drilling:</label><br>
           <select formControlName="size">
             <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
           </select>
@@ -63,7 +63,7 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
 
       <div class="col-xs-4">
         <div>
-          <label>Spread of drillings:</label>
+          <label>Spread of drillings:</label><br>
           <select formControlName="spread">
             <option *ngFor="let size of spread" [value]="size">{{ size }}</option>
           </select>

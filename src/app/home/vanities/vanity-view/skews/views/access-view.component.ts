@@ -50,14 +50,15 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
         </div>
     </div>
     <ng-template #med>
+    <div class="alert">
       <div class="image" (click)="modal()">
         <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
       </div>
       <div class="caption" (click)="modal()">
         <h3>{{ a?.title}}</h3>
         <label>Options:</label><br>
-        <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
-          <option *ngFor="let option of options | async" [ngValue]="option" disabled>{{option.title}}</option>
+        <select disabled >
+          <option>{{ optionForm.value.option.title }}</option>
         </select>
         <div>
           <label>Quantity:</label>
@@ -76,8 +77,8 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
       <div class="button">
         <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
       </div>
-
-      <div *ngIf="medModal" class="modal">
+      </div>
+      <div *ngIf="medModal" class="modal epad">
         <div class="jumbotron jumbotronMed notification">
           <button class="delete" (click)="modalClose()"></button>
           <div class="medWrap">
@@ -87,7 +88,7 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
               </div>
               <div class="caption">
                 <h3>{{ a?.title}}</h3>
-                <label>Option: </label><span> {{ optionForm.value.option.title }}</span>
+                <label>Option: </label><span> {{ optionForm.value.option.title }} - {{ optionForm.value.color.title }}</span>
                 <div>
                   <label>Quantity:</label>
                   <select formControlName="quantity">
@@ -137,7 +138,7 @@ export class AccessViewComponent implements OnInit {
   medModal: boolean = false;
   color: Color;
 
-  values = [{ 
+  values = [{
   'paint':  { key: 'Paint' },
   'TM':     { key: 'Textured Melamine' },
   'WalnutOak':   { key: 'Wood' },
@@ -148,17 +149,16 @@ export class AccessViewComponent implements OnInit {
     this.color = event;
     this.optionForm.value['color'] = event;
     this.options.subscribe(options => {
-      console.log(event.price);
+      // console.log(event.price);
       let newCol = this.values[0][event.price].key;
-      console.log(newCol);
+      // console.log(newCol);
       options.forEach(element => {
         if (element.description === newCol) {
           this.optionForm.value['option'] = element;
         }
       });
     });
-    
-    console.log(this.optionForm);
+    // console.log(this.optionForm);
   }
 
   constructor(
@@ -179,7 +179,6 @@ export class AccessViewComponent implements OnInit {
         color: [null]
       });
       this.accessories$ = this.store.select(state => state.sku.accessories);
-
       this.option = this.optionForm.controls['option'];
 }
 
@@ -202,7 +201,7 @@ export class AccessViewComponent implements OnInit {
     } else {
       nr = this.obj2.length;
     }
-    if(this.access2.title !== 'Medicine Cabinet') {
+    if (this.access2.title !== 'Medicine Cabinet') {
       this.obj = {
         sku: this.access2.title,
         option: value.option.title,
@@ -215,7 +214,7 @@ export class AccessViewComponent implements OnInit {
       this.obj2[nr] = this.obj;
       this.store.dispatch(new SkuActions.AddAccessory(this.obj2));
     }
-    if(this.access2.title === 'Medicine Cabinet') {
+    if (this.access2.title === 'Medicine Cabinet') {
       this.obj = {
         sku: this.access2.title,
         option: value.option.title,

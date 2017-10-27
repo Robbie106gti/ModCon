@@ -1,5 +1,5 @@
 
-<div class="notification v-wrap" *ngIf="itemsSub | async as item">
+<div class="notification v-wrap2" *ngIf="itemsSub | async as item">
     <button *ngIf="completed" class="delete" (click)="delete()"></button>
     <h4 class="is-heading">{{ arr.type | titlecase}} - {{ (itemsSub | async)?.sku }}</h4>
     <div *ngIf="arr.type !== 'accessory'; else accessory"></div>

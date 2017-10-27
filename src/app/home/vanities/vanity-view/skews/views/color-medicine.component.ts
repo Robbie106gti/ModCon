@@ -10,7 +10,7 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
   template: `
   <label>{{ option.description }}</label>
   <div class="wrapper">
-      <div *ngFor="let color of colors | async">
+      <div class="newColor" *ngFor="let color of colors | async">
         <a (click)="newColor(color)">
           <img class="image" src="{{ color?.color?.url }}" />
           <label><small>{{ color?.title }}</small></label>
@@ -26,6 +26,17 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
   }
   .image {
       max-width: 75px;
+  }
+  .newColor {
+    cursor: pointer;
+  }
+  a {
+    color: rgb(1,1,1);
+  }
+  .image:hover {
+    max-width: 80px;
+    margin-left: -5px;
+    margin-top: -5px;
   }
   `]
 })

@@ -133,7 +133,13 @@
                <h3>Accessory</h3>
                <p>{{access.sku}}</p>
                <ul>
-                 <li>{{access.option}}</li>
+                 <li>
+                   {{access.option}} 
+                  <span *ngIf="access.sku === 'Medicine Cabinet'">
+                     - {{ access?.color }}
+                     <img src="{{ access?.colorImage }}" alt="{{ access?.sku }}">
+                  </span>
+                </li>
                  <li>{{ user.currency | uppercase }} $ 
                    <span *ngIf="user.currency === 'can'">{{ access.total * sum.can | number:'1.2-2'}}</span>
                    <span *ngIf="user.currency === 'usd'">{{ access.total * sum.usd | number:'1.2-2'}}</span>
