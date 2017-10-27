@@ -17,8 +17,8 @@ import { ModsService } from './mods.service';
     <div class="thumbnail" *ngIf="user$ | async as user">
       <div class="caption"  *ngIf="sku$ | async as sku">
       <div class="row">
-        <h3>Customizations SKU:</h3>
         <div class="col-xs-12">
+        <h3>Customizations SKU:</h3>
         <hr>
           <div *ngIf="sum$ |async as sum">
             <div *ngIf="sku.cabinet?.sku">

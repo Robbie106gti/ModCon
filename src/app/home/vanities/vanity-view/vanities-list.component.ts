@@ -16,41 +16,19 @@ import { SpinnerService } from '../../../ui/loading-spinner/spinner.service';
     <li class="active">Vanities</li>
   </ol>
   <div class="wrapper">
-    <vanity-view class="thumbnail" *ngFor="let vanity of vanities | async" [vanity]='vanity'></vanity-view>
+    <vanity-view *ngFor="let vanity of vanities | async" [vanity]='vanity'></vanity-view>
   </div>
 </div>
   `,
   styles: [`
   .wrapper {
+    margin: 0 auto;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: (minmax(15em, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
     grid-gap: 1em;
-    grid-auto-rows: minmax(100px, auto);
   }
-  @media screen and (min-width: 1250px){
-    .wrapper {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-  }
-  @media screen and (max-width: 1250px){
-    .wrapper {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-  }
-  @media screen and (max-width: 1000px){
-      .wrapper {
-          grid-template-columns: repeat(2, 1fr);
-      }
-
-  }
-
-  @media screen and (max-width: 705px){
-    .wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-  }
-}
   `]
 })
 

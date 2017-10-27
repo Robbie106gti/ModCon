@@ -36,7 +36,7 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
       </div>
     </div></a>
   </div>
-
+  
   <div *ngIf="modalCounter" class="modal">
     <div class="jumbotron notification">
     <button class="delete" (click)="closeModal()"></button>
@@ -71,7 +71,7 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
         </div>
         </div>
       <div class="row">
-      <div class="col-xs-4 col-xs-push-8">
+      <div class="col-xs-4 col-xs-push-8"><br>
         <button class="btn btn-success" type="submit">add</button>
       </div></div>
       </form>

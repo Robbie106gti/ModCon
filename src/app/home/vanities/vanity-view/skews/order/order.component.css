@@ -42,6 +42,13 @@
     display: block;
   }
   
+  .row {
+    display: grid;
+    grid-gap: 1em;
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
   .grid {
     display: grid;
     grid-gap: 1em;
@@ -86,7 +93,11 @@
   .notification > .delete {
     position: absolute;
     right: 0.5em;
-    top: -0.7em;
+    top:0.5rem;
+  }
+
+  .dorder {    
+    margin-top: -1em;
   }
 
 .alert {

@@ -15,7 +15,7 @@ import { Sum } from '../../../../state/sum/sum.model';
 @Component({
   selector: 'skew-view',
   template: `
-<div class="" *ngIf="sum$ | async as sum">
+<div *ngIf="sum$ | async as sum">
   <div class="thumbnail" *ngIf="user$ | async as user">
     <a [routerLink]="[skew.title, 'options']">
       <img class="img" src="{{ skew.drawing?.url }}" alt="{{ skew.title || 'missing title' }}">

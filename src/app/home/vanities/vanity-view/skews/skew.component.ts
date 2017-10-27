@@ -22,44 +22,12 @@ import { SharedService } from '../../../shared/shared.service';
   `,
   styles: [`
   .wrapper {
+    margin: 0 auto;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: (minmax(15em, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
     grid-gap: 1em;
-    grid-auto-rows: minmax(100px, auto);
-  }
-  @media screen and (min-width: 1350px){
-    .wrapper {
-      grid-template-columns: repeat(8, 1fr);
-    }
-
-  }
-  @media screen and (max-width: 1350px){
-    .wrapper {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-  }
-  @media screen and (max-width: 1150px){
-    .wrapper {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-  }
-  @media screen and (max-width: 1000px){
-      .wrapper {
-          grid-template-columns: repeat(4, 1fr);
-      }
-
-  }
-
-  @media screen and (max-width: 705px){
-    .wrapper {
-        grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  @media screen and (max-width: 550px){
-    .wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
   }
 }
   `]

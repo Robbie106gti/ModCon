@@ -41,15 +41,22 @@ import { SharedService } from '../../../../shared/shared.service';
     .wrapper {
       grid-template-columns: repeat(2, 1fr);
     }
-
   }
   @media screen and (max-width: 993px){
     .wrapper {
       grid-template-columns: repeat(1, 1fr);
     }
-
   }
-
+  @media screen and (max-width: 765px) and (min-width: 600px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .wrapper {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
   .Paint {
       width: 75%;
       border-top: 3px solid #22BDFD;
