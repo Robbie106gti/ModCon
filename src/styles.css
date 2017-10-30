@@ -6,14 +6,30 @@
     color: #18bc9c;
 }
 
+.ie {
+  display: none;
+}
+
+html[data-useragent*='MSIE 10.0'] .ie {
+    display: block;
+    color: #000000;
+}
+
+html[data-useragent*='Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0; LCTE; rv:11.0) like Gecko'] .ie {
+    display: block;
+    color: #000000;
+}
+
 body {
   margin-bottom: 25px;
   padding-bottom: 50px;
   background-color: #FF7600;
 }
-#loader{
-    display: block;
-    padding: 20em;
+.sitewrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 25%;
 }
 .sk-folding-cube {
   background-color: #18bc9c;

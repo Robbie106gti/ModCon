@@ -19,9 +19,21 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/images%2Ficons%2Ffavicon-16x16.png?alt=media&token=2d23edd8-5071-49ed-877a-19f1f29e2360">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2c3e50">
   <link rel="shortcut icon" href="favicon.ico">
+  <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="all-ie-only.css" />
+  <![endif]-->
 </head>
 <body>
   <div class="site-wrapper"  id="loader">
+    <div class="ie">
+      <h1>Please use a different browser:</h1>
+      <ul>
+        <li>Chrome</li>
+        <li>Firefox</li>
+        <li>Opera</li>
+        <li>Edge* currently only Edge version 16 supports css Grid but not yet ServiceWorkers so some functionality will not work.</li>
+      </ul>
+    </div>
     <div class="sk-folding-cube">
     	<div class="sk-cube1 sk-cube"></div>
     	<div class="sk-cube2 sk-cube"></div>
@@ -45,5 +57,12 @@
   }
 </script>  
 <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+  var b = document.documentElement;
+b.setAttribute('data-useragent',  navigator.userAgent);
+b.setAttribute('data-platform', navigator.platform );
+
+// IE 10 == Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)
+</script>
 </body>
 </html>
