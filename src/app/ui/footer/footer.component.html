@@ -1,16 +1,27 @@
 <div class="menu-footer" *ngIf="user$ | async as user"> 
-		<div class="line-nickel"></div>
-		<div class="white">
-			<img src="https://webquoin.com/catalog/doorstyler/door/lgo-01.jpg" alt="logo" height="35">
-		</div>
-		<div class="angle"></div>
-	<table class="mp-footer" *ngIf="user.uid">
-		<tr>
-			<td style="width: 50px; color: #fff;" *ngIf="user.zone === 'admin'"><a [routerLink]="['/dashboard']"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i><span class="badge">{{ newUsers }}</span></a></td>
-
-			<td style="width: 50px; color: #fff;"><a [routerLink]="['/dashboard/messages']" routerLinkActive="active"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><span class="badge">{{ unread }}/{{ replies }}</span></a></td>
-			
-			<td style="width: 50px; color: #fff;"><a [routerLink]="['/dashboard/favorites']" routerLinkActive="active"><i class="fa fa-heart fa-2x" aria-hidden="true"></i><span class="badge">{{ favorite }}</span></a></td>
-		</tr>
-	</table> 
+	<div class="line-nickel"></div>
+	<div class="white">
+		<img src="https://webquoin.com/catalog/doorstyler/door/lgo-01.jpg" alt="logo" height="35">
+	</div>
+	<div class="angle"></div>
+	<div class="mp-footer">
+		<span class="item">
+			<a [routerLink]="['/dashboard']" *ngIf="user.zone === 'admin'">
+				<i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+				<span class="badge">{{ newUsers }}</span>
+			</a>
+		</span>
+		<span class="item">
+			<a [routerLink]="['/dashboard/messages']" routerLinkActive="active">
+				<i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+				<span class="badge">{{ unread }}/{{ replies }}</span>
+			</a>
+		</span>
+		<span class="item">
+			<a [routerLink]="['/dashboard/favorites']" routerLinkActive="active">
+				<i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+				<span class="badge">{{ favorite }}</span>
+			</a>
+		</span>
+	</div>
 </div>

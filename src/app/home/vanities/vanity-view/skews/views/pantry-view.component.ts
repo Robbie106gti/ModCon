@@ -32,9 +32,13 @@ import { AppState } from '../../../../../state/state';
   <div class="jumbotron notification">
   <button class="delete" (click)="closeModal()"></button>
   <form [formGroup]="optionForm" (ngSubmit)="addPantry(optionForm.value)" class="form-group">
-    <h2>Pantry options:</h2>
-    <div class="col-xs-4">
-      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    
+  <div class="faucet">
+    <div class="heading">
+      <h2>Pantry options:</h2>
+    </div>
+    <div class="size">
+      <div class="btn-group btn-group-justified max" role="group" aria-label="...">
         <div class="btn-group" role="group">
           <button type="button" (click)="less()" class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>
         </div>
@@ -47,17 +51,18 @@ import { AppState } from '../../../../../state/state';
       </div>
     </div>
 
-    <div class="col-xs-4">
-      <div>
-        <label>Hinged:</label>
-        <select formControlName="hinged">
-          <option *ngFor="let location of hinged" [value]="location">{{location}}</option>
-        </select>
+      <div class="spread">
+        <div>
+          <label>Hinged:</label>
+          <select formControlName="hinged">
+            <option *ngFor="let location of hinged" [value]="location">{{location}}</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="col-xs-4">
-    <button class="btn btn-success" type="submit">add</button>
+      <div class="button">
+        <button class="btn btn-success" type="submit">add</button>
+      </div>
     </div>
     </form>
   </div>

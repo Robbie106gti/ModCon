@@ -32,6 +32,7 @@ import { Sum } from '../../../../../state/sum/sum.model';
     max-height: 150px;
     border-left: 1px solid #f1f1f1;
     box-shadow: 5px 5px 3px #ccc;
+    cursor: pointer;
   }
 
   .media-body {

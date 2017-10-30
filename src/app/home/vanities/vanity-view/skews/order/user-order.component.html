@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="col-lg-2 col-lg-push-10 col-md-3 col-md-push-9 col-sm-6 col-xs-12"  *ngIf="orderInfo | async as info">
+<div class="col-lg-2 col-lg-push-10 col-md-3 col-md-push-9 col-xs-12 col-sm-5"  *ngIf="orderInfo | async as info">
     <div class="thumbnail">
         <div class="caption">
             <h3>{{ info?.name }}</h3>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2 col-sm-6 col-xs-12">
+<div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2 col-sm-7 col-xs-12">
     <order-item *ngFor="let orderItem of orderItems | async" [orderItem]="orderItem" [completed]="completed" [cur]="cur"></order-item>
 </div>
 <div class="wrapper">

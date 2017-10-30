@@ -21,6 +21,11 @@
     height: 9.5rem;
 }
 
+#toBasket:hover {
+    color: #831a18;
+    cursor: pointer;
+}
+
 #review {
     position: relative;
     margin: 1.25rem 2.5rem 1.25rem 1.5rem;
@@ -28,6 +33,11 @@
     height: 9.5rem;
 }
 
-#review a {
-    color: #ffffff;
+.alert-warning > a {
+    color: #8a6d3b;
+    display: block;
+}
+.alert-warning > a:hover {
+    color: #5c4116;
+    text-decoration: none;
 }

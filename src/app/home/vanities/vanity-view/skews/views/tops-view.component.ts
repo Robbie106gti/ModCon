@@ -36,44 +36,37 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
       </div>
     </div></a>
   </div>
-  
+
   <div *ngIf="modalCounter" class="modal">
     <div class="jumbotron notification">
-    <button class="delete" (click)="closeModal()"></button>
-    <form [formGroup]="optionForm" (ngSubmit)="addTop(optionForm.value)" class="form-group">
-    <div class="row">
-      <h2>Faucet options:</h2>
-      <div class="col-xs-4">
-        <div>
-          <label>Faucet drillings per sink:</label><br>
-          <select formControlName="drilling">
-            <option *ngFor="let drilling of drillings" [value]="drilling">{{ drilling }}</option>
-          </select><br>
+      <button class="delete" (click)="closeModal()"></button>
+      <form [formGroup]="optionForm" (ngSubmit)="addTop(optionForm.value)" class="form-group">
+        <div class="faucet">
+          <div class="heading">
+            <h2>Faucet options:</h2>
+          </div>
+          <div class="size">
+            <label>Faucet drillings per sink:</label><br>
+            <select formControlName="drilling">
+              <option *ngFor="let drilling of drillings" [value]="drilling">{{ drilling }}</option>
+            </select><br>
+          </div>
+          <div class="spread">
+            <label>Size drilling:</label><br>
+            <select formControlName="size">
+              <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+            </select>
+          </div>
+          <div class="dril">
+            <label>Spread of drillings:</label><br>
+            <select formControlName="spread">
+              <option *ngFor="let size of spread" [value]="size">{{ size }}</option>
+            </select>
+          </div>
+          <div class="button"><br>
+            <button class="btn btn-success" type="submit">add</button>
+          </div>
         </div>
-      </div>
-
-      <div class="col-xs-4">
-        <div>
-          <label>Size drilling:</label><br>
-          <select formControlName="size">
-            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-xs-4">
-        <div>
-          <label>Spread of drillings:</label><br>
-          <select formControlName="spread">
-            <option *ngFor="let size of spread" [value]="size">{{ size }}</option>
-          </select>
-        </div>
-        </div>
-        </div>
-      <div class="row">
-      <div class="col-xs-4 col-xs-push-8"><br>
-        <button class="btn btn-success" type="submit">add</button>
-      </div></div>
       </form>
     </div>
   </div>

@@ -26,7 +26,7 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
           <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
         </div>
         <div class="caption">
-        <h3>{{ a?.title}}</h3>
+        <h3>{{ a.title }}</h3>
           <label>Options:</label><br>
           <select [formControl]="optionForm.get('option')" [(ngModel)]="option">
             <option *ngFor="let option of options | async" [ngValue]="option">{{option.title}}</option>
@@ -83,28 +83,30 @@ import { Color } from '../../../../../dashboard/materials/shared/material';
           <button class="delete" (click)="modalClose()"></button>
           <div class="medWrap">
             <div class="medContent">
-              <div class="image">
-                <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
-              </div>
-              <div class="caption">
-                <h3>{{ a?.title}}</h3>
-                <label>Option: </label><span> {{ optionForm.value.option.title }} - {{ optionForm.value.color.title }}</span>
-                <div>
-                  <label>Quantity:</label>
-                  <select formControlName="quantity">
-                    <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
-                  </select>
+              <div class="medCon">
+                <div class="image">
+                  <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
                 </div>
-                <div>
-                  <label>Hinged/Location:</label>
-                  <select formControlName="location">
-                    <option *ngFor="let location of locations" [value]="location">{{location}}</option>
-                  </select>
+                <div class="caption">
+                  <h3>{{ a.title }}</h3>
+                  <label>Option: </label><span> {{ optionForm.value.option.title }} - {{ optionForm.value.color.title }}</span>
+                  <div>
+                    <label>Quantity:</label>
+                    <select formControlName="quantity">
+                      <option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Hinged/Location:</label>
+                    <select formControlName="location">
+                      <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+                    </select>
+                  </div>
+                  <hr>
                 </div>
-                <hr>
-              </div>
-              <div class="button">
-                <button class="btn btn-sm btn-success right" [disabled]="!optionForm.value.option.title" type="submit">add</button>
+                <div class="button">
+                  <button class="btn btn-sm btn-success right" [disabled]="!optionForm.value.option.title" type="submit">add</button>
+                </div>
               </div>
             </div>
             <div class="medColors">

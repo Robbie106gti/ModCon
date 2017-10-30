@@ -41,16 +41,56 @@
   dd:hover > img, h3:hover > img {
     display: block;
   }
+
+  select {
+    margin-bottom: 4px;
+  }
   
-  .row {
+  .faucet {
+    display: -ms-grid;
     display: grid;
-    grid-gap: 1em;
-    grid-auto-rows: minmax(100px, auto);
-    grid-template-columns: repeat(3, 1fr);
+    grid-gap: .5rem;
+    -ms-grid-columns: (minmax(15em, 1fr)) [auto-fit];
+  }
+
+  .max {
+    max-width: 20em;
+  }
+
+  @media screen and (min-width: 60rem) {
+    .faucet {      
+    grid-template-areas: "h h h"
+                     "size spread dril"
+                     "b b button";
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    .faucet {      
+      grid-template-areas: "h" "size" "spread" "dril" "button";
+    }
+  }
+
+  .heading {
+    grid-area: h;
+  }
+  .size {
+    grid-area: size;
+  }
+  .spread {
+    grid-area: spread;
+  }
+  .dril {
+    grid-area: dril;
+  }
+  .button {
+    grid-area: button;
   }
   
   .grid {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: (minmax(15em, 1fr)) [auto-fit];
     grid-gap: 1em;
     grid-auto-rows: minmax(100px, auto);
   }
@@ -141,6 +181,7 @@ td {
   max-height: 250px;
   border-left: 1px solid #f1f1f1;
   box-shadow: 5px 5px 3px #ccc;
+  cursor: pointer;
 }
 
 .access:hover {
@@ -172,11 +213,62 @@ epad {
 
 .jumbotronMed {
   position: relative;
-  top: 15%;
-  left: 15%;
-  min-height: 35%;
-  width: 70%;
   background-color: #fff;
+  grid-auto-rows: minmax(100px, auto);
+  max-height: 90%;
+}
+.medContent {
+  grid-area: content;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.medColors {
+  grid-area: color;
+}
+
+.medWrap {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(15em, 1fr))[auto-fit];
+  grid-gap: .5rem;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+@media screen and (max-width: 65rem) {
+  .jumbotronMed {
+    top: 1.5%;
+    left: 2.5%;
+    min-height: 35%;
+    width: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  
+  .medWrap {
+    grid-template-areas: "content" "color";
+  }
+
+  .medCon {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (minmax(15em, 1fr))[auto-fit];
+    grid-gap: .5rem;
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-areas: "image caption button";
+  }
+}
+
+@media screen and (min-width: 65rem) {
+  .jumbotronMed {
+    top: 2.5%;
+    left: 10%;
+    min-height: 35%;
+    width: 80%;
+  }
+  
+  .medWrap {
+    grid-template-areas: "content color";
+  }
 }
 
 .jumbotron-alert {
@@ -354,27 +446,18 @@ epad {
   }
   .v-wrap {
       grid-template-areas: "button" "image" "caption" ;
+      display: -ms-grid;
       display: grid;
+      -ms-grid-columns: (minmax(15em, 1fr)) [auto-fit];
       grid-template-rows: 3fr;
       grid-row-gap: 1rem;
-  }
-  .medContent {
-    grid-area: content;
-
-  }
-  .medColors {
-    grid-area: color;
-  }
-  .medWrap {
-    grid-template-areas: "content color";
-    display: grid;
-    grid-template-columns:repeat(2, 1fr);
-    grid-gap: .5rem;
   }
   
   .v-wrap2 {
     grid-template-areas: "title" "points" "totals";
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: (minmax(15em, 1fr)) [auto-fit];
     grid-template-rows: 3fr;
     grid-row-gap: 1rem;
   }

@@ -10,15 +10,17 @@ import { Item } from '../../../../../items/shared/item';
   styles: [`
   .access{
     max-height: 150px;
+    max-width: 98%;
     border-left: 1px solid #f1f1f1;
     box-shadow: 5px 5px 3px #ccc;
+    cursor: pointer;
   }
 
   .access:hover {
     border: 1px solid #80D0FF;
     max-height: 160px;
     padding-top: 0px;
-    margin-bottom: -10px;
+    margin-bottom: -2px;
   }
   `]
 })
