@@ -473,3 +473,12 @@ epad {
   .is-totals {
     grid-area: totals;
   }
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    .caption2 {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: (minmax(15em, 1fr)) [auto-fit];
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

@@ -1,6 +1,6 @@
 
 <ol class="breadcrumb">
-    <li><a [routerLink]="['../..']">Home</a></li>
+    <li><a [routerLink]="['../../..']">Home</a></li>
     <li><a [routerLink]="['../../vanities']">Vanities</a></li>
     <li *ngIf="!completed" class="active"><a [routerLink]="['../../../dashboard/orders']">Review order - back to "My Orders"</a></li>
     <li *ngIf="completed" class="active">Your order</li>
@@ -41,8 +41,11 @@
         </div>
     </div>
     <div class="thumbnail">
-        <order-totals *ngFor="let arr of array" [arr]="arr" [cur]="cur"></order-totals>
-        <div class="caption">
+        <div class="caption2">
+            <order-totals *ngFor="let arr of array" [arr]="arr" [cur]="cur"></order-totals>
+        </div>
+        <div class="col-md-12">
+            <hr><hr>
             <h3>Order total: </h3>
             <h4>{{ info?.type | uppercase }} $ {{ orderTotal * cur | number:'1.2-2' }}</h4>
         </div>

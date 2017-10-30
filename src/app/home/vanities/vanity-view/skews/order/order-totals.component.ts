@@ -20,7 +20,9 @@ import { Totals } from './orderItem';
           <dt>$ {{ (((arr?.price + arr?.totalPantry) * arr?.materialPrice) + arr?.totalAccessories + arr?.totalCounter) * cur | number:'1.2-2'  }}</dt>
       </dl>
   </div>
-  `
+  `,
+  styles: [`
+  `]
 })
 export class OrderTotalsComponent implements OnInit {
   @Input() arr: Totals;
