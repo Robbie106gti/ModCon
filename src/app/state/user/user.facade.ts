@@ -43,6 +43,8 @@ export class UserFacade {
                .map( s => {
                    if (s.$key) {
                         /// User logged in
+                        // console.log(s);
+                        // if (s.loading) { }
                         s = this.updateUserData(s);
                         const user = new User(s.$key, s.name, s.zone, s.email, s.provider, s.orderId, s.currency, s.image, s.c, null, null, s.numbers);
                         return new userActions.Authenticated(user);
@@ -153,6 +155,7 @@ export class UserFacade {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
     // console.log(s);
+    const uid = this.auth.currentUserId;
     if (!s.currency) {
         s['currency'] = 'can';
         s['c'] = 1;
@@ -160,16 +163,24 @@ export class UserFacade {
     if (!s.image || s.image !== this.auth.currentUser.photoURL) {
         s['image'] = this.auth.currentUser.photoURL;
     }
+    if (!s.name || s.name !== this.auth.currentUserDisplayName) {
+        s['name'] = this.auth.currentUserDisplayName;
+    }
+    if (!s.email || s.email !== this.auth.currentUser.email) {
+        s['email'] = this.auth.currentUser.email;
+    }
+    if (!s.provider || s.provider !== this.auth.currentUser.providerData[0].providerId) {
+        s['provider'] = this.auth.currentUser.providerData[0].providerId;
+    }
     if (!s.orderId) {
-        this.createOrder(s);
+        this.createOrder(s, uid);
         s['orderId'] = 'none';
     }
-      const uid = s.uid;
       const path = `users/${uid}`; // Endpoint on firebase
       const ref = `users/${uid}/zone`;
       const data = {
                     email: s.email,
-                    name: s.displayName,
+                    name: s.name,
                     lastLogin: firebase.database.ServerValue.TIMESTAMP,
                     provider: s.provider,
                     image: s.image,
@@ -177,20 +188,20 @@ export class UserFacade {
                   };
       const dataNew = { [uid]: true };
         if (uid) {
-         this.db.object(ref).subscribe((obj) => {
-          // console.log(obj.$exists());
+            this.db.object(ref).take(1).subscribe((obj) => {
+            console.log(obj.$exists());
             if (obj.$exists()) {
             // object exists
-                this.db.object(path).update(data)
-                .catch(error => console.log(error));
+                // this.db.object(path).update(data)
+                //  .catch(error => console.log(error));
                 return s;
             } else {
             // object does not exist
                 let value = Object.assign({zone: 'new'}, data);
                 this.db.object(path).update(value)
-                .catch(error => console.log(error));
+                    .catch(error => console.log(error));
                 this.db.object(`zones/new/`).update(dataNew)
-                .catch(error => console.log(error));
+                    .catch(error => console.log(error));
                 return s;
             }
         });
@@ -198,11 +209,13 @@ export class UserFacade {
       return s;
     }
 
-   createOrder(s: User2) {
-       console.log(s);
+   createOrder(s: User2, uid) {
+    if (!s.email) {
+        return;
+    }  console.log(s);
     let ref = `orders/orderItems/`;
     let obj = {
-        'UID': s.$key,
+        'UID': uid,
         'email': s.email,
         'name': s.name,
         'timeStamp': firebase.database.ServerValue.TIMESTAMP,
@@ -212,11 +225,11 @@ export class UserFacade {
     let info = {
         'info' : obj
     };
-    console.log('hi');
+    console.log(uid);
     let newOrder = this.db.list(ref).push(info);
     let orderId = newOrder.key;
-    this.db.object(`users/${s.$key}`).update({'orderId': orderId});
-    ref = `orders/byUser/${s.$key}`;
+    this.db.object(`users/${uid}`).update({'orderId': orderId});
+    ref = `orders/byUser/${uid}`;
 
     let obj2 = {
         'completed': false,

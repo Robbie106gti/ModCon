@@ -31,6 +31,7 @@ import { OrderItemSubComponent } from '../vanities/vanity-view/skews/order/order
 import { OrderTotalsComponent } from '../vanities/vanity-view/skews/order/order-totals.component';
 import { DemoComponent } from '../demo/demo.component';
 import { ColorMedComponent } from '../vanities/vanity-view/skews/views/color-medicine.component';
+import { ConfigOrderComponent } from '../vanities/vanity-view/skews/mods/config-order.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
         { path: 'options/counters', component: CounterOrderComponent },
         { path: 'options/colors', component: ColorOrderComponent },
         { path: 'options/accessories', component: AccessOrderComponent },
+        { path: 'options/configuration', component: ConfigOrderComponent },
         { path: 'options/pantries', component: PantryOrderComponent }
       ]
     }
@@ -92,7 +94,8 @@ const routes: Routes = [
     OrderItemSubComponent,
     OrderTotalsComponent,
     DemoComponent,
-    ColorMedComponent
+    ColorMedComponent,
+    ConfigOrderComponent
   ],
   providers: []
 })

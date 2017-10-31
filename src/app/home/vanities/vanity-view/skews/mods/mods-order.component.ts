@@ -34,6 +34,12 @@ import * as SkuActions from '../../../../../state/config/sku.actions';
             <h6>Accessories</h6>
         </a>
     </div>
+    <div *ngIf="!sku.configuration; else tmAccessory" class="btn-group">
+        <a [routerLink]="['options/configuration']" routerLinkActive="active" class="thumbnail">
+            <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+            <h6>Configuration</h6>
+        </a>
+    </div>
     <div *ngIf="!sku.pantry; else tmPantry" class="btn-group">
         <a [routerLink]="['options/pantries']" routerLinkActive="active" class="thumbnail">
             <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
@@ -98,6 +104,16 @@ import * as SkuActions from '../../../../../state/config/sku.actions';
         <span (click)="remove(i)"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
         <a [routerLink]="['options/accessories']" routerLinkActive="active" class="thumbnail">
             <img class="color" src="{{ access?.url }}" >
+            <h6>{{access.sku}}</h6>
+        </a>
+      </div>
+</ng-template>
+
+<ng-template #tmConfiguration>
+      <div class="btn-group" *ngFor="let config of sku.configuration; let i = index">
+        <span (click)="remove(i)"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
+        <a [routerLink]="['options/configuration']" routerLinkActive="active" class="thumbnail">
+            <img class="color" src="{{ config?.url }}" >
             <h6>{{access.sku}}</h6>
         </a>
       </div>
