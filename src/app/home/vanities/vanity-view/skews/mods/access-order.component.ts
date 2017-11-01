@@ -6,15 +6,16 @@ import * as _ from 'lodash';
 import { SharedService } from '../../../../shared/shared.service';
 import { Item } from '../../../../shared/shared';
 import { ModsService } from '../../../../vanities/vanity-view/skews/mods/mods.service';
+import { Access } from '../../../../../dashboard/access/shared/access';
 
 @Component({
   selector: 'access-order',
   template: `
   <span class="badge"><a [routerLink]="['../']"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a></span>
-  <span class="badge"><small>{{(itemsAccess | async)?.length}}</small> Accessories</span>
+  <span class="badge"><small>{{ filteredArray?.length}}</small> Accessories</span>
   <hr>
   <div class="wrapper">
-    <access-view  class="thumbnail" *ngFor="let itemAccess of itemsAccess | async" [itemAccess]='itemAccess'></access-view >
+    <access-view  class="thumbnail" *ngFor="let itemAccess of filteredArray" [itemAccess]='itemAccess'></access-view >
   </div>
   `,
   styleUrls: ['./counter-order.component.css']
@@ -22,11 +23,13 @@ import { ModsService } from '../../../../vanities/vanity-view/skews/mods/mods.se
 export class AccessOrderComponent implements OnInit  {
   items: FirebaseListObservable<Item[]>;
   itemsAccess: FirebaseListObservable<Item[]>;
+  accessories: FirebaseListObservable<Access[]>;
   // title: string;
   title: string;
   titleSkew: string;
   private count: number;
   page: string;
+  filteredArray: Array<AllAccess>;
 
   constructor(
       private db: AngularFireDatabase,
@@ -40,19 +43,35 @@ export class AccessOrderComponent implements OnInit  {
 
   ngOnInit() {
     this.itemsAccess = this.itemSvc.getAccessList(this.title, this.titleSkew);
+    this.accessories = this.itemSvc.getAccessories();
     this.mods.currentPage.subscribe(page => this.page = page);
     this.mods.changePage('accessories');
+    this.reduceAccessories();
   }
 
+  reduceAccessories () {
+    let allAccessories: Array<Access>;
+    let optionAccess: Array<AllAccess>;
+    this.accessories.take(1).subscribe(i => {
+      allAccessories = i;
+      // console.log(i);
+      this.itemsAccess.take(1).subscribe(o => {
+        optionAccess = o;
+        // console.log(o);
+        this.filteredArray = allAccessories.filter( el => {
+          return optionAccess.some( f => {
+            return f.$key === el.$key;
+          });
+        });
+        // console.log(filteredArray);
+      });
+    });
+    return this.filteredArray;
+  }
 
 }
 
-export class Access {
-    title: string;
-    url: string;
-    price: number;
-    cost: number;
-    quantity: number;
-    option?: string;
-    location?: string;
+export interface AllAccess {
+  $key: string;
+  active: boolean;
 }

@@ -32,6 +32,7 @@ import { OrderTotalsComponent } from '../vanities/vanity-view/skews/order/order-
 import { DemoComponent } from '../demo/demo.component';
 import { ColorMedComponent } from '../vanities/vanity-view/skews/views/color-medicine.component';
 import { ConfigOrderComponent } from '../vanities/vanity-view/skews/mods/config-order.component';
+import { ConfigViewComponent } from '../vanities/vanity-view/skews/views/config-view.component';
 
 
 const routes: Routes = [
@@ -95,7 +96,8 @@ const routes: Routes = [
     OrderTotalsComponent,
     DemoComponent,
     ColorMedComponent,
-    ConfigOrderComponent
+    ConfigOrderComponent,
+    ConfigViewComponent
   ],
   providers: []
 })

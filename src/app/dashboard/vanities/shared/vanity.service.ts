@@ -20,17 +20,16 @@ export class VanityService {
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
   getItemsList(query= {}): FirebaseListObservable<Vanity[]> {
+    let active = true;
         this.vanities = this.db.list('vanities', {
-            query: {
-            }
+            query
         });
     return this.vanities;
   }
 
   getSkewsList(key: string, query= {}): FirebaseListObservable<Skews[]> {
     this.skews = this.db.list(`vanities/${key}/skews`, {
-            query: {
-            }
+            query
         });
     return this.skews;
   }

@@ -12,6 +12,7 @@ import { Sink } from '../../dashboard/sinks/shared/sink';
 import { Featurette } from '../../ui/featurette/featurette';
 import * as _ from 'lodash';
 import { ModsService } from '../vanities/vanity-view/skews/mods/mods.service';
+import { Config } from '../../dashboard/configs/shared/Config';
 
 @Injectable()
 export class SharedService {
@@ -23,6 +24,8 @@ export class SharedService {
   skews: FirebaseListObservable<Skews[]> = null; //  list of objects
   colors: FirebaseListObservable<Color[]> = null; //  list of objects
   skew: FirebaseObjectObservable<Skews> = null; //   single object
+  configs: FirebaseListObservable<Config[]>;
+  accessories: FirebaseListObservable<Access[]> = null; //  list object
   access: FirebaseObjectObservable<Access> = null; //   single object
   pantry: FirebaseObjectObservable<Pantry> = null; //   single object
   color: FirebaseObjectObservable<Color> = null; //   single object
@@ -179,6 +182,30 @@ export class SharedService {
     this.skew = this.db.object(matPath);
     console.log(this.skew);
     return this.skew;
+  }
+
+  // Return a single item
+  getConfigs(): FirebaseListObservable<Config[]> {
+    let active = true;
+        this.configs = this.db.list('configurations', {
+            query: {
+                orderByChild: 'active',
+                equalTo: active
+            }
+        });
+    return this.configs;
+  }
+
+  // Return a single item
+  getAccessories(): FirebaseListObservable<Access[]> {
+    let active = true;
+        this.accessories = this.db.list('accessories', {
+            query: {
+                orderByChild: 'active',
+                equalTo: active
+            }
+        });
+    return this.accessories;
   }
 
   // Return a single observable item

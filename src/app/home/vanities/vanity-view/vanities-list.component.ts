@@ -36,6 +36,10 @@ export class VanityListViewComponent implements OnInit {
   id: any;
   title: string;
   vanities: FirebaseListObservable<Vanity[]>;
+  query = {
+    orderByChild: 'active',
+    equalTo: true
+  };
 
   constructor(
       private route: ActivatedRoute,
@@ -46,7 +50,7 @@ export class VanityListViewComponent implements OnInit {
       ) {
         this.spinner.changeSpinner('true');
         this.title = this.route.snapshot.params.id;
-        this.vanities = this.vanitySvc.getItemsList();
+        this.vanities = this.vanitySvc.getItemsList(this.query);
 }
 
   ngOnInit() {

@@ -35,6 +35,10 @@ import { SharedService } from '../../../shared/shared.service';
 export class SkewComponent implements OnInit {
   skews: FirebaseListObservable<Skews[]>;
   title: string;
+  query = {
+    orderByChild: 'active',
+    equalTo: true
+  };
 
   constructor(
       private vanitySvc: VanityService,
@@ -47,7 +51,7 @@ export class SkewComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
-    this.skews = this.vanitySvc.getSkewsList(this.title);
+    this.skews = this.vanitySvc.getSkewsList(this.title, this.query);
     this.skews.take(1).toPromise().then((data) => this.spinner.changeSpinner('false'));
   }
 }

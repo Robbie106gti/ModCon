@@ -33,6 +33,7 @@ export class ConfigDetailComponent implements OnInit {
 
   selectedFiles: FileList;
   currentUpload: Images;
+  missing = 'https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/assets%2FnoImage-01.jpg?alt=media&token=6a82abe8-8d8b-4ad0-93c5-b6398c03fc24';
 
   constructor(
     private router: Router,
