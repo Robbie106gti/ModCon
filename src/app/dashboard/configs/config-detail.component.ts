@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConfigsService } from './shared/config.service';
-import { Config, Images } from './shared/config';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
+import { Configuration, Images } from './shared/configuration';
 
 @Component({
   selector: 'config-detail',
@@ -29,7 +29,7 @@ import { FlashMessagesService } from 'angular2-flash-messages/module';
 })
 export class ConfigDetailComponent implements OnInit {
 
-  @Input() config: Config;
+  @Input() config: Configuration;
 
   selectedFiles: FileList;
   currentUpload: Images;
@@ -78,7 +78,7 @@ export class ConfigDetailComponent implements OnInit {
     this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
   }
 
- onSelect(config: Config) {
+ onSelect(config: Configuration) {
    this.router.navigate(['dashboard/configuration', config.$key]);
   }
 }

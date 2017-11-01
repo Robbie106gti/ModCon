@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { Config, Images } from './Config';
-import { Upload } from 'app/uploads/shared/upload';
+import { Configuration, Images } from './configuration';
+import { Upload } from '../../../uploads/shared/upload';
 
 @Injectable()
 export class ConfigsService {
@@ -13,8 +13,8 @@ export class ConfigsService {
 
   private uploadTask: firebase.storage.UploadTask;
   uploads: FirebaseListObservable<Upload[]>;
-  configs: FirebaseListObservable<Config[]> = null; //  list of objects
-  config: FirebaseObjectObservable<Config> = null; //   single object
+  configs: FirebaseListObservable<Configuration[]> = null; //  list of objects
+  config: FirebaseObjectObservable<Configuration> = null; //   single object
   snapshot: any;
   title: string;
 
@@ -22,7 +22,7 @@ export class ConfigsService {
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
-  getItemsList(query={}): FirebaseListObservable<Config[]> {
+  getItemsList(query={}): FirebaseListObservable<Configuration[]> {
       this.configs = this.db.list(this.baseItem, {
             query: {
                 orderByChild: 'title'
@@ -32,7 +32,7 @@ export class ConfigsService {
   }
 
   // Return a single observable item
-  getItem(key: string): FirebaseObjectObservable<Config> {
+  getItem(key: string): FirebaseObjectObservable<Configuration> {
     const matPath =  `/${this.baseItem}/${key}`;
     console.log(matPath);
     this.config = this.db.object(matPath);
@@ -40,7 +40,7 @@ export class ConfigsService {
   }
 
   // Return a single item
-  findMatByTitle(title): FirebaseListObservable<Config[]> {
+  findMatByTitle(title): FirebaseListObservable<Configuration[]> {
         this.configs = this.db.list(this.baseItem, {
             query: {
                 orderByChild: 'title',

@@ -7,7 +7,7 @@ export class ConfigNew {
   images: Images[];
 }
 
-export class Config {
+export class Configuration {
     $key: string;
     title: string;
     body: string;

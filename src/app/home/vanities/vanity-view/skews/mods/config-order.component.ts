@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModsService } from './mods.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as _ from 'lodash';
-import { Config } from '../../../../../dashboard/configs/shared/Config';
 import { SharedService } from '../../../../shared/shared.service';
+import { Configuration } from '../../../../../dashboard/configs/shared/configuration';
 
 @Component({
   selector: 'config-order',
@@ -19,7 +19,7 @@ import { SharedService } from '../../../../shared/shared.service';
 })
 export class ConfigOrderComponent implements OnInit {
   page: string;
-  configs: FirebaseListObservable<Config[]>;
+  configs: FirebaseListObservable<Configuration[]>;
 
   constructor(
     private db: AngularFireDatabase,

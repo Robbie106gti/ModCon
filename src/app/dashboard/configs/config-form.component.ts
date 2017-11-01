@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfigNew } from './shared/config';
+import { ConfigNew } from './shared/configuration';
 import { ConfigsService } from './shared/config.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 
   <ng-template #errors>
     <p class="help is-danger">form contains errors!</p>
-  </ng-template> 
+  </ng-template>
   `,
   styles: [`
   `]

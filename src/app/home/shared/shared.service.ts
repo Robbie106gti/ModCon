@@ -12,7 +12,7 @@ import { Sink } from '../../dashboard/sinks/shared/sink';
 import { Featurette } from '../../ui/featurette/featurette';
 import * as _ from 'lodash';
 import { ModsService } from '../vanities/vanity-view/skews/mods/mods.service';
-import { Config } from '../../dashboard/configs/shared/Config';
+import { Configuration } from '../../dashboard/configs/shared/configuration';
 
 @Injectable()
 export class SharedService {
@@ -24,7 +24,7 @@ export class SharedService {
   skews: FirebaseListObservable<Skews[]> = null; //  list of objects
   colors: FirebaseListObservable<Color[]> = null; //  list of objects
   skew: FirebaseObjectObservable<Skews> = null; //   single object
-  configs: FirebaseListObservable<Config[]>;
+  configs: FirebaseListObservable<Configuration[]>;
   accessories: FirebaseListObservable<Access[]> = null; //  list object
   access: FirebaseObjectObservable<Access> = null; //   single object
   pantry: FirebaseObjectObservable<Pantry> = null; //   single object
@@ -185,7 +185,7 @@ export class SharedService {
   }
 
   // Return a single item
-  getConfigs(): FirebaseListObservable<Config[]> {
+  getConfigs(): FirebaseListObservable<Configuration[]> {
     let active = true;
         this.configs = this.db.list('configurations', {
             query: {

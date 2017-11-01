@@ -15,7 +15,7 @@ import { Accessory } from '../../../../../state/config/sku.model';
 import * as SkuActions from '../../../../../state/config/sku.actions';
 import { Observable } from 'rxjs/Observable';
 import { Color } from '../../../../../dashboard/materials/shared/material';
-import { Config } from '../../../../../dashboard/configs/shared/Config';
+import { Configuration } from '../../../../../dashboard/configs/shared/configuration';
 
 @Component({
   selector: 'config-view',
@@ -78,7 +78,7 @@ import { Config } from '../../../../../dashboard/configs/shared/Config';
 })
 
 export class ConfigViewComponent implements OnInit {
-  @Input() config: Config;
+  @Input() config: Configuration;
   optionForm: FormGroup;
   medModal: boolean = false;
   option: any;
