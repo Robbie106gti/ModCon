@@ -14,6 +14,7 @@ import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Sum } from '../../../../../state/sum/sum.model';
+import { Option, Default } from '../../../../options/option';
 
 @Component({
   selector: 'skew-list',
@@ -23,6 +24,8 @@ import { Sum } from '../../../../../state/sum/sum.model';
 export class SkewsListComponent implements OnInit {
   skews: FirebaseListObservable<Skews[]>;
   @Input() accesss: Access;
+  @Input() options: Option[];
+  @Input() defaults: Default[];
   tops: FirebaseListObservable<Top[]>;
   numbers: any;
   title: string;

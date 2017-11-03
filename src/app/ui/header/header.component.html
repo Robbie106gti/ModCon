@@ -1,87 +1,88 @@
 <nav class="navbar navbar-default" *ngIf="user$ | async as user">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header"> 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['']">ModCon</a>
+            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['']">ModCon</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a [routerLink]="['/home/vanities']" routerLinkActive="active">Vanities</a></li>
+                <li class="dropdown" *ngIf="!user.uid; else dashboard">
+                </li>
+            </ul>
+            <app-login></app-login>
+        </div>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/home/vanities']" routerLinkActive="active">Vanities</a></li>
-        <li class="dropdown" *ngIf="!user.uid; else dashboard">        
-        </li>  
-      </ul>
-      <app-login></app-login>
-    </div>
-  </div>
+    <ng-template #dashboard>
+        <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboard <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
+                <li role="separator" class="divider"></li>
+                <li *ngIf="user.zone !== 'admin'; else admin"></li>
+                <li *ngIf="user.zone !== 'nickel'; else nickel"></li>
+                <li *ngIf="user.zone !== 'orderDesk'; else orderdesk"></li>
+                <li *ngIf="user.zone !== 'new'; else new"></li>
+                <li *ngIf="user.zone !== 'dealer'; else dealer"></li>
+            </ul>
+        </li>
+    </ng-template>
 
-  <ng-template #dashboard>
-    <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboard <span class="caret"></span></a>
-      <ul class="dropdown-menu" >    
-        <li><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
-        <li role="separator" class="divider"></li>      
-        <li *ngIf="user.zone !== 'admin'; else admin"></li>
-        <li *ngIf="user.zone !== 'nickel'; else nickel"></li>
-        <li *ngIf="user.zone !== 'orderDesk'; else orderdesk"></li>
-        <li *ngIf="user.zone !== 'new'; else new"></li>
-        <li *ngIf="user.zone !== 'dealer'; else dealer"></li>
-      </ul>
-    </li> 
-  </ng-template>
+    <ng-template #admin>
+        <li><a [routerLink]="['/dashboard/vanities']" routerLinkActive="active">Vanities</a></li>
+        <li><a [routerLink]="['/dashboard/home']" routerLinkActive="active">Home edits</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/counters']" routerLinkActive="active">Counter Materials</a></li>
+        <li><a [routerLink]="['/dashboard/materials']" routerLinkActive="active">Vanity Materials</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/accessories']" routerLinkActive="active">Accessories</a></li>
+        <li><a [routerLink]="['/dashboard/configurations']" routerLinkActive="active">Configurations</a></li>
+        <li><a [routerLink]="['/dashboard/counter-tops']" routerLinkActive="active">Counter Tops</a></li>
+        <li><a [routerLink]="['/dashboard/sinks']" routerLinkActive="active">Sinks</a></li>
+        <li><a [routerLink]="['/dashboard/pantries']" routerLinkActive="active">Pantries</a></li>
+        <li><a [routerLink]="['/dashboard/options']" routerLinkActive="active">Options</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
+        <li><a [routerLink]="['/dashboard/orderdesk']" routerLinkActive="active">Orders in processing</a></li>
+        <li><a [routerLink]="['/dashboard/items']" routerLinkActive="active">Items</a></li>
+        <li><a [routerLink]="['/dashboard/states']" routerLinkActive="active">Statistics</a></li>
+        <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
+        <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
+    </ng-template>
 
-  <ng-template #admin>  
-      <li><a [routerLink]="['/dashboard/vanities']" routerLinkActive="active">Vanities</a></li>
-      <li><a [routerLink]="['/dashboard/home']" routerLinkActive="active">Home edits</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a [routerLink]="['/dashboard/counters']" routerLinkActive="active">Counter Materials</a></li>
-      <li><a [routerLink]="['/dashboard/materials']" routerLinkActive="active">Vanity Materials</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a [routerLink]="['/dashboard/accessories']" routerLinkActive="active">Accessories</a></li>
-      <li><a [routerLink]="['/dashboard/configurations']" routerLinkActive="active">Configurations</a></li>
-      <li><a [routerLink]="['/dashboard/counter-tops']" routerLinkActive="active">Counter Tops</a></li>
-      <li><a [routerLink]="['/dashboard/sinks']" routerLinkActive="active">Sinks</a></li>
-      <li><a [routerLink]="['/dashboard/pantries']" routerLinkActive="active">Pantries</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
-      <li><a [routerLink]="['/dashboard/orderdesk']" routerLinkActive="active">Orders in processing</a></li>
-      <li><a [routerLink]="['/dashboard/items']" routerLinkActive="active">Items</a></li>
-      <li><a [routerLink]="['/dashboard/states']" routerLinkActive="active">Statistics</a></li>
-      <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
-      <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
-  </ng-template>
+    <ng-template #orderdesk>
+        <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
+        <li><a [routerLink]="['/dashboard/orderdesk']" routerLinkActive="active">Orders in processing</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
+        <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
+    </ng-template>
 
-  <ng-template #orderdesk>  
-    <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
-    <li><a [routerLink]="['/dashboard/orderdesk']" routerLinkActive="active">Orders in processing</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
-    <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
-  </ng-template>
+    <ng-template #dealer>
+        <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
+    </ng-template>
 
-  <ng-template #dealer>  
-    <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
-  </ng-template>
+    <ng-template #nickel>
+        <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
+        <li><a [routerLink]="['/dashboard/items']" routerLinkActive="active">Items</a></li>
+        <li><a [routerLink]="['/dashboard/states']" routerLinkActive="active">Statistics</a></li>
+        <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
+    </ng-template>
 
-  <ng-template #nickel>  
-    <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
-    <li><a [routerLink]="['/dashboard/items']" routerLinkActive="active">Items</a></li>
-    <li><a [routerLink]="['/dashboard/states']" routerLinkActive="active">Statistics</a></li>
-    <li><a [routerLink]="['/dashboard/pricelist']" routerLinkActive="active">Price-list</a></li>
-  </ng-template>
-
-  <ng-template #new>  
-    <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
-    <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
-  </ng-template>
+    <ng-template #new>
+        <li><a [routerLink]="['/dashboard/messages']" routerLinkActive="active">Messages</a></li>
+        <li><a [routerLink]="['/dashboard/orders']" routerLinkActive="active">My Orders</a></li>
+    </ng-template>
 </nav>

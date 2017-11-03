@@ -1,101 +1,101 @@
 <div *ngFor="let instance of instance | async">
-  <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
-    <div class="thumbnail">
-      <img src="{{ instance.images.mainImg.url || 'sorry wrong url' }}" alt="{{ instance.title || 'missing title' }}" >
-      <div class="caption">
-        <h3>Edit {{ instance.title || 'missing title' }}</h3>
-        <p>...</p>
-        <hr>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+        <div class="thumbnail">
+            <img src="{{ instance.images.mainImg.url || 'sorry wrong url' }}" alt="{{ instance.title || 'missing title' }}">
+            <div class="caption">
+                <h3>Edit {{ instance.title || 'missing title' }}</h3>
+                <p>...</p>
+                <hr>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-linode" aria-hidden="true"></i> Skews
             <span class="badge"><small>{{(skews | async)?.length}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let skew of skews | async">
-                <span type="button" class="btn btn-xs"  >
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let skew of skews | async">
+                            <span type="button" class="btn btn-xs">
                 <label for='{{skew.title}}'>
                     <i class="fa fa-toggle-on" *ngIf='skew.active' aria-hidden="true"></i>
                     <i class="fa fa-toggle-off" *ngIf='!skew.active' aria-hidden="true"></i>
                     <span class='label-content'>{{skew.title}}</span>
-                </label>
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </label>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-mobile" aria-hidden="true"></i> Pantries
             <span class="badge"><small>{{countNrs('pantries')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <pantry-edit *ngFor="let pantry of pantries | async" [pantry]="pantry">
-              </pantry-edit>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <pantry-edit *ngFor="let pantry of pantries | async" [pantry]="pantry">
+                        </pantry-edit>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cube" aria-hidden="true"></i> Accessories
             <span class="badge"><small>{{countNrs('accessories')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let access of accesss | async"><a>{{access.title}}</a></li>
-            </ul>
-          </div>
-        <hr>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let access of accesss | async"><a>{{access.title}}</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-tint" aria-hidden="true"></i> Paint
             <span class="badge"><small>{{countNrs('materials/Paint/colors')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <color-edit *ngFor="let color of paints | async" [color]="color"></color-edit>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <color-edit *ngFor="let color of paints | async" [color]="color"></color-edit>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-tint" aria-hidden="true"></i> Wood
             <span class="badge"><small>{{countNrs('materials/Wood/colors')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <color-edit *ngFor="let color of woods | async" [color]="color"></color-edit>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <color-edit *ngFor="let color of woods | async" [color]="color"></color-edit>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-tint" aria-hidden="true"></i> Textured Melamine
             <span class="badge"><small>{{countNrs('materials/Textured Melamine/colors')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <color-edit *ngFor="let color of tms | async" [color]="color"></color-edit>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <color-edit *ngFor="let color of tms | async" [color]="color"></color-edit>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-tint" aria-hidden="true"></i> Euro Materials
             <span class="badge"><small>{{countNrs('materials/Euro Materials/colors')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <color-edit *ngFor="let color of ems | async" [color]="color"></color-edit>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <ul class="dropdown-menu">
+                        <color-edit *ngFor="let color of ems | async" [color]="color"></color-edit>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-minus" aria-hidden="true"></i> Counter Materials
             <span class="badge"><small>{{countNrs('counters')}}</small></span>
             </button>
-            <ul class="dropdown-menu">
-              <counter-edit *ngFor="let counter of counters | async" [counter]="counter"></counter-edit>
-            </ul>
-          </div>
-        <p>Active:  {{ instance.active || 'missing Active' }}  |  TimeStamp:  {{ instance.timeStamp | date:'medium' }}</p>    
-        <span type="button" class="btn btn-info btn-xs" (click)='updateTimeStamp()'><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
-        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>    
-      </div>
+                    <ul class="dropdown-menu">
+                        <counter-edit *ngFor="let counter of counters | async" [counter]="counter"></counter-edit>
+                    </ul>
+                </div>
+                <p>Active: {{ instance.active || 'missing Active' }} | TimeStamp: {{ instance.timeStamp | date:'medium' }}</p>
+                <span type="button" class="btn btn-info btn-xs" (click)='updateTimeStamp()'><i class="fa fa-hourglass-start" aria-hidden="true"></i></span>
+                <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-sm-6 col-md-8 col-xs-12 col-lg-9">
-    <skew-form></skew-form>
-    <skew-list [accesss]="accesss"></skew-list>
-  </div>
+    <div class="col-sm-6 col-md-8 col-xs-12 col-lg-9">
+        <skew-form></skew-form>
+        <skew-list [accesss]="accesss" [defaults]="defaults" [options]="options"></skew-list>
+    </div>
 </div>

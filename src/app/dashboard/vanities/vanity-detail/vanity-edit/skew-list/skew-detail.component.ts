@@ -17,6 +17,7 @@ import { Numbers } from '../../../../../home/shared/shared';
 import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
 import { Sum } from '../../../../../state/sum/sum.model';
+import { Option, Default } from '../../../../options/option';
 
 @Component({
   selector: 'skew-detail',
@@ -28,6 +29,8 @@ export class SkewDetailComponent implements OnInit {
   @Input() skew: Skews;
   @Input() accesss: Access;
   @Input() tops: Top;
+  @Input() options: Option[];
+  @Input() defaults: Default[];
   numbers: any[];
   title: string;
   item: any;

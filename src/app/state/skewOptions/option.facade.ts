@@ -9,32 +9,32 @@ import { of } from 'rxjs/observable/of';
 import '../../utils/rxjs.operators';
 
 import { AppState } from '../state';
-import { Sum } from './sum.model';
-import * as sumActions from './sum.actions';
-import { SumQuery } from './sum.reducer';
+import { Option } from './option.model';
+import * as optionActions from './option.actions';
+import { OptionQuery } from './option.reducer';
 
-type Action = sumActions.All;
+type Action = optionActions.All;
 
 
 @Injectable()
-export class SumFacade {
+export class OptionFacade {
 
   // ************************************************
   // Observable Queries available for consumption by views
   // ************************************************
 
-  sum$ = this.store.select(SumQuery.getSum);
+  option$ = this.store.select(OptionQuery.getOption);
 
   // ************************************************
   // Effects to be registered at the Module level
   // ************************************************
 
   @Effect()
-  getSum$: Observable<Action> = this.actions$.ofType(sumActions.GET_SUM)
-    .map((action: sumActions.GetSum) => action.payload )
-    .mergeMap( () => this.db.object(`/numbers`))
-    .map(sum => {
-      return new sumActions.GetSumSuccess(sum);
+  getOption$: Observable<Action> = this.actions$.ofType(optionActions.GET_OPTION)
+    .map((action: optionActions.GetOption) => action.payload )
+    .mergeMap( () => this.db.object(`/options`))
+    .map(option => {
+      return new optionActions.GetOptionSuccess(option);
     });
 
   // ************************************************
@@ -47,9 +47,9 @@ export class SumFacade {
     private db: AngularFireDatabase
     ) { }
 
-    loadSum(): Observable<Sum> {
-        this.store.dispatch(new sumActions.GetSum());
-        return this.sum$;
+    loadOption(): Observable<Option> {
+        this.store.dispatch(new optionActions.GetOption());
+        return this.option$;
       }
 
 }

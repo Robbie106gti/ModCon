@@ -15,10 +15,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { skuReducer } from './config/sku.reducer';
 import { userReducer } from './user/user.reducer';
 import { sumReducer } from './sum/sum.reducer';
+import { optionReducer } from './skewOptions/option.reducer';
+import { accessReducer } from './accessories/access.reducer';
+import { countersReducer } from './counters/counters.reducer';
 
 import { SkuFacade } from './config/sku.facade';
 import { UserFacade } from './user/user.facade';
 import { SumFacade } from './sum/sum.facade';
+import { OptionFacade } from './skewOptions/option.facade';
+import { AccessFacade } from './accessories/access.facade';
+import { CountersFacade } from './counters/counters.facade';
 
 import { environment } from '../../environments/environment';
 
@@ -33,14 +39,20 @@ export const firebaseConfig = environment.firebaseConfig;
     EffectsModule.forRoot([
       UserFacade,
       SkuFacade,
-      SumFacade
+      SumFacade,
+      OptionFacade,
+      AccessFacade,
+      CountersFacade
     ]),
 
     // Signature matches AppState interface
     StoreModule.forRoot({
       sku: skuReducer,
       sum: sumReducer,
-      user: userReducer
+      user: userReducer,
+      options: optionReducer,
+      access: accessReducer,
+      counters: countersReducer
     }),
 
     StoreDevtoolsModule.instrument({ maxAge: 25 })
@@ -48,7 +60,10 @@ export const firebaseConfig = environment.firebaseConfig;
   providers: [
       UserFacade,
       SkuFacade,
-      SumFacade
+      SumFacade,
+      OptionFacade,
+      AccessFacade,
+      CountersFacade
   ],
 })
 export class AppStateModule { }

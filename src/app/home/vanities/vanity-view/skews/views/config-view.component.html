@@ -1,0 +1,40 @@
+<div *ngIf="config as a" class="glass">
+    <form [formGroup]="optionForm" (ngSubmit)="addAcc(optionForm.value)" class="form-group">
+        <div class="v-wrap" (click)="modalOpen(a)">
+            <div class="image">
+                <img class="access" src="{{ a.images?.mainImg.url || '#none'}}">
+            </div>
+            <div class="caption">
+                <h3>{{ a.title }}</h3>
+                <hr>
+                <div class="button">
+                    <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="modal.value === a.title" class="modal epad">
+            <div class="jumbotron jumbotronMed notification">
+                <button class="delete" (click)="modalClose()"></button>
+                <div class="medWrap">
+                    <div class="medContent">
+                        <div class="medCon">
+                            <div class="image">
+                                <img class="access" src="{{ a.images?.mainImg.url || '#none'}}">
+                            </div>
+                            <div class="caption">
+                                <h3>{{ a?.title }}</h3>
+                                <label>Option: </label><span> {{ optionForm.value.option?.title }} - {{ optionForm.value.color?.title }}</span>
+                                <hr>
+                            </div>
+                            <div class="button">
+                                <button class="btn btn-sm btn-success right" [disabled]="!optionForm.value.option.title" type="submit">add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medColors">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

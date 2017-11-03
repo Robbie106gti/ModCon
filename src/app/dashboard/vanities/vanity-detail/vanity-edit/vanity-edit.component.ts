@@ -14,6 +14,8 @@ import { CounterService } from 'app/dashboard/counters/shared/counter.service';
 import { MatService } from 'app/dashboard/materials/shared/materials.service';
 import { Color } from 'app/dashboard/materials/shared/material';
 import * as _ from 'lodash';
+import { Option, Default } from '../../../options/option';
+import { OptionsService } from '../../../options/options.service';
 
 @Component({
   selector: 'vanity-edit',
@@ -32,6 +34,8 @@ export class VanityEditComponent implements OnInit {
   skews: FirebaseListObservable<Skews[]>;
   pantries: FirebaseListObservable<Pantry[]>;
   accesss: FirebaseListObservable<Access[]>;
+  options: FirebaseListObservable<Option[]> = null; //  list of objects
+  defaults: FirebaseListObservable<Default[]> = null; //  list of objects
 
   counters: FirebaseListObservable<Counter[]>;
   paints: FirebaseListObservable<Color[]>;
@@ -47,6 +51,7 @@ export class VanityEditComponent implements OnInit {
     private accessSvc: AccessService,
     private counterSvc: CounterService,
     private db: AngularFireDatabase,
+    private optionSvc: OptionsService,
     private matSvc: MatService
       ) {
         this.title = this.route.snapshot.params.id;
@@ -54,6 +59,8 @@ export class VanityEditComponent implements OnInit {
         this.skews = this.vanitySvc.getSkewsList(this.title);
         this.pantries = this.pantrySvc.getItemsList();
         this.accesss = this.accessSvc.getItemsList();
+        this.options = this.optionSvc.getOptions();
+        this.defaults = this.optionSvc.getDefaults();
         this.counters = this.counterSvc.getItemsList();
         this.paints = this.matSvc.getColorsList('Paint');
         this.woods = this.matSvc.getColorsList('Wood');

@@ -84,6 +84,11 @@ import { ReadMessageComponent } from '../messages/read-message/read-message.comp
 import { HomeEditsComponent } from '../home/home.component';
 import { UserPipe } from '../../users/user/user.pipe';
 import { ThreadMessageComponent } from '../messages/thread-message/thread-message.component';
+import { OptionsComponent } from '../options/options.component';
+import { OptionDetailComponent } from '../options/option-detail.component';
+import { OptionFormComponent } from '../options/option-form.component';
+import { OptionEditComponent } from '../vanities/vanity-detail/vanity-edit/list-item/option-edit.component';
+import { DefaultEditComponent } from '../vanities/vanity-detail/vanity-edit/list-item/default-edit.component';
 
 const routes: Routes = [
   { path: '',
@@ -98,23 +103,18 @@ const routes: Routes = [
     { path: 'material/:id', component: MaterialEditComponent },
     { path: 'counters', component: CountersComponent },
     { path: 'home', component: HomeEditsComponent },
-    // { path: 'counter/:id', component: CounterEditComponent },
     { path: 'configurations', component: ConfigsComponent },
-    // { path: 'configuration/:id', component: ConfigEditComponent },
     { path: 'accessories', component: AccessComponent },
-    // { path: 'accessory/:id', component: AccessEditComponent },
     { path: 'pantries', component: PantriesComponent },
-    // { path: 'pantry/:id', component: PantryEditComponent },
     { path: 'counter-tops', component: TopsComponent },
-    // { path: 'counter-top/:id', component: TopEditComponent },
     { path: 'items', component: ItemsListComponent },
     { path: 'pricelist', component: PricelistComponent },
+    { path: 'options', component: OptionsComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'orderdesk', component: OrderDeskComponent },
     { path: 'sinks', component: SinksComponent },
     { path: 'messages', component: MessagesComponent },
     { path: 'favorites', component: FavoritesComponent }
-    // { path: 'sink/:id', component: SinkEditComponent },
     ]
   }
 ];
@@ -204,7 +204,12 @@ const routes: Routes = [
     FavoritesComponent,
     HomeEditsComponent,
     UserPipe,
-    ThreadMessageComponent
+    ThreadMessageComponent,
+    OptionsComponent,
+    OptionDetailComponent,
+    OptionFormComponent,
+    DefaultEditComponent,
+    OptionEditComponent
   ]
 })
 export class DashboardRoutingModule {}

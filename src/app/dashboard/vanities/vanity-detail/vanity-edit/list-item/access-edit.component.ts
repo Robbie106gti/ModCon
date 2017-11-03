@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Accesss } from 'app/dashboard/access/shared/access';
-import { AccessService } from 'app/dashboard/access/shared/access.service';
-import { Skews } from 'app/dashboard/vanities/shared/vanity';
 import * as _ from 'lodash';
+import { Skews } from '../../../shared/vanity';
+import { AccessService } from '../../../../access/shared/access.service';
+import { Accesss } from '../../../../access/shared/access';
 
 @Component({
   selector: 'access-edit',
@@ -67,7 +67,7 @@ export class AccessEditComponent implements OnInit {
       return this.info;
   }
 
-  updateActiveAccess(value: boolean) { 
+  updateActiveAccess(value: boolean) {
     // console.log('Access: ' + this.access.$key + ', Skew: ' + this.skew.$key + ', title: ' + this.title);
     if (value === true) {
         this.accessSvc.updateAccess(this.access.$key, this.skew.$key, this.title);

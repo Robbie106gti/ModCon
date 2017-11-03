@@ -61,6 +61,7 @@ import { OrderService } from './home/vanities/vanity-view/skews/order/order.serv
 import { MessagingService } from './users/shared/messaging.service';
 import { AppStateModule } from './state/state.module';
 import { FavoritesService } from './dashboard/favorites/favorites.service';
+import { OptionsService } from './dashboard/options/options.service';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { FavoritesService } from './dashboard/favorites/favorites.service';
     OrderIdService,
     OrderService,
     MessagingService,
-    FavoritesService
+    FavoritesService,
+    OptionsService
     ],
   bootstrap: [ AppComponent ]
 })

@@ -19,68 +19,14 @@ import { Configuration } from '../../../../../dashboard/configs/shared/configura
 
 @Component({
   selector: 'config-view',
-  template: `
-  <div *ngIf="config as a" class="glass">
-  <form [formGroup]="optionForm" (ngSubmit)="addAcc(optionForm.value)" class="form-group">
-    <div class="v-wrap" *ngIf="a?.title !== 'Medicine Cabinet'; else med">
-        <div class="image">
-          <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
-        </div>
-        <div class="caption">
-        <h3>{{ a.title }}</h3>
-          <hr>
-          <div class="button">
-            <button class="btn btn-sm btn-success right" [disabled]="optionForm.controls['option'].pristine" type="submit">add</button>
-          </div>
-        </div>
-    </div>
-    <ng-template #med>
-    <div class="alert">
-      <div class="image" (click)="modal()">
-        <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
-      </div>
-      <div class="caption" (click)="modal()">
-        <h3>{{ a?.title}}</h3>
-        <hr>
-      </div>
-      <div class="button">
-      </div>
-      </div>
-      <div *ngIf="medModal" class="modal epad">
-        <div class="jumbotron jumbotronMed notification">
-          <button class="delete" (click)="modalClose()"></button>
-          <div class="medWrap">
-            <div class="medContent">
-              <div class="medCon">
-                <div class="image">
-                  <img class="access" src="{{ a.images?.mainImg.url || '#none'}}" >
-                </div>
-                <div class="caption">
-                  <h3>{{ a?.title }}</h3>
-                  <label>Option: </label><span> {{ optionForm.value.option?.title }} - {{ optionForm.value.color?.title }}</span>
-                  <hr>
-                </div>
-                <div class="button">
-                  <button class="btn btn-sm btn-success right" [disabled]="!optionForm.value.option.title" type="submit">add</button>
-                </div>
-              </div>
-            </div>
-            <div class="medColors">
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-    </form>
-  </div>
-  `,
+  templateUrl: './config-view.component.html',
   styleUrls: ['../order/order.component.css']
 })
 
 export class ConfigViewComponent implements OnInit {
   @Input() config: Configuration;
   optionForm: FormGroup;
-  medModal: boolean = false;
+  modal = { value: 'none' };
   option: any;
   accessories$: any;
 
@@ -100,7 +46,7 @@ export class ConfigViewComponent implements OnInit {
       });
       this.accessories$ = this.store.select(state => state.sku.accessories);
       this.option = this.optionForm.controls['option'];
-}
+  }
 
   ngOnInit() {
   }
@@ -110,12 +56,12 @@ export class ConfigViewComponent implements OnInit {
       this.modalClose();
   }
 
-  modal() {
-    this.medModal = true;
+  modalOpen(value) {
+    this.modal.value = value.title;
   }
 
   modalClose() {
-    this.medModal = false;
+    this.modal.value = 'none';
   }
 
 }
