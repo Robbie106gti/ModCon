@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-magic" aria-hidden="true"></i>
     <input placeholder="Accessories Title" name="titleJS" class="input" [(ngModel)]="access.title"
-    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddAccess').click()" 
+    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddAccess').click()"
    required minlength="2" maxlength="23" #title='ngModel' autofocus>
     </span>
     <button id="btnAddAccess" class="btn btn-success" (click)='createItem()' [disabled]="!title.valid">Add</button>
@@ -24,20 +24,15 @@ import { ActivatedRoute } from '@angular/router';
 
   <ng-template #errors>
     <p class="help is-danger">form contains errors!</p>
-  </ng-template> 
+  </ng-template>
   `,
-  styles: [`
-  `]
+  styles: [``]
 })
 export class AccessFormComponent implements OnInit {
-
   access: AccessNew = new AccessNew();
   title: string;
 
-  constructor(
-      private Accessvc: AccessService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private Accessvc: AccessService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -48,5 +43,4 @@ export class AccessFormComponent implements OnInit {
     this.Accessvc.updateItem(this.access.title, { title: this.access.title });
     this.access = new AccessNew(); // reset item
   }
-
 }

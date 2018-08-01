@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Option } from './option';
 import { OptionsService } from './options.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -31,54 +30,53 @@ import { Images } from '../access/shared/access';
   </div>
 </div>
   `,
-  styles: [`
-    label {
-      cursor: pointer;
-      /* Style as you please, it will become the visible UI component. */
-    }
+  styles: [
+    `
+      label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+      }
 
-    .upload-photo {
-      opacity: 0;
-      display: none;
-      position: absolute;
-      z-index: -1;
-    }
+      .upload-photo {
+        opacity: 0;
+        display: none;
+        position: absolute;
+        z-index: -1;
+      }
 
-    .MatImg {
+      .MatImg {
         max-height: 50px;
         float: right;
-    }
-  `]
+      }
+    `
+  ]
 })
 export class OptionDetailComponent implements OnInit {
   @Input() option: Option;
 
-    selectedFiles: FileList;
-    currentUpload: Images;
+  selectedFiles: FileList;
+  currentUpload: Images;
 
-  constructor(
-      private optionSvc: OptionsService,
-      public flashMessage: FlashMessagesService
-      ) { }
+  constructor(private optionSvc: OptionsService, public flashMessage: FlashMessagesService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-    updateActive(value: boolean) {
-      this.optionSvc.updateItem(this.option.$key, { active: value });
-    }
+  updateActive(value: boolean) {
+    this.optionSvc.updateItem(this.option.$key, { active: value });
+  }
 
-    deleteItem() {
-      this.optionSvc.deleteItem(this.option.$key);
-    }
+  deleteItem() {
+    this.optionSvc.deleteItem(this.option.$key);
+  }
 
-    detectFiles(event) {
-        this.selectedFiles = event.target.files;
-    }
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+  }
 
-    uploadSingle() {
-      let file = this.selectedFiles.item(0);
-      this.currentUpload = new Images(file);
-      this.optionSvc.pushUploadImg(this.option.$key, this.currentUpload);
-      this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
-    }
+  uploadSingle() {
+    const file = this.selectedFiles.item(0);
+    this.currentUpload = new Images(file);
+    this.optionSvc.pushUploadImg(this.option.$key, this.currentUpload);
+    this.flashMessage.show('Image uploading', { cssClass: 'alert-info', timeout: 3000 });
+  }
 }

@@ -1,14 +1,17 @@
 .btn-group {
-    padding: 1px;
+  padding: 1px;
 }
-input[type='checkbox'].tags-checkbox:checked + label > i:first-of-type,
-input[type='checkbox'].tags-checkbox + label > i:last-of-type{
-    display: none;
+
+input[type='checkbox'].tags-checkbox:checked+label>i:first-of-type,
+input[type='checkbox'].tags-checkbox+label>i:last-of-type {
+  display: none;
 }
-input[type='checkbox'].tags-checkbox:checked + label > i:last-of-type{
-    display: inline-block;
+
+input[type='checkbox'].tags-checkbox:checked+label>i:last-of-type {
+  display: inline-block;
 }
+
 li:hover {
-    cursor: pointer;
-    background-color: #647DB3;
+  cursor: pointer;
+  background-color: #647DB3;
 }

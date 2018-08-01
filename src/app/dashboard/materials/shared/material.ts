@@ -6,16 +6,17 @@ export class MatNew {
   timeStamp: Date = new Date();
   colors: Color[];
   images: Images[];
+  errors?: any;
 }
 
 export class Mat {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    colors: Color[];
-    images: Images[];
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  colors: Color[];
+  images: Images[];
 }
 
 export class Images {
@@ -31,15 +32,15 @@ export class Images {
 }
 
 export class Color {
-    $key: string;
-    title: string;
-    color: any;
-    active = true;
-    price: string;
-    material: string;
-    vanities: Vanities[];
-    timeStamp: Date = new Date();
-    image: ColorImg[];
+  $key: string;
+  title: string;
+  color: any;
+  active = true;
+  price: string;
+  material: string;
+  vanities: Vanities[];
+  timeStamp: Date = new Date();
+  image: ColorImg[];
 }
 
 export class Vanities {
@@ -47,11 +48,11 @@ export class Vanities {
 }
 
 export class ColorNew {
-    $key: string;
-    title: string;
-    active = false;
-    timeStamp: Date = new Date();
-    image: ColorImg[];
+  $key: string;
+  title: string;
+  active = false;
+  timeStamp: Date = new Date();
+  image: ColorImg[];
 }
 
 export class ColorImg {

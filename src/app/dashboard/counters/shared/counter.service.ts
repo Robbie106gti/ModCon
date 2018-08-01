@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Counter, Images } from './counter';
-import { Upload } from 'app/uploads/shared/upload';
+import { Upload } from '../../../uploads/shared/upload';
 
 @Injectable()
 export class CounterService {
-
   private basePath = 'uploads';
   private baseItem = 'counters';
 
@@ -18,22 +16,22 @@ export class CounterService {
   snapshot: any;
   title: string;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {}
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
-  getItemsList(query={}): FirebaseListObservable<Counter[]> {
-      this.counters = this.db.list(this.baseItem, {
-            query: {
-                orderByChild: 'title'
-            }
-        });
+  getItemsList(query = {}): FirebaseListObservable<Counter[]> {
+    this.counters = this.db.list(this.baseItem, {
+      query: {
+        orderByChild: 'title'
+      }
+    });
     return this.counters;
   }
 
   // Return a single observable item
   getItem(key: string): FirebaseObjectObservable<Counter> {
-    const matPath =  `/${this.baseItem}/${key}`;
+    const matPath = `/${this.baseItem}/${key}`;
     console.log(matPath);
     this.counter = this.db.object(matPath);
     return this.counter;
@@ -41,44 +39,50 @@ export class CounterService {
 
   // Return a single item
   findMatByTitle(title): FirebaseListObservable<Counter[]> {
-        this.counters = this.db.list(this.baseItem, {
-            query: {
-                orderByChild: 'title',
-                equalTo: title
-            }
-        });
+    this.counters = this.db.list(this.baseItem, {
+      query: {
+        orderByChild: 'title',
+        equalTo: title
+      }
+    });
     return this.counters;
   }
 
   // Create item or Update an exisiting item
   updateItem(key: string, value: any): void {
-    this.counters.update(key, value)
-      .catch(error => this.handleError(error));
+    this.counters.update(key, value).catch(error => this.handleError(error));
   }
 
   // Deletes a single item
   deleteItem(key: string): void {
-      this.counters.remove(key)
-        .catch(error => this.handleError(error));
+    this.counters.remove(key).catch(error => this.handleError(error));
   }
 
   updateCounterAv(key: string, title: string): void {
-    let path = `counters/${key}/vanities`;
-    let path2 = `vanities/${title}/counters`;
-    let value = {[title]: true};
-    let value2 = {[key]: true};
-    this.db.object(path).update(value)
+    const path = `counters/${key}/vanities`;
+    const path2 = `vanities/${title}/counters`;
+    const value = { [title]: true };
+    const value2 = { [key]: true };
+    this.db
+      .object(path)
+      .update(value)
       .catch(error => console.log(error));
-    this.db.object(path2).update(value2)
+    this.db
+      .object(path2)
+      .update(value2)
       .catch(error => console.log(error));
   }
 
   delCounterAv(key: string, title: string): void {
-    let path = `counters/${key}/vanities/${title}`;
-    let path2 = `vanities/${title}/counters/${key}`;
-    this.db.object(path).remove()
+    const path = `counters/${key}/vanities/${title}`;
+    const path2 = `vanities/${title}/counters/${key}`;
+    this.db
+      .object(path)
+      .remove()
       .catch(error => console.log(error));
-    this.db.object(path2).remove()
+    this.db
+      .object(path2)
+      .remove()
       .catch(error => console.log(error));
   }
 
@@ -86,15 +90,16 @@ export class CounterService {
   pushUploadMainImg(key: string, images: Images) {
     // console.log(key);
     // console.log(images);
-    let storageRef = firebase.storage().ref();
+    const storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/${this.baseItem}/${images.file.name}`).put(images.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      snapshot => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
         console.log(error);
       },
@@ -109,8 +114,8 @@ export class CounterService {
 
   // Writes the file details to the realtime db
   private saveFileData(key: string, images: Images) {
-    let id = 'mainImg';
-    this.db.list(`${this.baseItem}/${key}/images`).update(id,  images);
+    const id = 'mainImg';
+    this.db.list(`${this.baseItem}/${key}/images`).update(id, images);
   }
 
   // Writes the file details to the realtime db
@@ -121,7 +126,7 @@ export class CounterService {
   // Firebase files must have unique names in their respective storage dir
   // So the name serves as a unique key
   private deleteFileStorage(name: string) {
-    let storageRef = firebase.storage().ref();
+    const storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${this.baseItem}/${name}`).delete();
   }
 
@@ -129,5 +134,4 @@ export class CounterService {
   private handleError(error) {
     console.log(error);
   }
-
 }

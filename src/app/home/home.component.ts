@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SpinnerService } from '../ui/loading-spinner/spinner.service';
 
 @Component({
@@ -8,13 +7,9 @@ import { SpinnerService } from '../ui/loading-spinner/spinner.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(
-    private spinner: SpinnerService
-    ) { }
+  constructor(private spinner: SpinnerService) {}
 
   ngOnInit() {
     this.spinner.changeSpinner('true');
   }
-
 }

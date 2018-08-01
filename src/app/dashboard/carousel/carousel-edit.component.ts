@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Slides } from 'app/home/shared/shared';
-import { HomeService } from 'app/dashboard/shared/home.service';
+import { FirebaseListObservable } from 'angularfire2/database';
+import { Slides } from '../../home/shared/shared';
+import { HomeService } from '../../dashboard/shared/home.service';
 
 @Component({
   selector: 'carousel-edit',
@@ -16,23 +16,26 @@ import { HomeService } from 'app/dashboard/shared/home.service';
     <br>
     <ul>
       <carousel-list *ngFor="let slide of slides | async" [slide]='slide'></carousel-list>
-    </ul> 
+    </ul>
   </div>
 `
 })
-export class CarouselEditComponent implements OnInit  {
+export class CarouselEditComponent implements OnInit {
   slides: FirebaseListObservable<Slides[]>;
 
-  constructor(
-  private home: HomeService
-  ) { }
+  constructor(private home: HomeService) {}
 
-ngOnInit() {
-  this.slides = this.home.getSlides();
-}
+  ngOnInit() {
+    this.slides = this.home.getSlides();
+  }
 
-add(value: string) {
-    let obj = {'title': value, 'text': 'Description', 'image': 'https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/assets%2FnoImage-01.jpg?alt=media&token=6a82abe8-8d8b-4ad0-93c5-b6398c03fc24'};
+  add(value: string) {
+    const obj = {
+      title: value,
+      text: 'Description',
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/assets%2FnoImage-01.jpg?alt=media&token=6a82abe8-8d8b-4ad0-93c5-b6398c03fc24'
+    };
     this.home.createSlide(obj);
-}
+  }
 }

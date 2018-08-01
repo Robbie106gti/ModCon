@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Access, Option } from './shared/access';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AccessService } from './shared/access.service';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
 
@@ -8,7 +7,7 @@ import { FlashMessagesService } from 'angular2-flash-messages/module';
   selector: 'access-option',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-      '(document:mousedown)': 'onClick($event)',
+    '(document:mousedown)': 'onClick($event)'
   },
   template: `
     <li>
@@ -35,63 +34,70 @@ import { FlashMessagesService } from 'angular2-flash-messages/module';
     </form>
   `
 })
-
 export class OptionAccessComponent implements OnInit {
-
   @Input() access: Access;
   @Input() option: Option;
   edittitle: boolean;
   editdescription: boolean;
   editprice: boolean;
 
-  constructor(
-      private accessSvc: AccessService,
-      private _eref: ElementRef,
-      public flashMessage: FlashMessagesService
-      ) { }
+  constructor(private accessSvc: AccessService, private _eref: ElementRef, public flashMessage: FlashMessagesService) {}
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
   onClick(event) {
-      if (!this._eref.nativeElement.contains(event.target)) {
-          this.edittitle = null;
-          this.editdescription = null;
-          this.editprice = null;
-      }
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.edittitle = null;
+      this.editdescription = null;
+      this.editprice = null;
+    }
   }
 
-  setTitle() { return this.edittitle = true; }
-  setDesc() { return this.editdescription = true; }
-  setPrice() { return this.editprice = true; }
-
-  editTitle (value): Option {
-    let obj = { 'title': value };
-    this.accessSvc.updateOptions(this.access.$key, this.option.$key, obj);
-    this.flashMessage.show('Updating title to ' + value + ' for item ' + this.access.title +
-     ' - ' + this.option.title, { cssClass: 'alert-info', timeout: 3000 });
-    return this.edittitle = null;
+  setTitle() {
+    return (this.edittitle = true);
+  }
+  setDesc() {
+    return (this.editdescription = true);
+  }
+  setPrice() {
+    return (this.editprice = true);
   }
 
-  editDesc (value) {
-    let obj = { 'description': value };
+  editTitle(value): Option {
+    const obj = { title: value };
     this.accessSvc.updateOptions(this.access.$key, this.option.$key, obj);
-    this.flashMessage.show('Updating description to ' + value + ' for item ' + this.access.title +
-     ' - ' + this.option.title, {cssClass: 'alert-info', timeout: 3000});
-    return this.editdescription = null;
+    this.flashMessage.show(
+      'Updating title to ' + value + ' for item ' + this.access.title + ' - ' + this.option.title,
+      { cssClass: 'alert-info', timeout: 3000 }
+    );
+    return (this.edittitle = null);
   }
 
-  editPrice (value) {
-    let obj = { 'price': value };
+  editDesc(value) {
+    const obj = { description: value };
     this.accessSvc.updateOptions(this.access.$key, this.option.$key, obj);
-    this.flashMessage.show('Updating price to ' + value + ' for item ' + this.access.title +
-     ' - ' + this.option.title, {cssClass: 'alert-info', timeout: 3000});
-    return this.editprice = null;
+    this.flashMessage.show(
+      'Updating description to ' + value + ' for item ' + this.access.title + ' - ' + this.option.title,
+      { cssClass: 'alert-info', timeout: 3000 }
+    );
+    return (this.editdescription = null);
+  }
+
+  editPrice(value) {
+    const obj = { price: value };
+    this.accessSvc.updateOptions(this.access.$key, this.option.$key, obj);
+    this.flashMessage.show(
+      'Updating price to ' + value + ' for item ' + this.access.title + ' - ' + this.option.title,
+      { cssClass: 'alert-info', timeout: 3000 }
+    );
+    return (this.editprice = null);
   }
 
   deleteItem() {
-    this.flashMessage.show('Deleting option to ' + this.option.title +
-     ' - ' + this.option.title, {cssClass: 'alert-info', timeout: 3000});
-     this.accessSvc.delOption(this.access.$key, this.option.$key);
+    this.flashMessage.show('Deleting option to ' + this.option.title + ' - ' + this.option.title, {
+      cssClass: 'alert-info',
+      timeout: 3000
+    });
+    this.accessSvc.delOption(this.access.$key, this.option.$key);
   }
-
 }

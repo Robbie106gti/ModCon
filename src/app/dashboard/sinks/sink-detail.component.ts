@@ -8,50 +8,46 @@ import { FlashMessagesService } from 'angular2-flash-messages/module';
 @Component({
   selector: 'sink-detail',
   templateUrl: './sink-detail.component.html',
-  styles: [`
-    label {
-      cursor: pointer;
-      /* Style as you please, it will become the visible UI component. */
-    }
+  styles: [
+    `
+      label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+      }
 
-    .upload-photo {
-      opacity: 0;
-      display: none;
-      position: absolute;
-      z-index: -1;
-    }
+      .upload-photo {
+        opacity: 0;
+        display: none;
+        position: absolute;
+        z-index: -1;
+      }
 
-    .MatImg {
+      .MatImg {
         max-height: 50px;
         float: right;
-    }
-  `]
+      }
+    `
+  ]
 })
 export class SinkDetailComponent implements OnInit {
-
   @Input() sink: Sink;
 
   selectedFiles: FileList;
   currentUpload: Images;
 
-  constructor(
-    private router: Router,
-    private sinkSvc: SinksService,
-    public flashMessage: FlashMessagesService
-    ) { }
+  constructor(private router: Router, private sinkSvc: SinksService, public flashMessage: FlashMessagesService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  imageMain () {
-    let images = this.sink.images;
-    let mainImg = _.find(images, { 'title': 'mainImg' });
+  imageMain() {
+    const images = this.sink.images;
+    const mainImg = _.find(images, { title: 'mainImg' });
     // console.log(mainImg);
     return mainImg.url;
   }
 
   updateTimeStamp() {
-    let date = new Date();
+    const date = new Date();
     this.sinkSvc.updateItem(this.sink.$key, { timeStamp: date });
   }
 
@@ -64,20 +60,20 @@ export class SinkDetailComponent implements OnInit {
   }
 
   detectFiles(event) {
-      this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
   }
 
   uploadSingle() {
-    let file = this.selectedFiles.item(0);
+    const file = this.selectedFiles.item(0);
     this.currentUpload = new Images(file);
     // this.upSvc.pushUpload(this.currentUpload);
-    let value = this.currentUpload;
+    const value = this.currentUpload;
     // console.log(value);
     this.sinkSvc.pushUploadMainImg(this.sink.$key, value);
-    this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
+    this.flashMessage.show('Image uploading', { cssClass: 'alert-info', timeout: 3000 });
   }
 
- onSelect(sink: Sink) {
-   this.router.navigate(['dashboard/sink', sink.$key]);
+  onSelect(sink: Sink) {
+    this.router.navigate(['dashboard/sink', sink.$key]);
   }
 }

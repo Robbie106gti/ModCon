@@ -5,19 +5,19 @@ export class AccessNew {
   active = true;
   timeStamp: Date = new Date();
   images: Images[];
+  errors?: any;
 }
 
-
 export class Access {
-    $key: string;
-    title: string;
-    active = true;
-    body: string;
-    timeStamp: Date = new Date();
-    images: Images[];
-    description: string;
-    price: number;
-    options: Option[];
+  $key: string;
+  title: string;
+  active = true;
+  body: string;
+  timeStamp: Date = new Date();
+  images: Images[];
+  description: string;
+  price: number;
+  options: Option[];
 }
 
 export class Option {
@@ -25,16 +25,17 @@ export class Option {
   title: string;
   description?: string;
   price: number;
-  url?; string;
+  url?;
+  string;
 }
 
 export class Accesss {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
 }
 
 export class Images {
@@ -44,6 +45,7 @@ export class Images {
   url: string;
   progress: number;
   createdAt: Date = new Date();
+  mainImg?: any;
   constructor(file: File) {
     this.file = file;
   }

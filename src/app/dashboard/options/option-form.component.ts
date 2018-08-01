@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Option } from './option';
 import { OptionsService } from './options.service';
 
 @Component({
@@ -28,23 +27,21 @@ import { OptionsService } from './options.service';
   `
 })
 export class OptionFormComponent implements OnInit {
-    title: string;
+  title: string;
 
-    constructor(
-        private optionSvc: OptionsService
-        ) { }
+  constructor(private optionSvc: OptionsService) {}
 
-    ngOnInit() { }
+  ngOnInit() {}
 
-    createItem(value) {
-        console.log(value);
-        let obj = {
-            'title': value,
-            'active': true,
-            'image': 'https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/assets%2FnoImage-01.jpg?alt=media&token=6a82abe8-8d8b-4ad0-93c5-b6398c03fc24',
-            'description': ''
-        };
-        this.optionSvc.createItem(obj);
-    }
-
+  createItem(value) {
+    console.log(value);
+    const obj = {
+      title: value,
+      active: true,
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/modcon-2b3c7.appspot.com/o/assets%2FnoImage-01.jpg?alt=media&token=6a82abe8-8d8b-4ad0-93c5-b6398c03fc24',
+      description: ''
+    };
+    this.optionSvc.createItem(obj);
+  }
 }

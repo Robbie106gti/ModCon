@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { SkewNew } from '../../../shared/vanity';
 import { VanityService } from '../../../shared/vanity.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,14 +9,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./skew-form.component.css']
 })
 export class SkewFormComponent implements OnInit {
-
   skew: SkewNew = new SkewNew();
   title: string;
 
-  constructor(
-      private vanitySvc: VanityService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private vanitySvc: VanityService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -28,5 +23,4 @@ export class SkewFormComponent implements OnInit {
     this.vanitySvc.updateSkew(this.skew.title, { title: this.skew.title });
     this.skew = new SkewNew(); // reset item
   }
-
 }

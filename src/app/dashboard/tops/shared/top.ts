@@ -5,18 +5,19 @@ export class TopNew {
   active = true;
   timeStamp: Date = new Date();
   images: Images[];
+  errors?: any;
 }
 
 export class Top {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
-    sink: string;
-    skews: Item[];
-    price: number;
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
+  sink: string;
+  skews: Item[];
+  price: number;
 }
 
 export class Item {

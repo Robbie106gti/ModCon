@@ -2,7 +2,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { VanitiesComponent } from '../vanities/vanities.component';
 import { AuthGuard } from '../../users/auth/auth.guard';
@@ -34,27 +33,26 @@ import { ColorMedComponent } from '../vanities/vanity-view/skews/views/color-med
 import { ConfigOrderComponent } from '../vanities/vanity-view/skews/mods/config-order.component';
 import { ConfigViewComponent } from '../vanities/vanity-view/skews/views/config-view.component';
 
-
 const routes: Routes = [
   {
-  path: 'vanities',
-  component: VanitiesComponent,
-  canActivate: [AuthGuard],
-  children: [
-    { path: '', component: VanityListViewComponent },
-    { path: ':id', component: SkewComponent },
-    {
-      path: ':id/:id',
-      component: SkewOrderComponent,
-      children: [
-        { path: 'options', component: OptionsOrderComponent },
-        { path: 'options/counters', component: CounterOrderComponent },
-        { path: 'options/colors', component: ColorOrderComponent },
-        { path: 'options/accessories', component: AccessOrderComponent },
-        { path: 'options/configuration', component: ConfigOrderComponent },
-        { path: 'options/pantries', component: PantryOrderComponent }
-      ]
-    }
+    path: 'vanities',
+    component: VanitiesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: VanityListViewComponent },
+      { path: ':id', component: SkewComponent },
+      {
+        path: ':id/:id',
+        component: SkewOrderComponent,
+        children: [
+          { path: 'options', component: OptionsOrderComponent },
+          { path: 'options/counters', component: CounterOrderComponent },
+          { path: 'options/colors', component: ColorOrderComponent },
+          { path: 'options/accessories', component: AccessOrderComponent },
+          { path: 'options/configuration', component: ConfigOrderComponent },
+          { path: 'options/pantries', component: PantryOrderComponent }
+        ]
+      }
     ]
   },
   { path: 'order/:id', component: UserOrderComponent },
@@ -63,12 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-   CommonModule,
-   FormsModule,
-   ReactiveFormsModule,
-   RouterModule.forChild(routes)
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
   declarations: [
     VanitiesComponent,
     SkewComponent,
@@ -101,4 +94,4 @@ const routes: Routes = [
   ],
   providers: []
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

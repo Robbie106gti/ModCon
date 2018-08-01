@@ -1,15 +1,19 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12" *ngIf="sum$ | async as sum">
-    <div class="col-md-2">
-        Nr. of skew: {{(skews | async)?.length}}
-    </div>
-    <div class="input-group input-group-sm col-sm-3" *ngIf="usd">
-        <span class="input-group-addon" id="basic-addon2">
-    can <i class="fa fa-dollar" aria-hidden="true"> 1 </i> to usd <i class="fa fa-dollar" aria-hidden="true"></i> {{usd | number}}
+  <div class="col-md-2">
+    Nr. of skew: {{(skews | async)?.length}}
+  </div>
+  <div class="input-group input-group-sm col-sm-3" *ngIf="usd">
+    <span class="input-group-addon" id="basic-addon2">
+      can
+      <i class="fa fa-dollar" aria-hidden="true"> 1 </i> to usd
+      <i class="fa fa-dollar" aria-hidden="true"></i> {{usd | number}}
     </span>
-        <input (keyup.enter)="changeUSD(us.value)" #us type="text" [(ngModel)]="usd" name="usd" placeholder="0.00" class="form-control" required maxlength="10">
-    </div>
-    <hr>
+    <input (keyup.enter)="changeUSD(us.value)" #us type="text" [(ngModel)]="usd" name="usd" placeholder="0.00" class="form-control"
+      required maxlength="10">
+  </div>
+  <hr>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
-    <skew-detail *ngFor="let skew of skews | async" [skew]='skew' [accesss]="accesss" [defaults]="defaults" [options]="options" [tops]="tops"></skew-detail>
+  <skew-detail *ngFor="let skew of skews | async" [skew]='skew' [accesss]="accesss" [defaults]="defaults" [options]="options"
+    [tops]="tops"></skew-detail>
 </div>

@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { AuthService } from '../../users/auth/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'orders-view',
@@ -9,12 +7,4 @@ import { AuthService } from '../../users/auth/auth.service';
     <past-orders></past-orders>
   `
 })
-export class OrdersComponent implements OnInit {
-
-  constructor(
-    private auth: AuthService
-      ) { }
-
-  ngOnInit() {
-  }
-}
+export class OrdersComponent {}

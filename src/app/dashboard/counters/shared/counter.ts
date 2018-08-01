@@ -5,15 +5,16 @@ export class CounterNew {
   active = true;
   timeStamp: Date = new Date();
   images: Images[];
+  errors?: any;
 }
 
 export class Counter {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
 }
 
 export class Images {

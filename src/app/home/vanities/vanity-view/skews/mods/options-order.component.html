@@ -155,7 +155,7 @@
                      <img src="{{ access?.colorImage }}" alt="{{ access?.sku }}">
                   </span>
                                             </li>
-                                            <li>{{ user.currency | uppercase }} $
+                                            <li class="hidden">{{ user.currency | uppercase }} $
                                                 <span *ngIf="user.currency === 'can'">{{ access.total * sum.can | number:'1.2-2'}}</span>
                                                 <span *ngIf="user.currency === 'usd'">{{ access.total * sum.usd | number:'1.2-2'}}</span>
                                             </li>

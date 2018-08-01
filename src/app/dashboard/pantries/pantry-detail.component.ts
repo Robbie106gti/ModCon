@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { PantriesService } from './shared/pantry.service';
 import { Pantry, Images } from './shared/pantry';
 import { Router } from '@angular/router';
-import { UploadService } from '../../uploads/shared/upload.service';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
 
@@ -10,27 +9,29 @@ import { FlashMessagesService } from 'angular2-flash-messages/module';
   selector: 'pantry-detail',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-      '(document:mousedown)': 'onClick($event)',
+    '(document:mousedown)': 'onClick($event)'
   },
   templateUrl: './pantry-detail.component.html',
-  styles: [`
-    label {
-      cursor: pointer;
-      /* Style as you please, it will become the visible UI component. */
-    }
+  styles: [
+    `
+      label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+      }
 
-    .upload-photo {
-      opacity: 0;
-      display: none;
-      position: absolute;
-      z-index: -1;
-    }
+      .upload-photo {
+        opacity: 0;
+        display: none;
+        position: absolute;
+        z-index: -1;
+      }
 
-    .MatImg {
+      .MatImg {
         max-height: 150px;
         float: right;
-    }
-  `]
+      }
+    `
+  ]
 })
 export class PantryDetailComponent implements OnInit {
   toggle: boolean;
@@ -45,30 +46,29 @@ export class PantryDetailComponent implements OnInit {
     private pantrySvc: PantriesService,
     private _eref: ElementRef,
     public flashMessage: FlashMessagesService
-    ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  imageMain () {
-    let images = this.pantry.images;
-    let mainImg = _.find(images, { 'title': 'mainImg' });
+  imageMain() {
+    const images = this.pantry.images;
+    const mainImg = _.find(images, { title: 'mainImg' });
     // console.log(mainImg);
     return mainImg.url;
   }
 
   setToggle() {
-      return this.toggle = true;
+    return (this.toggle = true);
   }
 
   onClick(event) {
-      if (!this._eref.nativeElement.contains(event.target)) {
-          this.toggle = null;
-      }
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.toggle = null;
+    }
   }
 
   updateTimeStamp() {
-    let date = new Date();
+    const date = new Date();
     this.pantrySvc.updateItem(this.pantry.$key, { timeStamp: date });
   }
 
@@ -76,11 +76,14 @@ export class PantryDetailComponent implements OnInit {
     this.pantrySvc.updateItem(this.pantry.$key, { active: value });
   }
 
-  editPrice (value) {
-    let obj = { 'price': value };
+  editPrice(value) {
+    const obj = { price: value };
     this.pantrySvc.updateItem(this.pantry.$key, obj);
-    this.flashMessage.show('Updating price to ' + value + ' for item ' + this.pantry.title, {cssClass: 'alert-info', timeout: 3000});
-    return this.toggle = null;
+    this.flashMessage.show('Updating price to ' + value + ' for item ' + this.pantry.title, {
+      cssClass: 'alert-info',
+      timeout: 3000
+    });
+    return (this.toggle = null);
   }
 
   deleteItem() {
@@ -88,20 +91,20 @@ export class PantryDetailComponent implements OnInit {
   }
 
   detectFiles(event) {
-      this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
   }
 
   uploadSingle() {
-    let file = this.selectedFiles.item(0);
+    const file = this.selectedFiles.item(0);
     this.currentUpload = new Images(file);
     // this.upSvc.pushUpload(this.currentUpload);
-    let value = this.currentUpload;
+    const value = this.currentUpload;
     // console.log(value);
     this.pantrySvc.pushUploadMainImg(this.pantry.$key, value);
-    this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
+    this.flashMessage.show('Image uploading', { cssClass: 'alert-info', timeout: 3000 });
   }
 
- onSelect(pantry: Pantry) {
-   this.router.navigate(['dashboard/counter-pantry', pantry.$key]);
+  onSelect(pantry: Pantry) {
+    this.router.navigate(['dashboard/counter-pantry', pantry.$key]);
   }
 }

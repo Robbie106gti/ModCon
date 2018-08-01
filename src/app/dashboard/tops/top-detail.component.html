@@ -1,45 +1,55 @@
-<div class="col-sm-6 col-md-4 col-lg-3 col-xs-12" >
+<div class="col-sm-6 col-md-4 col-lg-3 col-xs-12">
   <div class="panel panel-default">
     <div class="panel-body">
       <img class="MatImg" src="{{ imageMain() }}" alt=" {{ top.title || 'missing title' }}">
       <h4>
-          {{ top.title || 'missing title' }}
+        {{ top.title || 'missing title' }}
       </h4>
       <div class="btn-group">
         <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-minus" aria-hidden="true"></i> Sinks
-        <span class="badge"><small>{{countNrs('sinks')}}</small></span>
+          <i class="fa fa-minus" aria-hidden="true"></i> Sinks
+          <span class="badge">
+            <small>{{countNrs('sinks')}}</small>
+          </span>
         </button>
         <ul class="dropdown-menu">
           <sinks-edit *ngFor="let sink of sinks | async" [sink]='sink' [top]='top'></sinks-edit>
         </ul>
-      </div> 
-      
-      <p>Price: 
-        <span *ngIf="!toggle; else edit" (click)="setToggle()">CAN $ {{ top?.price || '0.0'  | number:'2.2-2' }}        
+      </div>
+
+      <p class="hidden">Price:
+        <span *ngIf="!toggle; else edit" (click)="setToggle()">CAN $ {{ top?.price || '0.0' | number:'2.2-2' }}
           <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setToggle()"></i>
         </span>
       </p>
 
     </div>
-    <div class="panel-footer">       
+    <div class="panel-footer">
       <label for="upload-photo{{ top.title || 'missing title' }}">
         <i class="fa fa-file-image-o" aria-hidden="true"></i>
         <input type="file" name="photo" id="upload-photo{{ top.title || 'missing title' }}" class="upload-photo" (change)="detectFiles($event)">
       </label>
-      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+      </button>
       <div class="btn-group pull-right">
-        <span type="button" class="btn btn-success btn-xs" *ngIf='top.active' (click)='updateActive(false)'><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
-        <span type="button" class="btn btn-warning btn-xs" *ngIf='!top.active' (click)='updateActive(true)'><i class="fa fa-square-o" aria-hidden="true"></i></span>  
-        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        <span type="button" class="btn btn-success btn-xs" *ngIf='top.active' (click)='updateActive(false)'>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-warning btn-xs" *ngIf='!top.active' (click)='updateActive(true)'>
+          <i class="fa fa-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
   </div>
 </div>
 
-<ng-template #edit>  
-    <form class="form-group">
-        <input #price name="text" (keyup.enter)="editPrice(price.value)" class="form-control" 
-        [(ngModel)]="top.price" placeholder="0.00" type="text" />
-    </form>
+<ng-template #edit>
+  <form class="form-group">
+    <input #price name="text" (keyup.enter)="editPrice(price.value)" class="form-control" [(ngModel)]="top.price" placeholder="0.00"
+      type="text" />
+  </form>
 </ng-template>

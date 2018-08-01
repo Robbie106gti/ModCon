@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CounterNew } from './shared/counter';
 import { CounterService } from './shared/counter.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-magic" aria-hidden="true"></i>
     <input placeholder="Counter Title" name="titleJS" class="input" [(ngModel)]="counter.title"
-    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddCounter').click()" 
+    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddCounter').click()"
    required minlength="2" maxlength="23" #title='ngModel' autofocus>
     </span>
     <button id="btnAddCounter" class="btn btn-success" (click)='createItem()' [disabled]="!title.valid">Add</button>
@@ -24,20 +23,15 @@ import { ActivatedRoute } from '@angular/router';
 
   <ng-template #errors>
     <p class="help is-danger">form contains errors!</p>
-  </ng-template> 
+  </ng-template>
   `,
-  styles: [`
-  `]
+  styles: [``]
 })
 export class CounterFormComponent implements OnInit {
-
   counter: CounterNew = new CounterNew();
   title: string;
 
-  constructor(
-      private counterSvc: CounterService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private counterSvc: CounterService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -48,5 +42,4 @@ export class CounterFormComponent implements OnInit {
     this.counterSvc.updateItem(this.counter.title, { title: this.counter.title });
     this.counter = new CounterNew(); // reset item
   }
-
 }

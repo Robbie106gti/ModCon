@@ -74,60 +74,59 @@ import * as _ from 'lodash';
       </div>
     </div>
   `,
-  styles: [`
-  .wrapper {
-    display: grid;
-    grid-gap: 1rem;
-    grid-auto-rows: minmax(100px, auto);
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .image {
-    position:relative;    
-    display: inline-block;
-    max-height: 70vh;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    position:absolute;
-    top:0;
-    bottom:0;
-    margin:auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  `]
+  styles: [
+    `
+      .wrapper {
+        display: grid;
+        grid-gap: 1rem;
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .image {
+        position: relative;
+        display: inline-block;
+        max-height: 70vh;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    `
+  ]
 })
 export class DemoComponent implements OnInit {
   title: string;
   obj: any;
-  material = [ 'Paint', 'Wood', 'Textured Melamine', 'Euro Materials' ];
-  lines = [ 'Porto', 'Maine', 'Maritime', 'Pacific', 'Pacific Floating'];
+  material = ['Paint', 'Wood', 'Textured Melamine', 'Euro Materials'];
+  lines = ['Porto', 'Maine', 'Maritime', 'Pacific', 'Pacific Floating'];
   access: FirebaseObjectObservable<any>;
   pantry: FirebaseObjectObservable<Pantry>;
   mat: FirebaseObjectObservable<Color>;
   options: any;
   skews: any;
   array: any;
-  last: string;
+  last: any;
   line = [
-    { 'key': 'PA', 'title': 'Pacific'},
-    { 'key': 'PAF', 'title': 'Pacific Floating'},
-    { 'key': 'MA', 'title': 'Maine'},
-    { 'key': 'MT', 'title': 'Maritime'},
-    { 'key': 'PO', 'title': 'Porto' }
+    { key: 'PA', title: 'Pacific' },
+    { key: 'PAF', title: 'Pacific Floating' },
+    { key: 'MA', title: 'Maine' },
+    { key: 'MT', title: 'Maritime' },
+    { key: 'PO', title: 'Porto' }
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private demo: DemoService
-  ) { }
+  constructor(private route: ActivatedRoute, private demo: DemoService) {}
 
   ngOnInit() {
     this.obj = this.route.snapshot.url;
@@ -139,10 +138,10 @@ export class DemoComponent implements OnInit {
     if (this.obj.length === 2) {
       // console.log('I am 2');
       this.access = this.demo.getAccessory(this.obj);
-      this.access.take(1).subscribe( access => {
+      this.access.take(1).subscribe(access => {
         this.options = _.toArray(access.options);
-        let data = access.skews;
-        let result = Object.keys(data).map(key => ({ key, value: data[key], line: this.getLine(key) }));
+        const data = access.skews;
+        const result = Object.keys(data).map(key => ({ key, value: data[key], line: this.getLine(key) }));
         // console.log(result);
         // console.log(this.line);
         this.last = _.last(result);
@@ -156,8 +155,8 @@ export class DemoComponent implements OnInit {
       // console.log('I am a material');
       this.mat = this.demo.getMaterial(this.obj);
       this.mat.take(1).subscribe(mat => {
-        let data = mat.vanities;
-        let result = Object.keys(data).map(key => ({ key, value: data[key] }));
+        const data = mat.vanities;
+        const result = Object.keys(data).map(key => ({ key, value: data[key] }));
         this.array = result;
       });
     }
@@ -168,10 +167,10 @@ export class DemoComponent implements OnInit {
   }
 
   getLine(key) {
-    let str = key.slice(0, 3);
-    let withNoDigits = str.replace(/[0-9]/g, '');
+    const str = key.slice(0, 3);
+    const withNoDigits = str.replace(/[0-9]/g, '');
     // console.log(withNoDigits);
-    let id = _.findIndex(this.line, { 'key': withNoDigits });
+    const id = _.findIndex(this.line, { key: withNoDigits });
     // console.log(id);
     return this.line[id].title;
   }

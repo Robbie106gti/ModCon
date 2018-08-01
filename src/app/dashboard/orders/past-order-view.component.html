@@ -1,60 +1,60 @@
 <table class="table-striped" *ngIf="info | async as i">
-    <thead>
-        <tr class="h4">
-            <td class="mattd">SKU:</td>
-            <td class="mattd">Material:</td>
-            <td class="mattd">Color:</td>
-            <td>Counter:</td>
-            <td class="mattd">Counter</td>
-            <td>Sink:</td>
-            <td>Counter &</td>
-            <td>Pantry:</td>
-            <td>Pantry</td>
-            <td>Accessories</td>
-            <td>SKU</td>
-        </tr>
-        <tr class="h4">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>color:</td>
-            <td></td>
-            <td>Sink costs:</td>
-            <td></td>
-            <td>costs:</td>
-            <td>costs:</td>
-            <td>total:</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of arr">
-            <td>{{ item.line }} - {{ item.sku }}</td>
-            <td>{{ item.material }}</td>
-            <td>{{ item.color }}</td>
-            <td>{{ item.counter?.sku || '-' }}</td>
-            <td>{{ item.counter?.color || '-' }}</td>
-            <td>{{ item.counter?.sink || '-' }}</td>
-            <td>$ {{ item.totalCounter * i?.currency | number:'1.2-2' }}</td>
-            <td>{{ item.pantry?.sku || '-' }}</td>
-            <td>$ {{ item.totalPantry * i?.currency | number:'1.2-2' }}</td>
-            <td>$ {{ item.totalAccessories * i?.currency | number:'1.2-2' }}</td>
-            <td>$ {{ item.total * i?.currency | number:'1.2-2' }}</td>
-        </tr>        
-    </tbody>
-    <tfoot>
-        <tr class="h4">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Order total:</td>
-            <td>{{ i?.type | uppercase }}</td>
-            <td>$ {{ orderTotal * i?.currency | number:'1.2-2' }}</td>
-        </tr>
-    </tfoot>
+  <thead>
+    <tr class="h4">
+      <td class="mattd">SKU:</td>
+      <td class="mattd">Material:</td>
+      <td class="mattd">Color:</td>
+      <td>Counter:</td>
+      <td class="mattd">Counter</td>
+      <td>Sink:</td>
+      <td>Counter &</td>
+      <td>Pantry:</td>
+      <td>Pantry</td>
+      <td>Accessories</td>
+      <td>SKU</td>
+    </tr>
+    <tr class="h4">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>color:</td>
+      <td></td>
+      <td>Sink costs:</td>
+      <td></td>
+      <td>costs:</td>
+      <td>costs:</td>
+      <td>total:</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of arr">
+      <td>{{ item.line }} - {{ item.sku }}</td>
+      <td>{{ item.material }}</td>
+      <td>{{ item.color }}</td>
+      <td>{{ item.counter?.sku || '-' }}</td>
+      <td>{{ item.counter?.color || '-' }}</td>
+      <td>{{ item.counter?.sink || '-' }}</td>
+      <td>$ {{ item.totalCounter * i?.currency | number:'1.2-2' }}</td>
+      <td>{{ item.pantry?.sku || '-' }}</td>
+      <td>$ {{ item.totalPantry * i?.currency | number:'1.2-2' }}</td>
+      <td>$ {{ item.totalAccessories * i?.currency | number:'1.2-2' }}</td>
+      <td>$ {{ item.total * i?.currency | number:'1.2-2' }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="h4">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Order total:</td>
+      <td>{{ i?.type | uppercase }}</td>
+      <td>$ {{ orderTotal * i?.currency | number:'1.2-2' }}</td>
+    </tr>
+  </tfoot>
 </table>

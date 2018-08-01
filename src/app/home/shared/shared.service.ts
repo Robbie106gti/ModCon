@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Vanity, Skews } from '../../dashboard/vanities/shared/vanity';
 import { Access, Option } from '../../dashboard/access/shared/access';
@@ -10,13 +8,11 @@ import { Color } from '../../dashboard/materials/shared/material';
 import { Top } from '../../dashboard/tops/shared/top';
 import { Sink } from '../../dashboard/sinks/shared/sink';
 import { Featurette } from '../../ui/featurette/featurette';
-import * as _ from 'lodash';
 import { ModsService } from '../vanities/vanity-view/skews/mods/mods.service';
 import { Configuration } from '../../dashboard/configs/shared/configuration';
 
 @Injectable()
 export class SharedService {
-
   private basePath = 'vanities';
 
   vanities: FirebaseListObservable<Vanity[]> = null; //  list of objects
@@ -40,82 +36,75 @@ export class SharedService {
   options: FirebaseListObservable<Option[]> = null;
   snapshot: any;
   title: string;
-    news: FirebaseObjectObservable<any>;
-    values: any;
+  news: FirebaseObjectObservable<any>;
+  values: any;
 
-  constructor(private db: AngularFireDatabase, private mods: ModsService) { }
+  constructor(private db: AngularFireDatabase, private mods: ModsService) {}
 
-  updateNumbers (key, value) {
+  updateNumbers(key, value) {
     const ref = `numbers/`;
-    const obj = {[key]: value};
-    this.db.object(ref).update(obj)
+    const obj = { [key]: value };
+    this.db
+      .object(ref)
+      .update(obj)
       .catch(error => this.handleError(error));
-
   }
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
-  getColorsList(key: string, mat: string, query= {}): FirebaseListObservable<Item[]> {
-        this.items = this.db.list(`vanities/${key}/colors/${mat}`, {
-            query: {
-            }
-        });
+  getColorsList(key: string, mat: string, query = {}): FirebaseListObservable<Item[]> {
+    this.items = this.db.list(`vanities/${key}/colors/${mat}`, {
+      query: {}
+    });
     return this.items;
   }
 
-  getPantriesList(key: string, query= {}): FirebaseListObservable<Item[]> {
-        this.items = this.db.list(`vanities/${key}/pantries`, {
-            query: {
-            }
-        });
+  getPantriesList(key: string, query = {}): FirebaseListObservable<Item[]> {
+    this.items = this.db.list(`vanities/${key}/pantries`, {
+      query: {}
+    });
     return this.items;
   }
 
-  getAccessList(key: string, skew: string, query= {}): FirebaseListObservable<Item[]> {
-        this.items = this.db.list(`vanities/${key}/skews/${skew}/accessories`, {
-            query: {
-            }
-        });
+  getAccessList(key: string, skew: string, query = {}): FirebaseListObservable<Item[]> {
+    this.items = this.db.list(`vanities/${key}/skews/${skew}/accessories`, {
+      query: {}
+    });
     return this.items;
   }
 
-  getSkewsList(key: string, query= {}): FirebaseListObservable<Skews[]> {
+  getSkewsList(key: string, query = {}): FirebaseListObservable<Skews[]> {
     this.skews = this.db.list(`vanities/${key}/skews`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.skews;
   }
 
-  getCounterList(key: string, query= {}): FirebaseListObservable<Item[]> {
+  getCounterList(key: string, query = {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`vanities/${key}/counters`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.items;
   }
 
-  getSinksList(key: string, query= {}): FirebaseListObservable<Item[]> {
+  getSinksList(key: string, query = {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`counter-tops/${key}/sinks`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.items;
   }
 
-  getTopsList(key: string, skew: string, query= {}): FirebaseListObservable<Item[]> {
+  getTopsList(key: string, skew: string, query = {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`vanities/${key}/skews/${skew}/counter-tops`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.items;
   }
 
-  getMaterialList(key: string, query= {}): FirebaseListObservable<Item[]> {
+  getMaterialList(key: string, query = {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`vanities/${key}/colors`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.items;
   }
 
@@ -124,44 +113,41 @@ export class SharedService {
     return this.colors;
   }
 
-  getColors(key: string, mat: string, query= {}): FirebaseListObservable<Item[]> {
+  getColors(key: string, mat: string, query = {}): FirebaseListObservable<Item[]> {
     this.items = this.db.list(`vanities/${key}/colors/${mat}`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.items;
   }
 
-  getSlides(query= {}): FirebaseListObservable<Slides[]> {
+  getSlides(query = {}): FirebaseListObservable<Slides[]> {
     this.slides = this.db.list(`home/slides/`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.slides;
   }
 
-  getFeaturettes(query= {}): FirebaseListObservable<Featurette[]> {
+  getFeaturettes(query = {}): FirebaseListObservable<Featurette[]> {
     this.featurettes = this.db.list(`home/featurette/`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.featurettes;
   }
 
   // Return a single item
   findVanityByTitle(title): FirebaseListObservable<Vanity[]> {
-        this.vanities = this.db.list('vanities', {
-            query: {
-                orderByChild: 'title',
-                equalTo: title
-            }
-        });
+    this.vanities = this.db.list('vanities', {
+      query: {
+        orderByChild: 'title',
+        equalTo: title
+      }
+    });
     return this.vanities;
   }
 
   // Return a single observable item
   getVanity(key: string): FirebaseObjectObservable<Vanity> {
-    const matPath =  `/${this.basePath}/${key}`;
+    const matPath = `/${this.basePath}/${key}`;
     // console.log(matPath);
     this.vanity = this.db.object(matPath);
     return this.vanity;
@@ -169,7 +155,7 @@ export class SharedService {
 
   // Return a single observable item
   getSkew(key: string, skew: string): FirebaseObjectObservable<Skews> {
-    let matPath =  `/${this.basePath}/${key}/skews/${skew}`;
+    let matPath = `/${this.basePath}/${key}/skews/${skew}`;
     // console.log(matPath);
     this.skew = this.db.object(matPath);
     return this.skew;
@@ -177,7 +163,7 @@ export class SharedService {
 
   // Return a single observable item
   getNumbers(key: string, skew: string): FirebaseObjectObservable<Skews> {
-    const matPath =  `/${this.basePath}/`;
+    const matPath = `/${this.basePath}/`;
     // console.log(matPath);
     this.skew = this.db.object(matPath);
     console.log(this.skew);
@@ -186,40 +172,40 @@ export class SharedService {
 
   // Return a single item
   getConfigs(): FirebaseListObservable<Configuration[]> {
-    let active = true;
-        this.configs = this.db.list('configurations', {
-            query: {
-                orderByChild: 'active',
-                equalTo: active
-            }
-        });
+    const active = true;
+    this.configs = this.db.list('configurations', {
+      query: {
+        orderByChild: 'active',
+        equalTo: active
+      }
+    });
     return this.configs;
   }
 
   // Return a single item
   getAccessories(): FirebaseListObservable<Access[]> {
-    let active = true;
-        this.accessories = this.db.list('accessories', {
-            query: {
-                orderByChild: 'active',
-                equalTo: active
-            }
-        });
+    const active = true;
+    this.accessories = this.db.list('accessories', {
+      query: {
+        orderByChild: 'active',
+        equalTo: active
+      }
+    });
     return this.accessories;
   }
 
   // Return a single observable item
   getAcces(key: string): FirebaseObjectObservable<Access> {
-    let local = 'accessories';
-    let matPath =  `${local}/${key}`;
+    const local = 'accessories';
+    const matPath = `${local}/${key}`;
     // console.log(matPath);
     this.access = this.db.object(matPath);
     return this.access;
   }
 
   getOptions(key: string): FirebaseListObservable<Option[]> {
-    let local = 'accessories';
-    let matPath =  `${local}/${key}/options`;
+    const local = 'accessories';
+    const matPath = `${local}/${key}/options`;
     this.options = this.db.list(matPath);
     // console.log(matPath);
     return this.options;
@@ -227,8 +213,8 @@ export class SharedService {
 
   // Return a single observable item
   getCounter(key: string): FirebaseObjectObservable<Access> {
-    let local = 'counters';
-    const matPath =  `${local}/${key}`;
+    const local = 'counters';
+    const matPath = `${local}/${key}`;
     // console.log(matPath);
     this.access = this.db.object(matPath);
     return this.access;
@@ -236,8 +222,8 @@ export class SharedService {
 
   // Return a single observable item
   getTop(key: string): FirebaseObjectObservable<Top> {
-    let local = 'counter-tops';
-    const matPath =  `${local}/${key}`;
+    const local = 'counter-tops';
+    const matPath = `${local}/${key}`;
     // console.log(matPath);
     this.top = this.db.object(matPath);
     return this.top;
@@ -245,23 +231,23 @@ export class SharedService {
 
   // Return a single observable item
   getTopSink(key: string) {
-    let matTop =  `counter-tops/${key}`;
+    const matTop = `counter-tops/${key}`;
     console.log(matTop);
     this.news = this.db.object(matTop);
   }
 
   // Return a single observable item
   getSink(key: string): FirebaseObjectObservable<Sink> {
-    let local = 'sinks';
-    const matPath =  `${local}/${key}`;
+    const local = 'sinks';
+    const matPath = `${local}/${key}`;
     // console.log(matPath);
     this.sink = this.db.object(matPath);
     return this.sink;
   }
 
   getPantry(key: string): FirebaseObjectObservable<Pantry> {
-    let local = 'pantries';
-    const matPath =  `${local}/${key}`;
+    const local = 'pantries';
+    const matPath = `${local}/${key}`;
     // console.log(matPath);
     this.pantry = this.db.object(matPath);
     return this.pantry;
@@ -269,7 +255,7 @@ export class SharedService {
 
   getColor(mat: string, key: string): FirebaseObjectObservable<Color> {
     let local = 'materials';
-    const matPath =  `${local}/${mat}/colors/${key}`;
+    const matPath = `${local}/${mat}/colors/${key}`;
     // console.log(matPath);
     this.color = this.db.object(matPath);
     return this.color;
@@ -279,5 +265,4 @@ export class SharedService {
   private handleError(error) {
     console.log(error);
   }
-
 }

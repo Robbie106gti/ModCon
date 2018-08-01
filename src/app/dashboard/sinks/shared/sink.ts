@@ -5,15 +5,16 @@ export class SinkNew {
   active = true;
   timeStamp: Date = new Date();
   images: Images[];
+  errors?: any;
 }
 
 export class Sink {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
 }
 
 export class Images {

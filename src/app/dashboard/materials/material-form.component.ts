@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatNew } from './shared/material';
 import { MatService } from './shared/materials.service';
 import { ActivatedRoute } from '@angular/router';
@@ -26,18 +25,13 @@ import { ActivatedRoute } from '@angular/router';
     <p class="help is-danger">form contains errors!</p>
   </ng-template>
   `,
-  styles: [`
-  `]
+  styles: [``]
 })
 export class MaterialFormComponent implements OnInit {
-
   mat: MatNew = new MatNew();
   title: string;
 
-  constructor(
-      private matSvc: MatService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private matSvc: MatService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -48,5 +42,4 @@ export class MaterialFormComponent implements OnInit {
     this.matSvc.updateItem(this.mat.title, { title: this.mat.title });
     this.mat = new MatNew(); // reset item
   }
-
 }

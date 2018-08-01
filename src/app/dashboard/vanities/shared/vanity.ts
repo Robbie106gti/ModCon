@@ -6,17 +6,19 @@ export class VanityNew {
   timeStamp: Date = new Date();
   skews: Skews[];
   images: Images[];
+  color?: any;
 }
 
 export class Vanity {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    skews: Skews[];
-    images?: Images[];
-    mainImg?: MainImg;
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  skews: Skews[];
+  images?: Images[];
+  mainImg?: MainImg;
+  color?: any;
 }
 
 export class Images {
@@ -47,20 +49,20 @@ export class MainImg {
 }
 
 export class Skews {
-    $key: string;
-    title: string;
-    active = true;
-    canDollar: number;
-    timeStamp: Date = new Date();
-    drawing: Drawing;
+  $key: string;
+  title: string;
+  active = true;
+  canDollar: number;
+  timeStamp: Date = new Date();
+  drawing: Drawing;
 }
 
 export class SkewNew {
-    $key: string;
-    title: string;
-    active = false;
-    timeStamp: Date = new Date();
-    drawing: Drawing;
+  $key: string;
+  title: string;
+  active = false;
+  timeStamp: Date = new Date();
+  drawing: Drawing;
 }
 
 export class Drawing {

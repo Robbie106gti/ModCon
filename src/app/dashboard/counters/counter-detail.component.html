@@ -1,21 +1,29 @@
-<div class="col-sm-4 col-md-3 col-xs-6" >
+<div class="col-sm-4 col-md-3 col-xs-6">
   <div class="panel panel-default">
     <div class="panel-body">
       <img class="MatImg" src="{{ imageMain() }}" alt=" {{ counter.title || 'missing title' }}">
       <h4>
-          {{ counter.title || 'missing title' }}
+        {{ counter.title || 'missing title' }}
       </h4>
     </div>
-    <div class="panel-footer">       
+    <div class="panel-footer">
       <label for="upload-photo{{ counter.title || 'missing title' }}">
         <i class="fa fa-file-image-o" aria-hidden="true"></i>
         <input type="file" name="photo" id="upload-photo{{ counter.title || 'missing title' }}" class="upload-photo" (change)="detectFiles($event)">
       </label>
-      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+      </button>
       <div class="btn-group pull-right">
-        <span type="button" class="btn btn-success btn-xs" *ngIf='counter.active' (click)='updateActive(false)'><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
-        <span type="button" class="btn btn-warning btn-xs" *ngIf='!counter.active' (click)='updateActive(true)'><i class="fa fa-square-o" aria-hidden="true"></i></span>  
-        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        <span type="button" class="btn btn-success btn-xs" *ngIf='counter.active' (click)='updateActive(false)'>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-warning btn-xs" *ngIf='!counter.active' (click)='updateActive(true)'>
+          <i class="fa fa-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
   </div>

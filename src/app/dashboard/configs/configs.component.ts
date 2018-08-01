@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigsService } from './shared/config.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { ActivatedRoute } from '@angular/router';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { Configuration } from './shared/configuration';
 
 @Component({
@@ -24,13 +23,10 @@ import { Configuration } from './shared/configuration';
 export class ConfigsComponent implements OnInit {
   configs: FirebaseListObservable<Configuration[]>;
 
-  constructor(
-      private configSvc: ConfigsService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private configSvc: ConfigsService) {}
 
   ngOnInit() {
     this.configs = this.configSvc.getItemsList();
-   // this.vanities.subscribe(() => this.showSpinner = false);
+    // this.vanities.subscribe(() => this.showSpinner = false);
   }
 }

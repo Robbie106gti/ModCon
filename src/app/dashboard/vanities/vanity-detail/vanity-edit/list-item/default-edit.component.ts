@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Default } from '../../../../options/option';
 import { Skews } from '../../../shared/vanity';
 import { OptionsService } from '../../../../options/options.service';
@@ -18,59 +17,53 @@ import { OptionsService } from '../../../../options/options.service';
     </label></span>
   </li>
   `,
-  styles: [`
-input[type='checkbox'].tags-checkbox:checked + label > i:first-of-type,
-input[type='checkbox'].tags-checkbox + label > i:last-of-type{
-    display: none;
-}
-input[type='checkbox'].tags-checkbox:checked + label > i:last-of-type{
-    display: inline-block;
-}
+  styles: [
+    `
+      input[type='checkbox'].tags-checkbox:checked + label > i:first-of-type,
+      input[type='checkbox'].tags-checkbox + label > i:last-of-type {
+        display: none;
+      }
+      input[type='checkbox'].tags-checkbox:checked + label > i:last-of-type {
+        display: inline-block;
+      }
 
-li:hover {
-    cursor: pointer;
-    background-color: #647DB3;
-}
-  `]
+      li:hover {
+        cursor: pointer;
+        background-color: #647db3;
+      }
+    `
+  ]
 })
-
-
-
 export class DefaultEditComponent implements OnInit {
-  @Input()  default: Default;
-  // access: FirebaseObjectObservable<Access>;
-  @Input()  skew: Skews;
+  @Input() default: Default;
+  @Input() skew: Skews;
   info: boolean = false;
   title: string;
   options = 'default';
 
-  constructor(
-    private route: ActivatedRoute,
-    private optionSvc: OptionsService,
-      private db: AngularFireDatabase
-      ) {
-        this.title = this.route.snapshot.params.id;
-    }
+  constructor(private route: ActivatedRoute, private optionSvc: OptionsService, private db: AngularFireDatabase) {
+    this.title = this.route.snapshot.params.id;
+  }
 
   ngOnInit() {
-     this.info = this.infoBoo;
-     // console.log(this.skew);
+    this.info = this.infoBoo;
+    // console.log(this.skew);
   }
 
   get infoBoo(): boolean {
-      const ref = `options/default/${this.default.$key}/skews/${this.skew.$key}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.info = obj.$exists();
-       });
-      // console.log(this.info);
-      return this.info;
+    const ref = `options/default/${this.default.$key}/skews/${this.skew.$key}`;
+    this.db.object(ref).subscribe(obj => {
+      return (this.info = obj.$exists());
+    });
+    // console.log(this.info);
+    return this.info;
   }
 
   updateActive(value: boolean) {
     if (value === true) {
-        this.optionSvc.updateActive(this.default.$key, this.skew.$key, this.title, this.options);
+      this.optionSvc.updateActive(this.default.$key, this.skew.$key, this.title, this.options);
     } else {
-        this.optionSvc.delActive(this.default.$key, this.skew.$key, this.title, this.options);
+      this.optionSvc.delActive(this.default.$key, this.skew.$key, this.title, this.options);
     }
   }
 }

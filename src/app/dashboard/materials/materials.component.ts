@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Mat } from './shared/material';
 import { MatService } from './shared/materials.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { ActivatedRoute } from '@angular/router';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'materials',
@@ -24,13 +23,10 @@ import { ActivatedRoute } from '@angular/router';
 export class MaterialsComponent implements OnInit {
   mats: FirebaseListObservable<Mat[]>;
 
-  constructor(
-      private matSvc: MatService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private matSvc: MatService) {}
 
   ngOnInit() {
     this.mats = this.matSvc.getItemsList();
-   // this.vanities.subscribe(() => this.showSpinner = false);
+    // this.vanities.subscribe(() => this.showSpinner = false);
   }
 }

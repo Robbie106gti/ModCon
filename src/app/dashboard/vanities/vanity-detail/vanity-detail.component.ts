@@ -12,7 +12,6 @@ import { UploadService } from '../../../uploads/shared/upload.service';
   styleUrls: ['./vanity-detail.component.css']
 })
 export class VanityDetailComponent implements OnInit {
-
   @Input() vanity: Vanity;
 
   selectedFiles: FileList;
@@ -23,20 +22,19 @@ export class VanityDetailComponent implements OnInit {
     private vanitySvc: VanityService,
     public flashMessage: FlashMessagesService,
     private upSvc: UploadService
-    ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  imageMain () {
-    let images = this.vanity.images;
-    let mainImg = _.find(images, { 'title': 'mainImg' });
+  imageMain() {
+    const images = this.vanity.images;
+    const mainImg = _.find(images, { title: 'mainImg' });
     // console.log(mainImg);
     return mainImg.url;
   }
 
   updateTimeStamp() {
-    let date = new Date();
+    const date = new Date();
     this.vanitySvc.updateItem(this.vanity.$key, { timeStamp: date });
   }
 
@@ -49,20 +47,20 @@ export class VanityDetailComponent implements OnInit {
   }
 
   detectFiles(event) {
-      this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
   }
 
   uploadSingle() {
-    let file = this.selectedFiles.item(0);
+    const file = this.selectedFiles.item(0);
     this.currentUpload = new Images(file);
     // this.upSvc.pushUpload(this.currentUpload);
-    let value = this.currentUpload;
+    const value = this.currentUpload;
     // console.log(value);
     this.upSvc.pushUploadMainImg(this.vanity.$key, value);
-    this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
+    this.flashMessage.show('Image uploading', { cssClass: 'alert-info', timeout: 3000 });
   }
 
- onSelect(vanity: Vanity) {
-   this.router.navigate(['dashboard/vanity', vanity.$key]);
+  onSelect(vanity: Vanity) {
+    this.router.navigate(['dashboard/vanity', vanity.$key]);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ConfigNew } from './shared/configuration';
 import { ConfigsService } from './shared/config.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-magic" aria-hidden="true"></i>
     <input placeholder="Configuration Title" name="titleJS" class="input" [(ngModel)]="config.title"
-    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddConfigs').click()" 
+    onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddConfigs').click()"
    required minlength="2" maxlength="23" #title='ngModel' autofocus>
     </span>
     <button id="btnAddConfigs" class="btn btn-success" (click)='createItem()' [disabled]="!title.valid">Add</button>
@@ -26,18 +25,13 @@ import { ActivatedRoute } from '@angular/router';
     <p class="help is-danger">form contains errors!</p>
   </ng-template>
   `,
-  styles: [`
-  `]
+  styles: [``]
 })
 export class ConfigFormComponent implements OnInit {
-
   config: ConfigNew = new ConfigNew();
   title: string;
 
-  constructor(
-      private configSvc: ConfigsService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private configSvc: ConfigsService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -48,5 +42,4 @@ export class ConfigFormComponent implements OnInit {
     this.configSvc.updateItem(this.config.title, { title: this.config.title });
     this.config = new ConfigNew(); // reset item
   }
-
 }

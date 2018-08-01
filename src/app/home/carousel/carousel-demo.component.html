@@ -1,7 +1,6 @@
 <div class="row">
   <carousel [interval]="myInterval" [noWrap]="noWrapSlides">
-    <slide *ngFor="let slidez of slides | async"
-            [active]="slidez.active">
+    <slide *ngFor="let slidez of slides | async" [active]="slidez.active">
       <img [src]="slidez.image" style="margin:auto;">
 
       <div class="carousel-caption">

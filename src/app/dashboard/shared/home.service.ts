@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 import { Featurette, List } from '../../ui/featurette/featurette';
@@ -10,10 +9,6 @@ import { Order, ItemOrder, OrderItems, OrderInfo } from '../../home/vanities/van
 
 @Injectable()
 export class HomeService {
-
-  private basePath = '/home';
-  private pathFeat = '/featurette';
-  private pathSlide = '/slides';
   snapshot: any;
   title: string;
   featurettes: FirebaseListObservable<Featurette[]> = null; //  list of objects
@@ -27,60 +22,56 @@ export class HomeService {
   item: FirebaseObjectObservable<any> = null;
   info: FirebaseObjectObservable<OrderInfo> = null;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {}
 
-  getSlides(query= {}): FirebaseListObservable<Slides[]> {
+  getSlides(query = {}): FirebaseListObservable<Slides[]> {
     this.slides = this.db.list(`home/slides/`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.slides;
   }
 
-  getFeaturettes(query= {}): FirebaseListObservable<Featurette[]> {
+  getFeaturettes(query = {}): FirebaseListObservable<Featurette[]> {
     this.featurettes = this.db.list(`home/featurette/`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.featurettes;
   }
 
-  getLists(key, query= {}): FirebaseListObservable<List[]> {
+  getLists(key, query = {}): FirebaseListObservable<List[]> {
     this.lists = this.db.list(`home/featurette/${key}/body`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.lists;
   }
 
-  getImages(key, query= {}): FirebaseListObservable<Images[]> {
+  getImages(key, query = {}): FirebaseListObservable<Images[]> {
     this.images = this.db.list(`vanities/${key}/images`, {
-            query: {
-            }
-        });
+      query: {}
+    });
     return this.images;
   }
 
   getUsersOrders(user): FirebaseListObservable<Order[]> {
-    let completed = true;
+    const completed = true;
     this.orders = this.db.list(`orders/byUser/${user}`, {
-            query: {
-              limitToLast: 10,
-              orderByChild: 'completed',
-              equalTo: completed
-            }
-        });
+      query: {
+        limitToLast: 10,
+        orderByChild: 'completed',
+        equalTo: completed
+      }
+    });
     return this.orders;
   }
 
   getOrderDesk(): FirebaseListObservable<OrderItems[]> {
-    let orderDesk = true;
+    const orderDesk = true;
     this.orderItems = this.db.list(`orders/orderItems/`, {
-            query: {
-              orderByChild: 'orderDesk',
-              equalTo: orderDesk
-            }
-        });
+      query: {
+        orderByChild: 'orderDesk',
+        equalTo: orderDesk
+      }
+    });
     return this.orderItems;
   }
 
@@ -105,67 +96,57 @@ export class HomeService {
   }
 
   // Create a brand new slide
-  createSlide(value: any): void  {
-     this.slides.push(value)
-      .catch(error => this.handleError(error));
+  createSlide(value: any): void {
+    this.slides.push(value).catch(error => this.handleError(error));
   }
 
   // Create a bramd new item
-  createItem(value: any): void  {
-     this.featurettes.push(value)
-      .catch(error => this.handleError(error));
+  createItem(value: any): void {
+    this.featurettes.push(value).catch(error => this.handleError(error));
   }
 
   // Create a bramd new item
-  createLiItem(key: string, value: any): void  {
+  createLiItem(key: string, value: any): void {
     const ref = this.db.list(`home/featurette/${key}/body`);
-    ref.push(value)
-      .catch(error => this.handleError(error));
+    ref.push(value).catch(error => this.handleError(error));
   }
 
   // Update an exisiting Slide
   updateSlide(key: string, value: any): void {
-    this.slides.update(key, value)
-      .catch(error => this.handleError(error));
+    this.slides.update(key, value).catch(error => this.handleError(error));
   }
 
   // Update an exisiting Slide
   updateNumbers(key, value: any): void {
     const ref = this.db.list(`/`);
-    ref.update(key, value)
-      .catch(error => this.handleError(error));
+    ref.update(key, value).catch(error => this.handleError(error));
   }
 
   // Update an exisiting item
   updateItem(key: string, value: any): void {
-    this.featurettes.update(key, value)
-      .catch(error => this.handleError(error));
+    this.featurettes.update(key, value).catch(error => this.handleError(error));
   }
 
   // Update an exisiting list item
-  updateLiItem(feat: string, key: string, value: any): void  {
+  updateLiItem(feat: string, key: string, value: any): void {
     const ref = this.db.list(`home/featurette/${feat}/body`);
-    ref.update(key, value)
-      .catch(error => this.handleError(error));
+    ref.update(key, value).catch(error => this.handleError(error));
   }
 
   // Deletes a single slide
   deleteSlide(key: string): void {
-      this.slides.remove(key)
-        .catch(error => this.handleError(error));
+    this.slides.remove(key).catch(error => this.handleError(error));
   }
 
   // Deletes a single featurette
   deleteItem(key: string): void {
-      this.featurettes.remove(key)
-        .catch(error => this.handleError(error));
+    this.featurettes.remove(key).catch(error => this.handleError(error));
   }
 
   // Deletes a single list item
-  deleteLiItem(key: string, value: any): void  {
+  deleteLiItem(key: string, value: any): void {
     const ref = this.db.list(`home/featurette/${key}/body`);
-    ref.remove(value)
-      .catch(error => this.handleError(error));
+    ref.remove(value).catch(error => this.handleError(error));
   }
 
   // Default error handling for all actions

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Counter } from 'app/dashboard/counters/shared/counter';
-import { CounterService } from 'app/dashboard/counters/shared/counter.service';
+import { ActivatedRoute } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Counter } from '../../../../../dashboard/counters/shared/counter';
+import { CounterService } from '../../../../../dashboard/counters/shared/counter.service';
 
 @Component({
   selector: 'counter-edit',
@@ -18,54 +18,51 @@ import { CounterService } from 'app/dashboard/counters/shared/counter.service';
     </span>
   </li>
   `,
-  styles: [`
-input[type='checkbox'].tags-checkbox:checked + label > i:first-of-type,
-input[type='checkbox'].tags-checkbox + label > i:last-of-type{
-    display: none;
-}
-input[type='checkbox'].tags-checkbox:checked + label > i:last-of-type{
-    display: inline-block;
-}
-li:hover {
-    cursor: pointer;
-    background-color: #647DB3;
-}
-  `]
+  styles: [
+    `
+      input[type='checkbox'].tags-checkbox:checked + label > i:first-of-type,
+      input[type='checkbox'].tags-checkbox + label > i:last-of-type {
+        display: none;
+      }
+      input[type='checkbox'].tags-checkbox:checked + label > i:last-of-type {
+        display: inline-block;
+      }
+      li:hover {
+        cursor: pointer;
+        background-color: #647db3;
+      }
+    `
+  ]
 })
-
 export class CounterEditComponent implements OnInit {
   id: any;
   title: string;
   info: boolean = false;
-  @Input()  counter: Counter;
+  @Input() counter: Counter;
 
-  constructor(
-      private route: ActivatedRoute,
-      private db: AngularFireDatabase,
-      private counterSvc: CounterService
-      ) {
-      this.title = this.route.snapshot.params.id;
-}
+  constructor(private route: ActivatedRoute, private db: AngularFireDatabase, private counterSvc: CounterService) {
+    this.title = this.route.snapshot.params.id;
+  }
 
   ngOnInit() {
-   // this.vanities.subscribe(() => this.showSpinner = false);
-   this.info = this.infoBoo;
+    // this.vanities.subscribe(() => this.showSpinner = false);
+    this.info = this.infoBoo;
   }
 
   get infoBoo(): boolean {
-      const ref = `counters/${this.counter.$key}/vanities/${this.title}`;
-      this.db.object(ref).subscribe((obj) => {
-            return this.info = obj.$exists();
-       });
-      // console.log(this.info);
-      return this.info;
+    const ref = `counters/${this.counter.$key}/vanities/${this.title}`;
+    this.db.object(ref).subscribe(obj => {
+      return (this.info = obj.$exists());
+    });
+    // console.log(this.info);
+    return this.info;
   }
 
   updateActive(value: boolean) {
     if (value === true) {
-    this.counterSvc.updateCounterAv(this.counter.$key, this.title);
-  } else {
-    this.counterSvc.delCounterAv(this.counter.$key, this.title);
+      this.counterSvc.updateCounterAv(this.counter.$key, this.title);
+    } else {
+      this.counterSvc.delCounterAv(this.counter.$key, this.title);
     }
   }
 }

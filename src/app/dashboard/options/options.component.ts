@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { OptionsService } from './options.service';
 import { Option } from './option';
 
@@ -22,9 +22,7 @@ import { Option } from './option';
 export class OptionsComponent implements OnInit {
   options: FirebaseListObservable<Option[]>;
 
-  constructor(
-      private optionSvc: OptionsService
-      ) { }
+  constructor(private optionSvc: OptionsService) {}
 
   ngOnInit() {
     this.options = this.optionSvc.getOptions();

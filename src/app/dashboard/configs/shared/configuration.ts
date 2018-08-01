@@ -5,15 +5,16 @@ export class ConfigNew {
   active = true;
   timeStamp: Date = new Date();
   images: Images[];
+  errors?: any;
 }
 
 export class Configuration {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
 }
 
 export class Images {

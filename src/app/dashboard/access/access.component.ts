@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Access } from './shared/access';
 import { AccessService } from './shared/access.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { ActivatedRoute } from '@angular/router';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'access',
@@ -22,13 +21,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AccessComponent implements OnInit {
   accesss: FirebaseListObservable<Access[]>;
 
-  constructor(
-      private accessSvc: AccessService,
-      private route: ActivatedRoute
-      ) { }
+  constructor(private accessSvc: AccessService) {}
 
   ngOnInit() {
     this.accesss = this.accessSvc.getItemsList();
-   // this.vanities.subscribe(() => this.showSpinner = false);
   }
 }
