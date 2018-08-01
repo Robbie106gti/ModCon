@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Featurette, List } from './featurette';
 import { HomeService } from '../../dashboard/shared/home.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'featurette',

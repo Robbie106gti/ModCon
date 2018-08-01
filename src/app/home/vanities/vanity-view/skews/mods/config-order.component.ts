@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModsService } from './mods.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as _ from 'lodash';
 import { SharedService } from '../../../../shared/shared.service';
 import { Configuration } from '../../../../../dashboard/configs/shared/configuration';

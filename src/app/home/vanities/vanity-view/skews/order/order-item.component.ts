@@ -2,7 +2,7 @@ import { OrderItem, ItemSku, SubItems } from './orderItem';
 import { SpinnerService } from '../../../../../ui/loading-spinner/spinner.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { SharedService } from '../../../../shared/shared.service';
 import { OrderService } from './order.service';
 import * as _ from 'lodash';

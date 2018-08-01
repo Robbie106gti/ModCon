@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Skews } from '../../../shared/vanity';
 import { AccessService } from '../../../../access/shared/access.service';
 import { Accesss } from '../../../../access/shared/access';

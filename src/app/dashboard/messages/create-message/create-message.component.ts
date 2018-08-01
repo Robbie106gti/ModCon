@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MessagingService } from '../../../users/shared/messaging.service';
 import { AppState } from '../../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from '../../../state/user/user.model';
-import { NewMessage } from '../message';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'create-message',
@@ -20,31 +20,30 @@ export class CreateMessageComponent implements OnInit {
 
   private textValue = '';
 
-  constructor(
-    private store: Store<AppState>,
-    private msgService: MessagingService
-  ) { }
+  constructor(private store: Store<AppState>, private msgService: MessagingService) {}
 
   ngOnInit() {
     this.user$ = this.store.select(state => state.user);
     this.toUsers = this.msgService.getToUsers();
   }
 
-  sendMessage (value) {
-    this.user$.take(1).subscribe( user => {
-      this.fromUser = user;
-      let mes = {
-        message: value,
-        to: this.toUser.name,
-        toUID: this.toUser.$key,
-        from: this.fromUser.displayName,
-        fromUID: this.fromUser.uid,
-        read: false
-      };
-      this.msgService.sendMessage(mes);
-      // console.log(mes);
-      this.textValue = '';
-    }
-  );
+  sendMessage(value) {
+    this.user$.pipe(
+      take(1),
+      map(user => {
+        this.fromUser = user;
+        let mes = {
+          message: value,
+          to: this.toUser.name,
+          toUID: this.toUser.$key,
+          from: this.fromUser.displayName,
+          fromUID: this.fromUser.uid,
+          read: false
+        };
+        this.msgService.sendMessage(mes);
+        // console.log(mes);
+        this.textValue = '';
+      })
+    );
   }
 }

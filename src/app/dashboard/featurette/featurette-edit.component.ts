@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Featurette } from '../../ui/featurette/featurette';
 import { HomeService } from '../../dashboard/shared/home.service';
 

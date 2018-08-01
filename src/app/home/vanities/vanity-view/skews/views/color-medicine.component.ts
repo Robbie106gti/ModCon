@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import * as _ from 'lodash';
 import { Option } from '../../../../../dashboard/access/shared/access';
 import { SharedService } from '../../../../shared/shared.service';

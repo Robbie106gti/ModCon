@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 

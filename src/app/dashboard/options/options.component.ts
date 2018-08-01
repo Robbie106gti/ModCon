@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { OptionsService } from './options.service';
 import { Option } from './option';
 

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
 import { Sink, Images } from './sink';
-import { Upload } from 'app/uploads/shared/upload';
+import { Upload } from '../../../uploads/shared/upload';
 
 @Injectable()
 export class SinksService {
-
   private basePath = 'uploads';
   private baseItem = 'sinks';
 
@@ -18,22 +20,22 @@ export class SinksService {
   snapshot: any;
   title: string;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {}
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
-  getItemsList(query={}): FirebaseListObservable<Sink[]> {
-      this.sinks = this.db.list(this.baseItem, {
-            query: {
-                orderByChild: 'title'
-            }
-        });
+  getItemsList(query = {}): FirebaseListObservable<Sink[]> {
+    this.sinks = this.db.list(this.baseItem, {
+      query: {
+        orderByChild: 'title'
+      }
+    });
     return this.sinks;
   }
 
   // Return a single observable item
   getItem(key: string): FirebaseObjectObservable<Sink> {
-    const matPath =  `/${this.baseItem}/${key}`;
+    const matPath = `/${this.baseItem}/${key}`;
     console.log(matPath);
     this.sink = this.db.object(matPath);
     return this.sink;
@@ -41,47 +43,53 @@ export class SinksService {
 
   // Return a single item
   findMatByTitle(title): FirebaseListObservable<Sink[]> {
-        this.sinks = this.db.list(this.baseItem, {
-            query: {
-                orderByChild: 'title',
-                equalTo: title
-            }
-        });
+    this.sinks = this.db.list(this.baseItem, {
+      query: {
+        orderByChild: 'title',
+        equalTo: title
+      }
+    });
     return this.sinks;
   }
 
   // Create item or Update an exisiting item
   updateItem(key: string, value: any): void {
-    this.sinks.update(key, value)
-      .catch(error => this.handleError(error));
+    this.sinks.update(key, value).catch(error => this.handleError(error));
   }
 
   // Update an exisiting item
   updateSink(key: string, title: string): void {
     let path = `sinks/${key}/counter-tops`;
     let path2 = `counter-tops/${title}`;
-    let value = {[title]: true};
-    let value2 = {'sink': key};
-    this.db.object(path).update(value)
+    let value = { [title]: true };
+    let value2 = { sink: key };
+    this.db
+      .object(path)
+      .update(value)
       .catch(error => console.log(error));
-    this.db.object(path2).update(value2)
+    this.db
+      .object(path2)
+      .update(value2)
       .catch(error => console.log(error));
   }
 
   // Update an exisiting item
   delSink(key: string, title: string): void {
     let path = `sinks/${key}/counter-tops/${title}`;
-    this.db.object(path).remove()
+    this.db
+      .object(path)
+      .remove()
       .catch(error => console.log(error));
     let path2 = `counter-tops/${title}/sinks/${key}`;
-    this.db.object(path2).remove()
+    this.db
+      .object(path2)
+      .remove()
       .catch(error => console.log(error));
   }
 
   // Deletes a single item
   deleteItem(key: string): void {
-      this.sinks.remove(key)
-        .catch(error => this.handleError(error));
+    this.sinks.remove(key).catch(error => this.handleError(error));
   }
 
   // Executes the file uploading to firebase https://firebase.google.com/docs/storage/web/upload-files
@@ -91,12 +99,13 @@ export class SinksService {
     let storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/${this.baseItem}/${images.file.name}`).put(images.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
         console.log(error);
       },
@@ -112,7 +121,7 @@ export class SinksService {
   // Writes the file details to the realtime db
   private saveFileData(key: string, images: Images) {
     let id = 'mainImg';
-    this.db.list(`${this.baseItem}/${key}/images`).update(id,  images);
+    this.db.list(`${this.baseItem}/${key}/images`).update(id, images);
   }
 
   // Writes the file details to the realtime db
@@ -131,5 +140,4 @@ export class SinksService {
   private handleError(error) {
     console.log(error);
   }
-
 }

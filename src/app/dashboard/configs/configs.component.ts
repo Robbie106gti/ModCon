@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigsService } from './shared/config.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Configuration } from './shared/configuration';
 
 @Component({

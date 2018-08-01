@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { VanityService } from '../vanities/shared/vanity.service';
 import { Vanity } from '../vanities/shared/vanity';
 import { SharedService } from '../../home/shared/shared.service';
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from '../../state/user/user.model';
 import { Sum } from '../../state/sum/sum.model';
 

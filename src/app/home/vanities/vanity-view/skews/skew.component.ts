@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Skews } from '../../../../dashboard/vanities/shared/vanity';
 import { VanityService } from '../../../../dashboard/vanities/shared/vanity.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../../../../ui/loading-spinner/spinner.service';
 import { SharedService } from '../../../shared/shared.service';
+import { take, map } from '../../../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'skew',
@@ -20,7 +21,8 @@ import { SharedService } from '../../../shared/shared.service';
       </div>
     </div>
   `,
-  styles: [`
+  styles: [
+    `
   .wrapper {
     margin: 0 auto;
     display: -ms-grid;
@@ -30,7 +32,8 @@ import { SharedService } from '../../../shared/shared.service';
     grid-gap: 1em;
   }
 }
-  `]
+  `
+  ]
 })
 export class SkewComponent implements OnInit {
   skews: FirebaseListObservable<Skews[]>;
@@ -41,17 +44,20 @@ export class SkewComponent implements OnInit {
   };
 
   constructor(
-      private vanitySvc: VanityService,
-      private route: ActivatedRoute,
-      private spinner: SpinnerService,
-      private shared: SharedService
-      ) {
-      this.spinner.changeSpinner('true');
-    }
+    private vanitySvc: VanityService,
+    private route: ActivatedRoute,
+    private spinner: SpinnerService,
+    private shared: SharedService
+  ) {
+    this.spinner.changeSpinner('true');
+  }
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
     this.skews = this.vanitySvc.getSkewsList(this.title, this.query);
-    this.skews.take(1).toPromise().then((data) => this.spinner.changeSpinner('false'));
+    this.skews.pipe(
+      take(1),
+      map(() => this.spinner.changeSpinner('false'))
+    );
   }
 }

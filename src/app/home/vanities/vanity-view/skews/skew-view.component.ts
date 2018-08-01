@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Skews } from '../../../../dashboard/vanities/shared/vanity';
 import { Item } from '../../../../home/shared/shared';
 import { User } from '../../../../state/user/user.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../../../../state/state';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';

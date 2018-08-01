@@ -1,24 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
-
-import { AngularFireDatabase } from 'angularfire2/database';
-
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import '../../utils/rxjs.operators';
 
 import { AppState } from '../state';
-import { Sku } from './sku.model';
+
 import { SkuQuery } from './sku.reducer';
 
 import * as skuActions from './sku.actions';
 type Action = skuActions.All;
 
-
 @Injectable()
 export class SkuFacade {
-
   // ************************************************
   // Observable Queries available for consumption by views
   // ************************************************
@@ -28,20 +19,18 @@ export class SkuFacade {
   // ************************************************
   // Effects to be registered at the Module level
   // ************************************************
-/*   @Effect()
+  /*   @Effect()
   init$: Observable<Action> = this.actions$.ofType(AUTHENTICATED)
       .map(_ => new postActions.GetPost('/posts/testPost')); */
 
-
-/*   @Effect()
+  /*   @Effect()
    getSku$: Observable<Action> = this.actions$
      .ofType(skuActions.GET_SKU)
      .map(sku => {
        return new skuActions.GetSkuSuccess(sku);
      }); */
 
-
-/*   @Effect()
+  /*   @Effect()
    getSku$: Observable<Action> = this.actions$.ofType(skuActions.GET_SKU)
      .map((action: skuActions.GetSku) => action.payload )
      .delay(2000) // delay to show spinner
@@ -51,7 +40,7 @@ export class SkuFacade {
        return new skuActions.GetSkuSuccess(post);
      }); */
 
-/*
+  /*
    @Effect()
    voteUpdate: Observable<Action> = this.actions$.ofType(skuActions.VOTE_UPDATE)
      .map((action: skuActions.VoteUpdate) => action.payload )
@@ -67,21 +56,15 @@ export class SkuFacade {
   // Internal Code
   // ************************************************
 
-  constructor(
-      private actions$: Actions,
-      private store: Store<AppState>,
-      private db: AngularFireDatabase
-  ) { }
+  constructor(private store: Store<AppState>) {}
 
-
-/*    loadSku(): Observable<Sku> {
+  /*    loadSku(): Observable<Sku> {
     this.store.dispatch(new skuActions.GetSku());
     return this.sku$;
   } */
 
-/*
+  /*
   vote(post: Post, val: number): void {
     this.store.dispatch(new postActions.VoteUpdate({ post, val }));
   } */
-
 }

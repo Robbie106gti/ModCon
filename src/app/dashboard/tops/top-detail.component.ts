@@ -4,7 +4,7 @@ import { Top, Images } from './shared/top';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Sink } from '../sinks/shared/sink';
 import { SinksService } from '../sinks/shared/sink.service';
 

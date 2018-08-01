@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { VanityService } from '../vanities/shared/vanity.service';
 import { Vanity, Skews } from '../vanities/shared/vanity';
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Sum } from '../../state/sum/sum.model';
 
 @Component({

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
+import { take, map } from 'rxjs/operators';
 
 import { ModsService } from './mods.service';
 import { ToastService } from '../../../../shared/toast.service';
-import { Observable } from 'rxjs/Observable';
-import { Accessory, Sku} from '../../../../../state/config/sku.model';;
+import { Observable } from 'rxjs';
+import { Accessory, Sku } from '../../../../../state/config/sku.model';
 import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
 import * as SkuActions from '../../../../../state/config/sku.actions';
-
 
 @Component({
   selector: 'mods-order',
@@ -132,73 +132,77 @@ import * as SkuActions from '../../../../../state/config/sku.actions';
 </div>
 </div>
   `,
-  styles: [`
-  .thumbnail {
-      text-align: center;
-      min-width: 80px;
-      padding: 2px;
-      margin: 2px;
-  }
+  styles: [
+    `
+      .thumbnail {
+        text-align: center;
+        min-width: 80px;
+        padding: 2px;
+        margin: 2px;
+      }
 
-  .color {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #f1f1f1;
-      margin-top: 5px;
-      margin-bottom: -5px;
-  }
-  .fa-trash {
-      padding-top: 5px;
-      padding-right: 8px;
-      margin-left: -10px;
-      color: red;
-  }
-  `]
+      .color {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #f1f1f1;
+        margin-top: 5px;
+        margin-bottom: -5px;
+      }
+      .fa-trash {
+        padding-top: 5px;
+        padding-right: 8px;
+        margin-left: -10px;
+        color: red;
+      }
+    `
+  ]
 })
-
 export class ModsOrderComponent {
   page: string;
   sku$: Observable<Sku>;
   access$: Accessory[];
 
   constructor(
-      private mods: ModsService,
-      private toast: ToastService,
-      private router: Router,
-      private store: Store<AppState>
-      ) {
+    private mods: ModsService,
+    private toast: ToastService,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     this.sku$ = this.store.select(state => state.sku);
-    this.mods.currentPage.subscribe(page => this.page = page);
-}
+    this.mods.currentPage.subscribe(page => (this.page = page));
+  }
 
-remove (i) {
-    this.sku$.take(1).subscribe( sku => {
-      this.access$ = sku.accessories;
-    });
+  remove(i) {
+    this.sku$.pipe(
+      take(1),
+      map(sku => {
+        this.access$ = sku.accessories;
+      })
+    );
     let array = this.access$;
     _.pullAt(array, i);
     this.store.dispatch(new SkuActions.RemoveAccessory(array));
   }
 
-  removeItem (value) {
+  removeItem(value) {
     if (value === 'pantry') {
       this.store.dispatch(new SkuActions.AddPantry(null));
-          let content = 'Pantry has been removed from your order.';
-          let style = 'danger';
-          this.toast.sendMessage(content, style);
+      let content = 'Pantry has been removed from your order.';
+      let style = 'danger';
+      this.toast.sendMessage(content, style);
     }
     if (value === 'color') {
-       this.store.dispatch(new SkuActions.AddMaterial(null));
-        let content = 'Material/Color has been removed from your order.';
-        let style = 'danger';
-        this.toast.sendMessage(content, style);
+      this.store.dispatch(new SkuActions.AddMaterial(null));
+      let content = 'Material/Color has been removed from your order.';
+      let style = 'danger';
+      this.toast.sendMessage(content, style);
     }
     if (value === 'counter') {
       this.store.dispatch(new SkuActions.AddCounter(null));
       this.store.dispatch(new SkuActions.AddCounterColor(null));
-          let content = 'Counter has been removed from your order.';
-          let style = 'danger';
-          this.toast.sendMessage(content, style);
+      let content = 'Counter has been removed from your order.';
+      let style = 'danger';
+      this.toast.sendMessage(content, style);
     }
   }
 }

@@ -1,19 +1,17 @@
 import { SpinnerService } from '../../../../../ui/loading-spinner/spinner.service';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { SharedService } from '../../../../shared/shared.service';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { OrderItem, OrderInfo, Totals, Access } from './orderItem';
 import { OrderService } from './order.service';
-import { AuthService } from '../../../../../users/auth/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
-import 'rxjs/add/operator/first';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
 import { Sum } from '../../../../../state/sum/sum.model';
 import { User } from '../../../../../state/user/user.model';
 import { OrderIdService } from '../../../../../users/shared/order-id.service';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'user-order',
@@ -38,27 +36,23 @@ export class UserOrderComponent implements OnInit {
   cur: number = 1;
 
   constructor(
-      private spinner: SpinnerService,
-      private shared: SharedService,
-      private order: OrderService,
-      private auth: AuthService,
-      private store: Store<AppState>,
-      private route: ActivatedRoute,
-      private orderId: OrderIdService
-      ) {
-      this.spinner.changeSpinner('true');
-      this.user$ = this.store.select(state => state.user);
-      this.sum$ = this.store.select(state => state.sum);
-      this.user$.subscribe( user => {
-        this.user = user;
-        this.sum$.take(1).subscribe(
-          sum => {
-            this.cur = sum[user.currency];
-            // console.log(this.cur);
-          }
-        );
-      });
-    }
+    private spinner: SpinnerService,
+    private order: OrderService,
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private orderId: OrderIdService
+  ) {
+    this.spinner.changeSpinner('true');
+    this.user$ = this.store.select(state => state.user);
+    this.sum$ = this.store.select(state => state.sum);
+    this.user$.subscribe(user => {
+      this.user = user;
+      this.sum$.pipe(
+        take(1),
+        map(sum => (this.cur = sum[user.currency]))
+      );
+    });
+  }
 
   ngOnInit() {
     this.title = this.route.snapshot.params.id;
@@ -74,10 +68,10 @@ export class UserOrderComponent implements OnInit {
         this.access = 0;
         this.skuTotal = 0;
         this.array2.forEach(ar => {
-          this.access += + (ar.price * ar.quantity);
+          this.access += +(ar.price * ar.quantity);
         });
         arr['totalAccessories'] = this.access;
-        this.skuTotal += + (arr.materialPrice * (arr.price + arr.totalPantry)) + arr.totalAccessories + arr.totalCounter;
+        this.skuTotal += +(arr.materialPrice * (arr.price + arr.totalPantry)) + arr.totalAccessories + arr.totalCounter;
         // console.log(this.orderTotal);
         arr['total'] = this.skuTotal;
         this.orderTotal += this.skuTotal;
@@ -91,15 +85,18 @@ export class UserOrderComponent implements OnInit {
 
   alertMe() {
     this.alert = true;
-    setTimeout( () => {
+    setTimeout(() => {
       this.alert = false;
     }, 5000);
     let byUser: string;
-    this.orderInfo.take(1).subscribe(info => {
-      byUser = info.byUser;
-      this.order.sentOrderDesk(byUser);
-      this.orderId.createOrder();
-    });
+    this.orderInfo.pipe(
+      take(1),
+      map(info => {
+        byUser = info.byUser;
+        this.order.sentOrderDesk(byUser);
+        this.orderId.createOrder();
+      })
+    );
   }
 
   dismissed() {
@@ -114,5 +111,4 @@ export class UserOrderComponent implements OnInit {
     }
     return this.completed;
   }
-
 }

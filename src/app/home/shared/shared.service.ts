@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseObjectObservable,
+  FirebaseListObservable
+} from 'angularfire2/database-deprecated';
 import { Vanity, Skews } from '../../dashboard/vanities/shared/vanity';
 import { Access, Option } from '../../dashboard/access/shared/access';
 import { Item, Slides, Numbers } from '../../home/shared/shared';
@@ -39,7 +43,7 @@ export class SharedService {
   news: FirebaseObjectObservable<any>;
   values: any;
 
-  constructor(private db: AngularFireDatabase, private mods: ModsService) {}
+  constructor(private db: AngularFireDatabase) {}
 
   updateNumbers(key, value) {
     const ref = `numbers/`;

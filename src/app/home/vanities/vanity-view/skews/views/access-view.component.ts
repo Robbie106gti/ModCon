@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import * as _ from 'lodash';
 
 import { Item } from '../../../../shared/shared';
@@ -13,7 +13,7 @@ import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
 import { Accessory } from '../../../../../state/config/sku.model';
 import * as SkuActions from '../../../../../state/config/sku.actions';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Color } from '../../../../../dashboard/materials/shared/material';
 
 @Component({

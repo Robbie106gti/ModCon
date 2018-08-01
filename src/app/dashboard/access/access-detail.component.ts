@@ -3,7 +3,7 @@ import { AccessService } from './shared/access.service';
 import { Access, Images, Option } from './shared/access';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'access-detail',

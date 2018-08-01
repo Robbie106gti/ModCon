@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagingService } from '../../users/shared/messaging.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Message, Thread } from './message';
 import { AuthService } from '../../users/auth/auth.service';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../../state/state';
 import { User, IUser } from '../../state/user/user.model';
 

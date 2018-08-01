@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sink } from '../../dashboard/sinks/shared/sink';
 import { SinksService } from '../../dashboard/sinks/shared/sink.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'sinks',

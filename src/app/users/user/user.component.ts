@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { User3 } from '../shared/zone';
 import { ZoneService } from '../shared/zone.service';
 import { AppState } from '../../state/state';

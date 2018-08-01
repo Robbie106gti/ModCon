@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DemoService } from './demo.service';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Pantry } from '../../dashboard/pantries/shared/pantry';
 import { Color } from '../../dashboard/materials/shared/material';
 import * as _ from 'lodash';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'demo',
@@ -138,15 +139,18 @@ export class DemoComponent implements OnInit {
     if (this.obj.length === 2) {
       // console.log('I am 2');
       this.access = this.demo.getAccessory(this.obj);
-      this.access.take(1).subscribe(access => {
-        this.options = _.toArray(access.options);
-        const data = access.skews;
-        const result = Object.keys(data).map(key => ({ key, value: data[key], line: this.getLine(key) }));
-        // console.log(result);
-        // console.log(this.line);
-        this.last = _.last(result);
-        this.skews = _.pull(result, this.last);
-      });
+      this.access.pipe(
+        take(1),
+        map(access => {
+          this.options = _.toArray(access.options);
+          const data = access.skews;
+          const result = Object.keys(data).map(key => ({ key, value: data[key], line: this.getLine(key) }));
+          // console.log(result);
+          // console.log(this.line);
+          this.last = _.last(result);
+          this.skews = _.pull(result, this.last);
+        })
+      );
     }
   }
 
@@ -154,11 +158,14 @@ export class DemoComponent implements OnInit {
     if (this.material.includes(this.obj['1'].path)) {
       // console.log('I am a material');
       this.mat = this.demo.getMaterial(this.obj);
-      this.mat.take(1).subscribe(mat => {
-        const data = mat.vanities;
-        const result = Object.keys(data).map(key => ({ key, value: data[key] }));
-        this.array = result;
-      });
+      this.mat.pipe(
+        take(1),
+        map(mat => {
+          const data = mat.vanities;
+          const result = Object.keys(data).map(key => ({ key, value: data[key] }));
+          this.array = result;
+        })
+      );
     }
     if (this.lines.includes(this.obj['1'].path)) {
       // console.log('I am a pantry');

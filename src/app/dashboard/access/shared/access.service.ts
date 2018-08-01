@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
+import 'firebase/firestorage';
 import { Option, Access, Images } from './access';
 import { Upload } from '../../../uploads/shared/upload';
 
@@ -100,7 +105,7 @@ export class AccessService {
 
   updateOptionAccessory(key: string, obj: any): void {
     const ref = this.db.list(`accessories/${key}/options`);
-    ref.push(obj).catch(error => this.handleError(error));
+    ref.push(obj);
   }
 
   // Update an exisiting item
@@ -155,7 +160,7 @@ export class AccessService {
 
     this.uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
 import * as _ from 'lodash';
 
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from '../../state/user/user.model';
 
 @Injectable()

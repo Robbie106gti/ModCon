@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
 import { User } from '../../state/user/user.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as SumActions from '../../state/sum/sum.actions';
 import * as OptionActions from '../../state/skewOptions/option.actions';
 import * as AccessActions from '../../state/accessories/access.actions';

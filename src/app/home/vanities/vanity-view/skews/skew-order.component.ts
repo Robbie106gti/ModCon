@@ -1,16 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Component, OnInit } from '@angular/core';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs';
+import { scan, map, take } from 'rxjs/operators';
 
-import { AccessService } from '../../../../dashboard/access/shared/access.service';
-import { Access } from '../../../../dashboard/access/shared/access';
 import { SharedService } from '../../../../home/shared/shared.service';
 import { Item, Numbers } from '../../../../home/shared/shared';
 import { Skews, Vanity } from '../../../../dashboard/vanities/shared/vanity';
-import { Pantry } from '../../../../dashboard/pantries/shared/pantry';
 import { ModsService } from '../../../../home/vanities/vanity-view/skews/mods/mods.service';
 import { SpinnerService } from '../../../../ui/loading-spinner/spinner.service';
 import { SkuFacade } from '../../../../state/config/sku.facade';
@@ -25,7 +27,7 @@ import { Sum } from '../../../../state/sum/sum.model';
   templateUrl: './skew-order.component.html',
   styleUrls: ['./skew-order.component.css']
 })
-export class SkewOrderComponent implements OnInit  {
+export class SkewOrderComponent implements OnInit {
   sku$: Observable<Sku>;
   sku: Sku;
   user$: Observable<User>;
@@ -43,46 +45,64 @@ export class SkewOrderComponent implements OnInit  {
   title: string;
   titleSkew: string;
   numberSub: Numbers;
-  public counter$: Observable<any> = new Subject<any>()
-    .scan((acc: number, current: number): number => acc + current)
-    .map((value: number): string => `Sum of clicks: ${value}`);
+  public counter$: Observable<any> = new Subject<any>().pipe(
+    scan((acc: number, current: number): number => acc + current),
+    map((value: number): string => `Sum of clicks: ${value}`)
+  );
 
   constructor(
-      private db: AngularFireDatabase,
-      private mods: ModsService,
-      private route: ActivatedRoute,
-      private spinner: SpinnerService,
-      private shared: SharedService,
-      private store: Store<AppState>,
-      private skuService: SkuFacade,
-      private router: Router
-      ) {
-      this.spinner.changeSpinner('true');
-      this.sku$ = this.store.select(state => state.sku);
-      this.user$ = this.store.select(state => state.user);
-      this.sum$ = this.store.select(state => state.sum);
-      this.sku$.subscribe(sku => {
-        this.total = 0;
-        this.subtotal = 0;
-        this.accessoriesTotal = 0;
-        this.sku = sku;
+    private db: AngularFireDatabase,
+    private mods: ModsService,
+    private route: ActivatedRoute,
+    private spinner: SpinnerService,
+    private shared: SharedService,
+    private store: Store<AppState>,
+    private skuService: SkuFacade,
+    private router: Router
+  ) {
+    this.spinner.changeSpinner('true');
+    this.sku$ = this.store.select(state => state.sku);
+    this.user$ = this.store.select(state => state.user);
+    this.sum$ = this.store.select(state => state.sum);
+    this.sku$.subscribe(sku => {
+      this.total = 0;
+      this.subtotal = 0;
+      this.accessoriesTotal = 0;
+      this.sku = sku;
 
-        if (sku.cabinet === null) { this.subtotal += 0; } else { this.subtotal += sku.cabinet.cost; }
-        if (sku.pantry === null) { this.subtotal += 0; } else { this.subtotal += sku.pantry.total; }
-        if (sku.material === null ) { this.subtotal += 0; } else { this.mCost = sku.material.cost; }
-        this.total = this.subtotal * this.mCost;
-        if (sku.counter === null) { this.total += 0; } else { this.total += sku.counter.cost; }
-        if (sku.accessories === null) { this.accessoriesTotal = 0;
-        } else {
-          sku.accessories.forEach(element => {
-            this.accessoriesTotal += element.total;
-          });
-          this.total += this.accessoriesTotal;
-        }
-        // console.log('Total: ' + this.total + ' Subtotal: ' + this.subtotal + ' Accessories: ' + this.accessoriesTotal);
-        // console.log(sku);
-      });
-   }
+      if (sku.cabinet === null) {
+        this.subtotal += 0;
+      } else {
+        this.subtotal += sku.cabinet.cost;
+      }
+      if (sku.pantry === null) {
+        this.subtotal += 0;
+      } else {
+        this.subtotal += sku.pantry.total;
+      }
+      if (sku.material === null) {
+        this.subtotal += 0;
+      } else {
+        this.mCost = sku.material.cost;
+      }
+      this.total = this.subtotal * this.mCost;
+      if (sku.counter === null) {
+        this.total += 0;
+      } else {
+        this.total += sku.counter.cost;
+      }
+      if (sku.accessories === null) {
+        this.accessoriesTotal = 0;
+      } else {
+        sku.accessories.forEach(element => {
+          this.accessoriesTotal += element.total;
+        });
+        this.total += this.accessoriesTotal;
+      }
+      // console.log('Total: ' + this.total + ' Subtotal: ' + this.subtotal + ' Accessories: ' + this.accessoriesTotal);
+      // console.log(sku);
+    });
+  }
 
   ngOnInit() {
     // console.log(this.route.snapshot);
@@ -93,12 +113,16 @@ export class SkewOrderComponent implements OnInit  {
     this.vanity = this.shared.getVanity(this.title);
     this.itemsMat = this.shared.getMaterialList(this.title);
     this.mods.changePage('options');
-    this.skew.take(1).toPromise()
-             .then((data) => this.spinner.changeSpinner('false'))
-             .then((data) => this.skew.subscribe((obj) => {
+    this.skew.pipe(
+      take(1),
+      map(() => this.spinner.changeSpinner('false')),
+      map(() =>
+        this.skew.subscribe(obj => {
           this.sku2 = obj;
           this.editCabinet();
-      }));
+        })
+      )
+    );
   }
 
   editCabinet() {
@@ -120,14 +144,15 @@ export class SkewOrderComponent implements OnInit  {
       subtotal: this.subtotal,
       accessoriesTotal: this.accessoriesTotal
     };
-
-    this.user$.take(1).subscribe( user => {
-    this.mods.saveOrder(user, totals, this.sku);
-    this.router.navigate(['/home/order/' + user.orderId]);
-    console.log(user);
-    console.log(totals);
-    console.log(this.sku);
-    });
+    this.user$.pipe(
+      take(1),
+      map(user => {
+        this.mods.saveOrder(user, totals, this.sku);
+        this.router.navigate(['/home/order/' + user.orderId]);
+        console.log(user);
+        console.log(totals);
+        console.log(this.sku);
+      })
+    );
   }
-
 }

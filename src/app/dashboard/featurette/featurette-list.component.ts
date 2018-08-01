@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Featurette, List } from '../../ui/featurette/featurette';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { HomeService } from '../../dashboard/shared/home.service';
 import { Images } from '../../dashboard/vanities/shared/vanity';
 

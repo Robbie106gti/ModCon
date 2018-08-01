@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { SpinnerService } from '../../ui/loading-spinner/spinner.service';
 import { OrderService } from '../../home/vanities/vanity-view/skews/order/order.service';
 import { SubItems, OrderItem, ItemSku } from '../../home/vanities/vanity-view/skews/order/orderItem';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'order-item-view',

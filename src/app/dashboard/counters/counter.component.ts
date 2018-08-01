@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Counter } from '../../dashboard/counters/shared/counter';
 import { CounterService } from '../../dashboard/counters/shared/counter.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'counters',

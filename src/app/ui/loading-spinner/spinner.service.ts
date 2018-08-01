@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class SpinnerService {
+  private spinner = new BehaviorSubject<string>('');
+  currentSpinner = this.spinner.asObservable();
 
-    private spinner = new BehaviorSubject<string>('');
-    currentSpinner = this.spinner.asObservable();
+  constructor() {}
 
-  constructor() { }
-
-    changeSpinner(spinner: string) {
-        this.spinner.next(spinner);
-    }
+  changeSpinner(spinner: string) {
+    this.spinner.next(spinner);
+  }
 }

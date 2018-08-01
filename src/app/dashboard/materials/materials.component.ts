@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Mat } from './shared/material';
 import { MatService } from './shared/materials.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'materials',

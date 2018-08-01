@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 
 import { Featurette, List } from '../../ui/featurette/featurette';
 import { Slides } from '../../home/shared/shared';
@@ -97,18 +101,18 @@ export class HomeService {
 
   // Create a brand new slide
   createSlide(value: any): void {
-    this.slides.push(value).catch(error => this.handleError(error));
+    this.slides.push(value);
   }
 
   // Create a bramd new item
   createItem(value: any): void {
-    this.featurettes.push(value).catch(error => this.handleError(error));
+    this.featurettes.push(value);
   }
 
   // Create a bramd new item
   createLiItem(key: string, value: any): void {
     const ref = this.db.list(`home/featurette/${key}/body`);
-    ref.push(value).catch(error => this.handleError(error));
+    ref.push(value);
   }
 
   // Update an exisiting Slide

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
-import * as _ from 'lodash';
+import { take, map } from 'rxjs/operators';
 
 import { SharedService } from '../../../../shared/shared.service';
 import { Item } from '../../../../shared/shared';
@@ -20,7 +20,7 @@ import { Access } from '../../../../../dashboard/access/shared/access';
   `,
   styleUrls: ['./counter-order.component.css']
 })
-export class AccessOrderComponent implements OnInit  {
+export class AccessOrderComponent implements OnInit {
   items: FirebaseListObservable<Item[]>;
   itemsAccess: FirebaseListObservable<Item[]>;
   accessories: FirebaseListObservable<Access[]>;
@@ -31,44 +31,44 @@ export class AccessOrderComponent implements OnInit  {
   page: string;
   filteredArray: Array<AllAccess>;
 
-  constructor(
-      private db: AngularFireDatabase,
-      private itemSvc: SharedService,
-      private mods: ModsService,
-      private route: ActivatedRoute
-      ) {
-        this.title = this.route.snapshot.parent.children['0'].parent.url['0'].path;
-        this.titleSkew = this.route.snapshot.parent.children['0'].parent.url[1].path;
-   }
+  constructor(private itemSvc: SharedService, private mods: ModsService, private route: ActivatedRoute) {
+    this.title = this.route.snapshot.parent.children['0'].parent.url['0'].path;
+    this.titleSkew = this.route.snapshot.parent.children['0'].parent.url[1].path;
+  }
 
   ngOnInit() {
     this.itemsAccess = this.itemSvc.getAccessList(this.title, this.titleSkew);
     this.accessories = this.itemSvc.getAccessories();
-    this.mods.currentPage.subscribe(page => this.page = page);
+    this.mods.currentPage.subscribe(page => (this.page = page));
     this.mods.changePage('accessories');
     this.reduceAccessories();
   }
 
-  reduceAccessories () {
+  reduceAccessories() {
     let allAccessories: Array<Access>;
-    let optionAccess: Array<AllAccess>;
-    this.accessories.take(1).subscribe(i => {
-      allAccessories = i;
-      // console.log(i);
-      this.itemsAccess.take(1).subscribe(o => {
-        optionAccess = o;
-        // console.log(o);
-        this.filteredArray = allAccessories.filter( el => {
-          return optionAccess.some( f => {
-            return f.$key === el.$key;
-          });
-        });
-        // console.log(filteredArray);
-      });
-    });
+    let optionAccess: Array<any>;
+    this.accessories.pipe(
+      take(1),
+      map(i => {
+        allAccessories = i;
+        // console.log(i);
+        this.itemsAccess.pipe(
+          take(1),
+          map(o => {
+            optionAccess = o;
+            // console.log(o);
+            this.filteredArray = allAccessories.filter(el => {
+              return optionAccess.some(f => {
+                return f.$key === el.$key;
+              });
+            });
+            // console.log(filteredArray);
+          })
+        );
+      })
+    );
     return this.filteredArray;
   }
-
 }
 
 export interface AllAccess {

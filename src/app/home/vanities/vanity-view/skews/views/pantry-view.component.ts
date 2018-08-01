@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Rx';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Item } from '../../../../shared/shared';
 import { Pantry } from '../../../../../dashboard/pantries/shared/pantry';
@@ -84,8 +82,6 @@ export class PantryViewComponent implements OnInit {
 
   constructor(
       private route: ActivatedRoute,
-      private db: AngularFireDatabase,
-      private mods: ModsService,
       private itemSrv: SharedService,
       private toast: ToastService,
       private store: Store<AppState>,

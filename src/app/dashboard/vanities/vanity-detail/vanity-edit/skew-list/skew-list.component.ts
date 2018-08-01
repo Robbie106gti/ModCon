@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
 
 import { VanityService } from '../../../shared/vanity.service';
@@ -10,7 +10,7 @@ import { TopsService } from '../../../../tops/shared/top.service';
 import { HomeService } from '../../../../shared/home.service';
 import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Sum } from '../../../../../state/sum/sum.model';
 import { Option, Default } from '../../../../options/option';
 

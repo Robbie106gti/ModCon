@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Pantry, Vanities } from '../../../../../dashboard/pantries/shared/pantry';
 import { PantriesService } from '../../../../../dashboard/pantries/shared/pantry.service';
 

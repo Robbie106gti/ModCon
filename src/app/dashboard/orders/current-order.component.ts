@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { OrderService } from '../../home/vanities/vanity-view/skews/order/order.service';
 import * as _ from 'lodash';
 import { Access, Totals, OrderItem, OrderInfo } from '../../home/vanities/vanity-view/skews/order/orderItem';
@@ -7,7 +7,7 @@ import { SpinnerService } from '../../ui/loading-spinner/spinner.service';
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
 import { Sum } from '../../state/sum/sum.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { User } from '../../state/user/user.model';
 
 @Component({
@@ -70,7 +70,7 @@ export class CurrentOrderComponent implements OnInit {
     this.sum$ = this.store.select(state => state.sum);
     this.user$.subscribe(user => {
       this.user = user;
-      this.sum$.take(1).subscribe(sum => {
+      this.sum$.subscribe(sum => {
         if (user.currency === 'usd') {
           this.cur = sum.usd;
         } else {

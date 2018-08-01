@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
 import { Mat, Images, Color } from './material';
 import { Upload } from '../../../uploads/shared/upload';
@@ -119,7 +123,7 @@ export class MatService {
 
     this.uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
@@ -153,7 +157,7 @@ export class MatService {
 
     this.uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         value.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './users/auth/auth.service';
-import { FirebaseObjectObservable } from 'angularfire2/database';
 import { MessagingService } from './users/shared/messaging.service';
 
 @Component({
@@ -18,11 +16,8 @@ import { MessagingService } from './users/shared/messaging.service';
 })
 export class AppComponent implements OnInit {
   title: string;
-  
-  constructor(
-      private authSrv: AuthService,
-      private msgService: MessagingService
-      ) { }
+
+  constructor(private msgService: MessagingService) {}
 
   ngOnInit() {
     this.msgService.getPermission();

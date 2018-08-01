@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import '../../utils/rxjs.operators';
+import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 import { AppState } from '../state';
 import { Counter } from './counters.model';
@@ -15,10 +14,8 @@ import { CountersQuery } from './counters.reducer';
 
 type Action = countersActions.All;
 
-
 @Injectable()
 export class CountersFacade {
-
   // ************************************************
   // Observable Queries available for consumption by views
   // ************************************************
@@ -30,26 +27,20 @@ export class CountersFacade {
   // ************************************************
 
   @Effect()
-  getCounters$: Observable<Action> = this.actions$.ofType(countersActions.GET_COUNTERS)
-    .map((action: countersActions.GetCounters) => action.payload )
-    .mergeMap( () => this.db.object(`/counter-tops`))
-    .map(counters => {
-      return new countersActions.GetCountersSuccess(counters);
-    });
+  getCounters$: Observable<Action> = this.actions$.ofType(countersActions.GET_COUNTERS).pipe(
+    map((action: countersActions.GetCounters) => action.payload),
+    mergeMap(() => this.db.object(`/counter-tops`)),
+    map(counters => new countersActions.GetCountersSuccess(counters))
+  );
 
   // ************************************************
   // Internal Code
   // ************************************************
 
-  constructor(
-    private actions$: Actions,
-    private store: Store<AppState>,
-    private db: AngularFireDatabase
-    ) { }
+  constructor(private actions$: Actions, private store: Store<AppState>, private db: AngularFireDatabase) {}
 
-    loadCounters(): Observable<Counter> {
-        this.store.dispatch(new countersActions.GetCounters());
-        return this.counters$;
-      }
-
+  loadCounters(): Observable<Counter> {
+    this.store.dispatch(new countersActions.GetCounters());
+    return this.counters$;
+  }
 }

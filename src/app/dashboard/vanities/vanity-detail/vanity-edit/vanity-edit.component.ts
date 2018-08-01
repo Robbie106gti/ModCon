@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VanityService } from '../../shared/vanity.service';
 import { Vanity, Skews } from '../../shared/vanity';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Pantry } from '../../../../dashboard/pantries/shared/pantry';
 import { PantriesService } from '../../../../dashboard/pantries/shared/pantry.service';
 import { Access } from '../../../../dashboard/access/shared/access';

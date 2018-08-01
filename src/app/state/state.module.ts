@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { EffectsModule } from '@ngrx/effects';

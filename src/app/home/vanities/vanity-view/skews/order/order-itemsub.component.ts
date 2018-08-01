@@ -1,6 +1,6 @@
 import { ItemSku, ItemsSub, OrderItem } from './orderItem';
 import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { OrderService } from './order.service';
 
 @Component({

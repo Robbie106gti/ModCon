@@ -1,7 +1,7 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from '../../users/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database/firebase_list_observable';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated/firebase_list_observable';
 import { ToastService } from './toast.service';
 import { Notification } from './message';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Color } from '../../shared/material';
 import { MatService } from '../../shared/materials.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

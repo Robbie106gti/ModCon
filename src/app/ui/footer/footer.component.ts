@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { AppState } from '../../state/state';
 import { Store } from '@ngrx/store';
 import { User } from '../../state/user/user.model';

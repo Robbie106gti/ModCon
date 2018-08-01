@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { HomeService } from '../shared/home.service';
 import { Order } from '../../home/vanities/vanity-view/skews/order/orderItem';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/state';
 import { User } from '../../state/user/user.model';

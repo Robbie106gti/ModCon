@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
 import { Configuration, Images } from './configuration';
 import { Upload } from '../../../uploads/shared/upload';
@@ -67,7 +71,7 @@ export class ConfigsService {
 
     this.uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
-      snapshot => {
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },

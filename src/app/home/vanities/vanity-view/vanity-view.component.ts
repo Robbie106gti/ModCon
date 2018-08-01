@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as _ from 'lodash';
 
 import { Vanity, Skews } from '../../../dashboard/vanities/shared/vanity';
 import { Item } from '../../shared/shared';
 import { SharedService } from '../../shared/shared.service';
-import { VanityService } from '../../../dashboard/vanities/shared/vanity.service';
 import { SpinnerService } from '../../../ui/loading-spinner/spinner.service';
 
 @Component({
@@ -15,7 +13,6 @@ import { SpinnerService } from '../../../ui/loading-spinner/spinner.service';
   styleUrls: ['./vanity-view.component.css']
 })
 export class VanityViewComponent implements OnInit {
-
   @Input() vanity: Vanity;
   skews: FirebaseListObservable<Skews[]>;
   pantries: FirebaseListObservable<Item[]>;
@@ -25,12 +22,7 @@ export class VanityViewComponent implements OnInit {
   ems: FirebaseListObservable<Item[]>;
   private count: any;
 
-  constructor(
-    private db: AngularFireDatabase,
-    private itemSvc: SharedService,
-    private vanitySvc: VanityService,
-    private spinner: SpinnerService
-    ) {
+  constructor(private db: AngularFireDatabase, private itemSvc: SharedService, private spinner: SpinnerService) {
     this.spinner.changeSpinner('true');
   }
 
@@ -41,13 +33,13 @@ export class VanityViewComponent implements OnInit {
     this.woods = this.itemSvc.getColorsList(this.vanity.$key, 'Wood');
     this.tms = this.itemSvc.getColorsList(this.vanity.$key, 'Textured Melamine');
     this.ems = this.itemSvc.getColorsList(this.vanity.$key, 'Euro Materials');
-    this.skews.take(1).toPromise().then((data) => this.spinner.changeSpinner('false'));
+    this.skews.toPromise().then(data => this.spinner.changeSpinner('false'));
   }
 
   countNrs(item) {
     const ref = `vanities/${this.vanity.$key}/${item}`;
-    this.db.object(ref).subscribe((obj) => {
-      return this.count = obj;
+    this.db.object(ref).subscribe(obj => {
+      return (this.count = obj);
     });
     if (this.count.$value === null) {
       this.count = null;
@@ -59,11 +51,10 @@ export class VanityViewComponent implements OnInit {
     return this.count;
   }
 
-  imageMain () {
+  imageMain() {
     let images = this.vanity.images;
-    let mainImg = _.find(images, { 'title': 'mainImg' });
+    let mainImg = _.find(images, { title: 'mainImg' });
     // console.log(mainImg);
     return mainImg.url;
   }
-
 }

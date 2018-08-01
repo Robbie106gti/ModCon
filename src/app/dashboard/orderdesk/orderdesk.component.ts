@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { HomeService } from '../shared/home.service';
 import { OrderItems } from '../../home/vanities/vanity-view/skews/order/orderItem';
 

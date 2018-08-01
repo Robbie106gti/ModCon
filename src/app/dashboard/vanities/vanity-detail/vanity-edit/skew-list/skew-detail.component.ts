@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { Observable } from 'rxjs';
 
 import { VanityService } from '../../../shared/vanity.service';
 import { Skews, Images, Drawing } from '../../../shared/vanity';

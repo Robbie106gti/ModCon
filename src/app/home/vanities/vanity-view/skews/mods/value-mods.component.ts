@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 
 import { Skews } from '../../../../../dashboard/vanities/shared/vanity';
 import { AppState } from '../../../../../state/state';
@@ -77,9 +78,12 @@ export class ValueModsComponent {
       accessoriesTotal: this.accessoriesTotal
     };
 
-    this.user$.take(1).subscribe(user => {
-      this.mods.saveOrder(user, totals, this.sku);
-      this.router.navigate(['/home/order/' + user.orderId]);
-    });
+    this.user$.pipe(
+      take(1),
+      map(user => {
+        this.mods.saveOrder(user, totals, this.sku);
+        this.router.navigate(['/home/order/' + user.orderId]);
+      })
+    );
   }
 }

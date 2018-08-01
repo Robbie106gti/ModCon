@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Top } from '../../../../tops/shared/top';
 import { Skews } from '../../../shared/vanity';
 import { TopsService } from '../../../../tops/shared/top.service';

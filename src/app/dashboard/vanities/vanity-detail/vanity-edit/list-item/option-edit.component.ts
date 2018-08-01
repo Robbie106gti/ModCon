@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Option } from '../../../../options/option';
 import { Skews } from '../../../shared/vanity';
 import { OptionsService } from '../../../../options/options.service';

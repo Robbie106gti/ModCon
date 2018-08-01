@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { HomeService } from '../shared/home.service';
 import { Order, ItemOrder, OrderInfo } from '../../home/vanities/vanity-view/skews/order/orderItem';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 import { User } from '../../state/user/user.model';
 import { Sum } from '../../state/sum/sum.model';
 import { AppState } from '../../state/state';
@@ -44,45 +45,48 @@ export class PastOrderViewComponent implements OnInit {
         this.arr = data;
         this.arr.forEach(element => {
           this.orderitem = this.shared.getOrderItem(element.id);
-          this.orderitem.take(1).subscribe(item => {
-            // console.log(item);
-            const id = this.arr.findIndex(x => x.id === element.id);
-            this.accArr = _.toArray(item.accessories);
-            this.totalAccessories = 0;
-            this.accArr.forEach(a => {
-              this.totalAccessories += +(a.price * a.quantity);
-            });
-            this.arr[id] = item;
-            this.arr[id]['totalAccessories'] = this.totalAccessories;
-            let total = item.price + item.totalPantry;
-            total = total * item.materialPrice;
-            total = total + item.totalCounter + this.totalAccessories;
-            this.arr[id]['total'] = total;
-            this.orderTotal += total;
-            const itemsSub = _.toArray(item.itemsSub);
-            itemsSub.forEach(sub => {
-              this.subitem = this.shared.getOrderItemSub(sub.id);
-              this.subitem.take(1).subscribe(s => {
-                if (sub.type === 'counter') {
-                  const counter = {
-                    sku: s.sku,
-                    sink: s.sink,
-                    color: s.color
-                  };
-                  this.arr[id]['counter'] = counter;
-                }
-                if (sub.type === 'pantry') {
-                  const pantry = {
-                    sku: s.sku,
-                    quantity: '1',
-                    hinged: 'left'
-                  };
-                  this.arr[id]['pantry'] = pantry;
-                }
-                // console.log(s);
+          this.orderitem.pipe(
+            take(1),
+            map(item => {
+              // console.log(item);
+              const id = this.arr.findIndex(x => x.id === element.id);
+              this.accArr = _.toArray(item.accessories);
+              this.totalAccessories = 0;
+              this.accArr.forEach(a => {
+                this.totalAccessories += +(a.price * a.quantity);
               });
-            });
-          });
+              this.arr[id] = item;
+              this.arr[id]['totalAccessories'] = this.totalAccessories;
+              let total = item.price + item.totalPantry;
+              total = total * item.materialPrice;
+              total = total + item.totalCounter + this.totalAccessories;
+              this.arr[id]['total'] = total;
+              this.orderTotal += total;
+              const itemsSub = _.toArray(item.itemsSub);
+              itemsSub.forEach(sub => {
+                this.subitem = this.shared.getOrderItemSub(sub.id);
+                this.subitem.take(1).subscribe(s => {
+                  if (sub.type === 'counter') {
+                    const counter = {
+                      sku: s.sku,
+                      sink: s.sink,
+                      color: s.color
+                    };
+                    this.arr[id]['counter'] = counter;
+                  }
+                  if (sub.type === 'pantry') {
+                    const pantry = {
+                      sku: s.sku,
+                      quantity: '1',
+                      hinged: 'left'
+                    };
+                    this.arr[id]['pantry'] = pantry;
+                  }
+                  // console.log(s);
+                });
+              });
+            })
+          );
           // console.log(this.arr);
         });
       }

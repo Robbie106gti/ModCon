@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 // import { AngularFire, AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Upload } from './upload';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase';
 import { Images, Skews, Drawing } from '../../dashboard/vanities/shared/vanity';
 
-
 @Injectable()
 export class UploadService {
+  constructor(private db: AngularFireDatabase) {}
 
-  constructor(private db: AngularFireDatabase) { }
-
-  private basePath:string = '/uploads';
-  private basePathVanity:string = 'vanities';
+  private basePath: string = '/uploads';
+  private basePathVanity: string = 'vanities';
   private uploadTask: firebase.storage.UploadTask;
   uploads: FirebaseListObservable<Upload[]>;
   // tslint:disable-next-line:member-ordering
@@ -23,21 +25,19 @@ export class UploadService {
   // tslint:disable-next-line:member-ordering
   imagesSkew: FirebaseListObservable<Drawing[]>;
 
-
-  getUploads(query={}) {
+  getUploads(query = {}) {
     this.uploads = this.db.list(this.basePath, {
       query: query
     });
-    return this.uploads
+    return this.uploads;
   }
-
 
   deleteUpload(upload: Upload) {
     this.deleteFileData(upload.$key)
-    .then( () => {
-      this.deleteFileStorage(upload.name)
-    })
-    .catch(error => console.log(error))
+      .then(() => {
+        this.deleteFileStorage(upload.name);
+      })
+      .catch(error => console.log(error));
   }
 
   // Executes the file uploading to firebase https://firebase.google.com/docs/storage/web/upload-files
@@ -45,18 +45,19 @@ export class UploadService {
     let storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
-        upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
-        console.log(error)
+        console.log(error);
       },
       () => {
         // upload success
-        upload.url = this.uploadTask.snapshot.downloadURL
+        upload.url = this.uploadTask.snapshot.downloadURL;
         upload.name = upload.file.name;
         this.saveFileData(upload);
       }
@@ -68,12 +69,13 @@ export class UploadService {
     let storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/${images.file.name}`).put(images.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
         console.log(error);
       },
@@ -93,12 +95,13 @@ export class UploadService {
     let storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/skews/${value.file.name}`).put(value.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         value.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
         console.log(error);
       },
@@ -125,12 +128,13 @@ export class UploadService {
     let storageRef = firebase.storage().ref();
     this.uploadTask = storageRef.child(`${this.basePath}/${images.file.name}`).put(images.file);
 
-    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+    this.uploadTask.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
         // upload in progress
         images.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      (error) => {
+      error => {
         // upload failed
         console.log(error);
       },
@@ -146,7 +150,7 @@ export class UploadService {
   // Writes the file details to the realtime db
   private saveFileMainImg(key: string, images: Images): void {
     let id = 'mainImg';
-    this.db.list(`${this.basePathVanity}/${key}/images`).update(id,  images);
+    this.db.list(`${this.basePathVanity}/${key}/images`).update(id, images);
   }
 
   // Writes the file details to the realtime db
@@ -171,7 +175,7 @@ export class UploadService {
 
   // Firebase files must have unique names in their respective storage dir
   // So the name serves as a unique key
-  private deleteFileStorage(name:string) {
+  private deleteFileStorage(name: string) {
     let storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete();
   }
@@ -180,6 +184,4 @@ export class UploadService {
   private handleError(error) {
     console.log(error);
   }
-
-
 }

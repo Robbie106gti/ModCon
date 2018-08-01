@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pantry } from '../../dashboard/pantries/shared/pantry';
 import { PantriesService } from '../../dashboard/pantries/shared/pantry.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'pantries',

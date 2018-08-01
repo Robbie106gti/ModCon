@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -9,7 +9,7 @@ import { ModsService } from './mods.service';
 import { Sku } from '../../../../../state/config/sku.model';
 import { AppState } from '../../../../../state/state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'counter-order',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VanityService } from '../shared/vanity.service';
 import { Vanity } from '../shared/vanity';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'vanities-list',

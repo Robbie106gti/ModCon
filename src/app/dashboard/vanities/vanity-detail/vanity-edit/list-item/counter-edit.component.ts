@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Counter } from '../../../../../dashboard/counters/shared/counter';
 import { CounterService } from '../../../../../dashboard/counters/shared/counter.service';
 

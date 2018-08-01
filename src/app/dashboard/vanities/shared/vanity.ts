@@ -1,3 +1,4 @@
+import { firebase } from '@firebase/app';
 export class VanityNew {
   $key: string;
   title: string;

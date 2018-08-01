@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Access } from './shared/access';
 import { AccessService } from './shared/access.service';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'access',

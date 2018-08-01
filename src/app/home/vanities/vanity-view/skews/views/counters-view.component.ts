@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import * as _ from 'lodash';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Rx';
 
 import { Item } from '../../../../shared/shared';
 import { Counter } from '../../../../../dashboard/counters/shared/counter';

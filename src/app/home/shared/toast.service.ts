@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Notification } from './message';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../../state/state';
 import { User } from '../../state/user/user.model';
 

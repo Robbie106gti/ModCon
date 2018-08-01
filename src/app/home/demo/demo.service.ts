@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
+import { FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Pantry } from '../../dashboard/pantries/shared/pantry';
 import { Color } from '../../dashboard/materials/shared/material';
 
