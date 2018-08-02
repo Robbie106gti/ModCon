@@ -4,13 +4,9 @@ import { AuthService } from '../auth/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Observable } from 'rxjs';
 import { ModsService } from '../../home/vanities/vanity-view/skews/mods/mods.service';
-import { AppState } from '../../state/state';
-import { Store } from '@ngrx/store';
 import { User } from '../../state/user/user.model';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { Sum } from '../../state/sum/sum.model';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { OrderItem } from '../../home/vanities/vanity-view/skews/order/orderItem';
-import * as UserActions from '../../state/user/user.actions';
 import { UserFacade } from '../../state/user/user.facade';
 
 @Component({
@@ -21,7 +17,7 @@ import { UserFacade } from '../../state/user/user.facade';
 export class LoginComponent {
   user$: Observable<User> = this.userService.user$;
   message: string;
-  order: FirebaseListObservable<OrderItem[]>;
+  order: AngularFireList<OrderItem[]>;
   qtyOrder: number = 0;
   // tslint:disable-next-line:max-line-length
   facebookImg =
@@ -38,13 +34,12 @@ export class LoginComponent {
     public flashMessage: FlashMessagesService,
     private router: Router,
     private mods: ModsService,
-    private store: Store<AppState>,
     private userService: UserFacade
   ) {
     this.user$.subscribe(user => {
       if (user.loading === false) {
         this.order = this.db.list(`orders/orderItems/${user.orderId}/items`);
-        this.order.subscribe(order => {
+        this.order.valueChanges().subscribe(order => {
           this.qtyOrder = order.length;
           this.db.object(`users/${user.uid}/numbers`).update({ orderqty: this.qtyOrder });
         });
@@ -69,7 +64,6 @@ export class LoginComponent {
   }
 
   /// Shared
-
   private afterSignIn(): void {
     // Do after login stuff here, such router redirects, toast messages, etc.
     // console.log(this.auth.currentUserId);
@@ -102,11 +96,4 @@ export class LoginComponent {
       .navigateByUrl('')
       .then(() => this.flashMessage.show('You are now logged out', { cssClass: 'alert-success', timeout: 3000 }));
   }
-
-  /*   logout() {
-    this.auth.signOut();
-    this.store.dispatch(new UserActions.Logout());
-    this.router.navigateByUrl('')
-      .then(() => this.flashMessage.show('You are now logged out', {cssClass: 'alert-success', timeout: 3000}));
-  } */
 }

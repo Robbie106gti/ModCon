@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
@@ -15,8 +15,8 @@ import { User } from '../../state/user/user.model';
 export class MessagingService {
   messaging = firebase.messaging();
   currentMessage = new BehaviorSubject(null);
-  messages: FirebaseListObservable<Message[]>;
-  thread: FirebaseListObservable<Thread[]>;
+  messages: AngularFireList<Message[]>;
+  thread: AngularFireList<Thread[]>;
   user: any;
   ToUsers: any;
   user$: Observable<User>;
@@ -30,7 +30,7 @@ export class MessagingService {
   updateToken(token) {
     this.afAuth.authState.pipe(
       take(1),
-      map(user => {
+      map((user: any) => {
         if (!user) {
           return;
         }
@@ -91,7 +91,7 @@ export class MessagingService {
     this.db.object(`messages2/${sender}/sent/${messageKey}`).update({ read: true });
   }
 
-  getMessages(): FirebaseListObservable<Message[]> {
+  getMessages(): AngularFireList<Message[]> {
     this.messages = this.db.list(`messages/${this.user.uid}`, {
       query: {
         limitToLast: 10
