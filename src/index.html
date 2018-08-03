@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Modcon Vanity</title>
@@ -23,46 +24,41 @@
     <link rel="stylesheet" type="text/css" href="all-ie-only.css" />
   <![endif]-->
 </head>
+
 <body>
-  <div class="site-wrapper"  id="loader">
-    <div class="ie">
-      <h1>Please use a different browser:</h1>
-      <ul>
-        <li>Chrome</li>
-        <li>Firefox</li>
-        <li>Opera</li>
-        <li>Edge* currently only Edge version 16 supports css Grid but not yet ServiceWorkers so some functionality will not work.</li>
-      </ul>
-    </div>
+  <div class="site-wrapper" id="loader">
     <div class="sk-folding-cube">
-    	<div class="sk-cube1 sk-cube"></div>
-    	<div class="sk-cube2 sk-cube"></div>
-    	<div class="sk-cube4 sk-cube"></div>
-    	<div class="sk-cube3 sk-cube"></div>
-    	<span class="loading">Loading...</span>
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+      <span class="loading">Loading...</span>
     </div>
   </div>
   <app-root></app-root>
-<!-- Latest compiled and minified JavaScript -->
+  <!-- Latest compiled and minified JavaScript -->
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-    .then((registration) => {
-      console.log('SW registered');
-    })
-    .catch((err) => {
-      console.log('SW error', err);
-    });
-  }
-</script>  
-<script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-<script>
-  var b = document.documentElement;
-b.setAttribute('data-useragent',  navigator.userAgent);
-b.setAttribute('data-platform', navigator.platform );
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('SW registered');
+        })
+        .catch((err) => {
+          console.log('SW error', err);
+        });
+    }
 
-// IE 10 == Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)
-</script>
+  </script>
+  <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+  <script>
+    var b = document.documentElement;
+    b.setAttribute('data-useragent', navigator.userAgent);
+    b.setAttribute('data-platform', navigator.platform);
+
+    // IE 10 == Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)
+
+  </script>
 </body>
+
 </html>
