@@ -17,21 +17,20 @@ export class CreateMessageComponent implements OnInit {
   user$: Observable<User>;
   fromUser: User;
   toUser: any;
-
-  private textValue = '';
+  textValue = '';
 
   constructor(
     private store: Store<AppState>,
     private msgService: MessagingService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.user$ = this.store.select(state => state.user);
     this.toUsers = this.msgService.getToUsers();
   }
 
-  sendMessage (value) {
-    this.user$.take(1).subscribe( user => {
+  sendMessage(value) {
+    this.user$.take(1).subscribe(user => {
       this.fromUser = user;
       let mes = {
         message: value,
@@ -44,7 +43,6 @@ export class CreateMessageComponent implements OnInit {
       this.msgService.sendMessage(mes);
       // console.log(mes);
       this.textValue = '';
-    }
-  );
+    });
   }
 }

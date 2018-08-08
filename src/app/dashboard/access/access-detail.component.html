@@ -1,41 +1,50 @@
-<div class="col-sm-4 col-md-3 col-xs-6" >
+<div class="col-sm-4 col-md-3 col-xs-6">
   <div class="panel panel-default">
     <div class="panel-body">
       <img class="MatImg" src="{{ access?.images?.mainImg.url }}" alt=" {{ access.title || 'missing title' }}">
       <h4>
-          {{ access.title || 'missing title' }}
+        {{ access.title || 'missing title' }}
       </h4>
-      <p *ngIf="!options">Price: 
-        <span *ngIf="!toggle; else edit" (click)="setToggle()">$ {{ access?.price || '0.0'  | number:'2.2-2' }}        
-          <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setToggle()"></i></span>
+      <p *ngIf="!options">Price:
+        <span *ngIf="!toggle; else edit" (click)="setToggle()">$ {{ access?.price || '0.0' | number:'2.2-2' }}
+          <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="setToggle()"></i>
+        </span>
         <span> {{access.description}}</span>
       </p>
       <ul *ngIf="options">
         <access-option *ngFor="let option of options | async" [option]='option' [access]='access'></access-option>
-      </ul>        
+      </ul>
       <form class="form-group">
-          <input #addoption name="text" (keyup.enter)="addOption(addoption.value)" class="form-control" 
-          placeholder="Title option to add" type="text" />
+        <input #addoption name="text" (keyup.enter)="addOption(addoption.value)" class="form-control" placeholder="Title option to add"
+          type="text" />
       </form>
     </div>
-    <div class="panel-footer">       
+    <div class="panel-footer">
       <label for="upload-photo{{ access.title || 'missing title' }}">
         <i class="fa fa-file-image-o" aria-hidden="true"></i>
         <input type="file" name="photo" id="upload-photo{{ access.title || 'missing title' }}" class="upload-photo" (change)="detectFiles($event)">
       </label>
-      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+      <button type="button" class="btn btn-success btn-xs" (click)="uploadSingle()">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+      </button>
       <div class="btn-group pull-right">
-        <span type="button" class="btn btn-success btn-xs" *ngIf='access.active' (click)='updateActive(false)'><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
-        <span type="button" class="btn btn-warning btn-xs" *ngIf='!access.active' (click)='updateActive(true)'><i class="fa fa-square-o" aria-hidden="true"></i></span>  
-        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        <span type="button" class="btn btn-success btn-xs" *ngIf='access.active' (click)='updateActive(false)'>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-warning btn-xs" *ngIf='!access.active' (click)='updateActive(true)'>
+          <i class="fa fa-square-o" aria-hidden="true"></i>
+        </span>
+        <span type="button" class="btn btn-danger btn-xs" (click)='deleteItem()'>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
   </div>
 </div>
 
-<ng-template #edit>  
-    <form class="form-group">updatePrice
-        <input #price name="text" (keyup.enter)="updatePrice(price.value)" class="form-control" 
-        [(ngModel)]="access.price" type="text" />
-    </form>
+<ng-template #edit>
+  <form class="form-group">updatePrice
+    <input #price name="text" (keyup.enter)="updatePrice(price.value)" class="form-control" [(ngModel)]="access.price" type="text"
+    />
+  </form>
 </ng-template>

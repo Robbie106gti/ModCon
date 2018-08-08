@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 
 import { Item } from '../../../../shared/shared';
-import { Counter } from '../../../../../dashboard/counters/shared/counter';
 import { ModsService } from '../mods/mods.service';
 import { SharedService } from '../../../../shared/shared.service';
 import { ToastService } from '../../../../shared/toast.service';
@@ -74,7 +73,7 @@ export class CounterViewComponent implements OnInit {
   id: any;
   title: string;
   @Input()  itemCounter: Item;
-  counter: Counter;
+  counter: any;
   counter2: string;
 
   constructor(

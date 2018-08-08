@@ -1,7 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 import * as _ from 'lodash';
 // tslint:disable-next-line:import-blacklist
 import * as Rx from 'rxjs';
@@ -9,7 +18,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 
 import { Item } from '../../../../shared/shared';
-import { Top } from '../../../../../dashboard/tops/shared/top';
 import { ModsService } from '../mods/mods.service';
 import { SharedService } from '../../../../shared/shared.service';
 import { ToastService } from '../../../../shared/toast.service';
@@ -73,11 +81,11 @@ import { Sink } from '../../../../../dashboard/sinks/shared/sink';
   `,
   styleUrls: ['../order/order.component.css']
 })
-
 export class TopViewComponent implements OnInit {
-  @Input()  itemTop: Item;
+  @Input()
+  itemTop: Item;
   sink: FirebaseObjectObservable<Sink>;
-  top: Top;
+  top: any;
   topSink: string;
   counter2: Counter2;
   optionForm: FormGroup;
@@ -88,38 +96,40 @@ export class TopViewComponent implements OnInit {
   counter: string;
 
   constructor(
-      private route: ActivatedRoute,
-      private db: AngularFireDatabase,
-      private mods: ModsService,
-      private itemSrv: SharedService,
-      private toast: ToastService,
-      private store: Store<AppState>,
-      public fb: FormBuilder
-      ) {
-        this.optionForm = this.fb.group({
-          size: ['1 3/8"', Validators.required],
-          drilling: ['1'],
-          spread: ['none']
-        });
-      }
+    private route: ActivatedRoute,
+    private db: AngularFireDatabase,
+    private mods: ModsService,
+    private itemSrv: SharedService,
+    private toast: ToastService,
+    private store: Store<AppState>,
+    public fb: FormBuilder
+  ) {
+    this.optionForm = this.fb.group({
+      size: ['1 3/8"', Validators.required],
+      drilling: ['1'],
+      spread: ['none']
+    });
+  }
 
   ngOnInit() {
-     this.itemSrv.getTop(this.itemTop.$key).subscribe( top => {
-       this.top = top;
-       this.sink = this.itemSrv.getSink(top.sink);
-      });
-      this.mods.currentCounter.subscribe(counter => this.counter = counter);
-      this.mods.changePage('false');
+    this.itemSrv.getTop(this.itemTop.$key).subscribe(top => {
+      this.top = top;
+      this.sink = this.itemSrv.getSink(top.sink);
+    });
+    this.mods.currentCounter.subscribe(counter => (this.counter = counter));
+    this.mods.changePage('false');
   }
 
   addTop(value) {
-    let content = 'You have succesfully added ' + this.itemTop.$key + ' to your order.';
+    let content =
+      'You have succesfully added ' + this.itemTop.$key + ' to your order.';
     let style = 'success';
     this.toast.sendMessage(content, style);
-    let content2 = 'You have succesfully added ' + this.top.sink + ' to your order.';
+    let content2 =
+      'You have succesfully added ' + this.top.sink + ' to your order.';
     let style2 = 'success';
     this.toast.sendMessage(content2, style2);
-    this.sink.take(1).subscribe( sink => {
+    this.sink.take(1).subscribe(sink => {
       this.counter2 = {
         sink: this.top.sink,
         imageSink: sink.images['mainImg'].url,
@@ -131,18 +141,16 @@ export class TopViewComponent implements OnInit {
         spread: value.spread
       };
       this.store.dispatch(new SkuActions.AddCounter(this.counter2));
-    }
-  );
+    });
     this.modalCounter = false;
     this.mods.changeCounter('true');
   }
 
-    openModal() {
-        this.modalCounter = true;
-    }
+  openModal() {
+    this.modalCounter = true;
+  }
 
-    closeModal() {
-      this.modalCounter = false;
-    }
-
+  closeModal() {
+    this.modalCounter = false;
+  }
 }

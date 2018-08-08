@@ -9,14 +9,14 @@ export class PantryNew {
 }
 
 export class Pantry {
-    $key: string;
-    title: string;
-    body: string;
-    active = true;
-    timeStamp: Date = new Date();
-    images: Images[];
-    vanities: Vanities[];
-    price: number;
+  $key: string;
+  title: string;
+  body: string;
+  active = true;
+  timeStamp: Date = new Date();
+  images: Images[];
+  vanities: Vanities[];
+  price: number;
 }
 
 export class Vanities {

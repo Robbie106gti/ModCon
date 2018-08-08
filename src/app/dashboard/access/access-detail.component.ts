@@ -1,50 +1,56 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { AccessService } from './shared/access.service';
-import { Access, Images, Option } from './shared/access';
+import { Images, Option } from './shared/access';
 import { Router } from '@angular/router';
 import { UploadService } from '../../uploads/shared/upload.service';
 import * as _ from 'lodash';
 import { FlashMessagesService } from 'angular2-flash-messages/module';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable
+} from 'angularfire2/database';
 
 @Component({
   selector: 'access-detail',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-      '(document:mousedown)': 'onClick($event)',
+    '(document:mousedown)': 'onClick($event)'
   },
   templateUrl: './access-detail.component.html',
-  styles: [`
-    label {
-      cursor: pointer;
-      /* Style as you please, it will become the visible UI component. */
-    }
+  styles: [
+    `
+      label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+      }
 
-    .upload-photo {
-      opacity: 0;
-      display: none;
-      position: absolute;
-      z-index: -1;
-    }
+      .upload-photo {
+        opacity: 0;
+        display: none;
+        position: absolute;
+        z-index: -1;
+      }
 
-    .MatImg {
+      .MatImg {
         max-height: 50px;
         float: right;
-    }
-    .fa-pencil-square-o {
+      }
+      .fa-pencil-square-o {
         display: none;
-    }
+      }
 
-    span:hover .fa-pencil-square-o {
+      span:hover .fa-pencil-square-o {
         display: inline;
         cursor: pointer;
-    }
-  `]
+      }
+    `
+  ]
 })
 export class AccessDetailComponent implements OnInit {
   toggle: boolean;
 
-  @Input() access: Access;
+  @Input()
+  access: any;
   options: FirebaseListObservable<Option[]>;
 
   selectedFiles: FileList;
@@ -55,20 +61,20 @@ export class AccessDetailComponent implements OnInit {
     private accessSvc: AccessService,
     private _eref: ElementRef,
     public flashMessage: FlashMessagesService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.options = this.getOptions();
   }
 
-  imageMain () {
+  imageMain() {
     let images = this.access.images;
-    let mainImg = _.find(images, { 'title': 'mainImg' });
+    let mainImg = _.find(images, { title: 'mainImg' });
     console.log(mainImg);
     return mainImg.url;
   }
 
-  getOptions () {
+  getOptions() {
     if (this.access.options) {
       this.options = this.accessSvc.getOptions(this.access.$key);
       return this.options;
@@ -76,13 +82,13 @@ export class AccessDetailComponent implements OnInit {
   }
 
   setToggle() {
-      return this.toggle = true;
+    return (this.toggle = true);
   }
 
   onClick(event) {
-      if (!this._eref.nativeElement.contains(event.target)) {
-          this.toggle = null;
-      }
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.toggle = null;
+    }
   }
 
   updateTimeStamp() {
@@ -99,7 +105,7 @@ export class AccessDetailComponent implements OnInit {
   }
 
   detectFiles(event) {
-      this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
   }
 
   uploadSingle() {
@@ -109,18 +115,27 @@ export class AccessDetailComponent implements OnInit {
     let value = this.currentUpload;
     // console.log(value);
     this.accessSvc.pushUploadMainImg(this.access.$key, value);
-    this.flashMessage.show('Image uploading', {cssClass: 'alert-info', timeout: 3000});
+    this.flashMessage.show('Image uploading', {
+      cssClass: 'alert-info',
+      timeout: 3000
+    });
   }
 
-  updatePrice (value) {
-    this.flashMessage.show('Price updated to ' + value, {cssClass: 'alert-info', timeout: 3000});
-    this.accessSvc.updateItem(this.access.$key, {'price': value});
+  updatePrice(value) {
+    this.flashMessage.show('Price updated to ' + value, {
+      cssClass: 'alert-info',
+      timeout: 3000
+    });
+    this.accessSvc.updateItem(this.access.$key, { price: value });
     this.toggle = null;
   }
 
-  addOption (value) {
-    this.flashMessage.show('Option added: ' + value, {cssClass: 'alert-info', timeout: 3000});
-    let obj = {'title': value};
+  addOption(value) {
+    this.flashMessage.show('Option added: ' + value, {
+      cssClass: 'alert-info',
+      timeout: 3000
+    });
+    let obj = { title: value };
     this.accessSvc.updateOptionAccessory(this.access.$key, obj);
   }
 }

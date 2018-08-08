@@ -1,211 +1,225 @@
 <div *ngIf="sku$ | async as sku">
-    <div *ngIf="user$ | async as user">
-        <div *ngIf="sum$ | async as sum">
-            <div class="row">
-                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngIf="!sku.material">
-                    <a routerLink='colors'>
-                        <div class="thumbnail">
-                            <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
-                            <div class="caption">
-                                <h3>Colors</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div *ngIf="!sku.counter" class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                    <a routerLink='counters'>
-                        <div class="thumbnail">
-                            <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
-                            <div class="caption">
-                                <h3>Counters</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div *ngIf="sku.accessories == 0" class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                    <a routerLink='accessories'>
-                        <div class="thumbnail">
-                            <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
-                            <div class="caption">
-                                <h3>Accessories</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div *ngIf="!sku.configuration" class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                    <a routerLink='configuration'>
-                        <div class="thumbnail">
-                            <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
-                            <div class="caption">
-                                <h3>Configuration</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngIf="!sku.pantry">
-                    <a routerLink='pantries'>
-                        <div class="thumbnail">
-                            <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
-                            <div class="caption">
-                                <h3>Pantries</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+  <div *ngIf="user$ | async as user">
+    <div *ngIf="sum$ | async as sum">
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngIf="!sku.material">
+          <a routerLink='colors'>
+            <div class="thumbnail">
+              <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Colors</h3>
+              </div>
             </div>
-
-            <div *ngIf="!sku.material; else tmColor"></div>
-            <div *ngIf="!sku.counter; else tmCounter"></div>
-            <div *ngIf="sku.accessories == 0; else tmAccess"></div>
-            <div *ngIf="!sku.configuration; else tmConfig"></div>
-            <div *ngIf="!sku.pantry; else tmPantry"></div>
-
-            <ng-template #tmColor>
-                <div class="row">
-                    <h2>Finish and material</h2>
-                    <hr>
-                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                        <span (click)="removeItem('color')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                        <a routerLink='colors'>
-                            <div class="thumbnail">
-                                <img *ngIf='sku.material.materialImage' class="color" src="{{ sku.material.materialImage }}">
-                                <div class="caption">
-                                    <h3>{{ sku.material.material }}</h3>
-                                    <p>current color: {{ sku.material.color }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </ng-template>
-
-            <ng-template #tmCounter>
-                <div class="row">
-                    <h2>Counter material, Spec and Sink</h2>
-                    <hr>
-                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                        <span (click)="removeItem('counter')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                        <a routerLink='counters'>
-                            <div class="thumbnail">
-                                <img *ngIf='sku.counterColor.color' class="color" src="{{ sku.counterColor?.materialImage }}">
-                                <div class="caption">
-                                    <h3>Counter</h3>
-                                    <p>current counter: {{ sku.counterColor?.color }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div *ngIf="!sku.counter.sku; else tmTop"></div>
-                    <div *ngIf="!sku.counter.sink; else tmSink"></div>
-                </div>
-            </ng-template>
-
-            <ng-template #tmTop>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                    <span (click)="removeItem('counter')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                    <a routerLink='counters'>
-                        <div class="thumbnail">
-                            <img *ngIf='sku.counter?.cost' class="color" src="{{ sku.counter.urlSketch }}">
-                            <div class="caption">
-                                <h3>Counter-top</h3>
-                                <p>current counter-top: {{ sku.counter.sku }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </ng-template>
-
-            <ng-template #tmSink>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                    <span (click)="removeItem('counter')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                    <a routerLink='counters'>
-                        <div class="thumbnail">
-                            <img *ngIf='sku.counter?.sink' class="color" src="{{ sku.counter.imageSink }}">
-                            <div class="caption">
-                                <h3>Sink</h3>
-                                <p>current sink: {{ sku.counter.sink }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </ng-template>
-
-            <ng-template #tmAccess>
-                <div>
-                    <div class="row">
-                        <h2>Accessories</h2>
-                        <hr>
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngFor="let access of sku.accessories; let i = index">
-                            <span (click)="remove(i)"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                            <a routerLink='accessories'>
-                                <div class="thumbnail">
-                                    <img *ngIf='access.url' class="color" src="{{access?.url}}">
-                                    <div class="caption">
-                                        <h3>Accessory</h3>
-                                        <p>{{access.sku}}</p>
-                                        <ul>
-                                            <li>
-                                                {{access.option}}
-                                                <span *ngIf="access.sku === 'Medicine Cabinet'">
-                     - {{ access?.color }}
-                     <img src="{{ access?.colorImage }}" alt="{{ access?.sku }}">
-                  </span>
-                                            </li>
-                                            <li>{{ user.currency | uppercase }} $
-                                                <span *ngIf="user.currency === 'can'">{{ access.total * sum.can | number:'1.2-2'}}</span>
-                                                <span *ngIf="user.currency === 'usd'">{{ access.total * sum.usd | number:'1.2-2'}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-
-            <ng-template #tmPantry>
-                <div class="row">
-                    <h2>Pantry</h2>
-                    <hr>
-                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                        <span (click)="removeItem('pantry')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                        <a routerLink='pantries'>
-                            <div class="thumbnail">
-                                <img *ngIf='sku.pantry.sku' class="color" src="{{ sku.pantry.urlSketch }}">
-                                <div class="caption">
-                                    <h3>Pantry</h3>
-                                    <p>current pantry: {{ sku.pantry.sku }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </ng-template>
-
-            <ng-template #tmConfig>
-                <div class="row">
-                    <h2>Configuration</h2>
-                    <hr>
-                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-                        <span (click)="removeItem('configuration')"><i class="fa fa-trash pull-right" aria-hidden="true"></i></span>
-                        <a routerLink='configuration'>
-                            <div class="thumbnail">
-                                <img *ngIf='sku.configuration.sku' class="color" src="{{ sku.configuration.urlSketch }}">
-                                <div class="caption">
-                                    <h3>Configuration</h3>
-                                    <p>current Config: {{ sku.configuration.sku }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </ng-template>
-
+          </a>
         </div>
+
+        <div *ngIf="!sku.counter" class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+          <a routerLink='counters'>
+            <div class="thumbnail">
+              <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Counters</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div *ngIf="sku.accessories == 0" class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+          <a routerLink='accessories'>
+            <div class="thumbnail">
+              <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Accessories</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div *ngIf="!sku.configuration" class="col-lg-2 col-md-3 col-sm-6 col-xs-6 hidden">
+          <a routerLink='configuration'>
+            <div class="thumbnail">
+              <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Configuration</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngIf="!sku.pantry">
+          <a routerLink='pantries'>
+            <div class="thumbnail">
+              <i class="fa fa-plus-square fa-4x" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Pantries</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div *ngIf="!sku.material; else tmColor"></div>
+      <div *ngIf="!sku.counter; else tmCounter"></div>
+      <div *ngIf="sku.accessories == 0; else tmAccess"></div>
+      <div *ngIf="!sku.configuration; else tmConfig"></div>
+      <div *ngIf="!sku.pantry; else tmPantry"></div>
+
+      <ng-template #tmColor>
+        <div class="row">
+          <h2>Finish and material</h2>
+          <hr>
+          <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+            <span (click)="removeItem('color')">
+              <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+            </span>
+            <a routerLink='colors'>
+              <div class="thumbnail">
+                <img *ngIf='sku.material.materialImage' class="color" src="{{ sku.material.materialImage }}">
+                <div class="caption">
+                  <h3>{{ sku.material.material }}</h3>
+                  <p>current color: {{ sku.material.color }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #tmCounter>
+        <div class="row">
+          <h2>Counter material, Spec and Sink</h2>
+          <hr>
+          <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+            <span (click)="removeItem('counter')">
+              <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+            </span>
+            <a routerLink='counters'>
+              <div class="thumbnail">
+                <img *ngIf='sku.counterColor.color' class="color" src="{{ sku.counterColor?.materialImage }}">
+                <div class="caption">
+                  <h3>Counter</h3>
+                  <p>current counter: {{ sku.counterColor?.color }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div *ngIf="!sku.counter.sku; else tmTop"></div>
+          <div *ngIf="!sku.counter.sink; else tmSink"></div>
+        </div>
+      </ng-template>
+
+      <ng-template #tmTop>
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+          <span (click)="removeItem('counter')">
+            <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+          </span>
+          <a routerLink='counters'>
+            <div class="thumbnail">
+              <img *ngIf='sku.counter?.cost' class="color" src="{{ sku.counter.urlSketch }}">
+              <div class="caption">
+                <h3>Counter-top</h3>
+                <p>current counter-top: {{ sku.counter.sku }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ng-template>
+
+      <ng-template #tmSink>
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+          <span (click)="removeItem('counter')">
+            <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+          </span>
+          <a routerLink='counters'>
+            <div class="thumbnail">
+              <img *ngIf='sku.counter?.sink' class="color" src="{{ sku.counter.imageSink }}">
+              <div class="caption">
+                <h3>Sink</h3>
+                <p>current sink: {{ sku.counter.sink }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ng-template>
+
+      <ng-template #tmAccess>
+        <div>
+          <div class="row">
+            <h2>Accessories</h2>
+            <hr>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6" *ngFor="let access of sku.accessories; let i = index">
+              <span (click)="remove(i)">
+                <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+              </span>
+              <a routerLink='accessories'>
+                <div class="thumbnail">
+                  <img *ngIf='access.url' class="color" src="{{access?.url}}">
+                  <div class="caption">
+                    <h3>Accessory</h3>
+                    <p>{{access.sku}}</p>
+                    <ul>
+                      <li>
+                        {{access.option}}
+                        <span *ngIf="access.sku === 'Medicine Cabinet'">
+                          - {{ access?.color }}
+                          <img src="{{ access?.colorImage }}" alt="{{ access?.sku }}">
+                        </span>
+                      </li>
+                      <li class="hidden">{{ user.currency | uppercase }} $
+                        <span *ngIf="user.currency === 'can'">{{ access.total * sum.can | number:'1.2-2'}}</span>
+                        <span *ngIf="user.currency === 'usd'">{{ access.total * sum.usd | number:'1.2-2'}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #tmPantry>
+        <div class="row">
+          <h2>Pantry</h2>
+          <hr>
+          <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+            <span (click)="removeItem('pantry')">
+              <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+            </span>
+            <a routerLink='pantries'>
+              <div class="thumbnail">
+                <img *ngIf='sku.pantry.sku' class="color" src="{{ sku.pantry.urlSketch }}">
+                <div class="caption">
+                  <h3>Pantry</h3>
+                  <p>current pantry: {{ sku.pantry.sku }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #tmConfig>
+        <div class="row">
+          <h2>Configuration</h2>
+          <hr>
+          <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+            <span (click)="removeItem('configuration')">
+              <i class="fa fa-trash pull-right" aria-hidden="true"></i>
+            </span>
+            <a routerLink='configuration'>
+              <div class="thumbnail">
+                <img *ngIf='sku.configuration.sku' class="color" src="{{ sku.configuration.urlSketch }}">
+                <div class="caption">
+                  <h3>Configuration</h3>
+                  <p>current Config: {{ sku.configuration.sku }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+
     </div>
+  </div>
 </div>

@@ -1,13 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from 'angularfire2/database';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 
 import { Item } from '../../../../shared/shared';
-import { Pantry } from '../../../../../dashboard/pantries/shared/pantry';
 import { ModsService } from '../mods/mods.service';
 import { SharedService } from '../../../../shared/shared.service';
 import { ToastService } from '../../../../shared/toast.service';
@@ -26,13 +34,13 @@ import { AppState } from '../../../../../state/state';
       </div></a>
     </div>
   </div>
-  
+
 
 <div *ngIf="modalPantry" class="modal">
   <div class="jumbotron notification">
   <button class="delete" (click)="closeModal()"></button>
   <form [formGroup]="optionForm" (ngSubmit)="addPantry(optionForm.value)" class="form-group">
-    
+
   <div class="faucet">
     <div class="heading">
       <h2>Pantry options:</h2>
@@ -70,41 +78,44 @@ import { AppState } from '../../../../../state/state';
   `,
   styleUrls: ['../order/order.component.css']
 })
-
 export class PantryViewComponent implements OnInit {
   id: any;
   title: string;
-  @Input()  itemPantry: Item;
+  @Input()
+  itemPantry: Item;
   optionForm: FormGroup;
-  pantry: Pantry;
+  pantry: any;
   spantry: Pantry2;
   modalPantry: boolean;
   qnt: number;
   hinged = ['left', 'right', '1 left & 1 right'];
 
   constructor(
-      private route: ActivatedRoute,
-      private db: AngularFireDatabase,
-      private mods: ModsService,
-      private itemSrv: SharedService,
-      private toast: ToastService,
-      private store: Store<AppState>,
-      public fb: FormBuilder
-      ) {
-      this.title = this.route.snapshot.params.id;
-      this.optionForm = this.fb.group({
-        quantity: [1, Validators.required],
-        hinged: ['left']
-      });
-      this.qnt = 1;
-}
+    private route: ActivatedRoute,
+    private db: AngularFireDatabase,
+    private mods: ModsService,
+    private itemSrv: SharedService,
+    private toast: ToastService,
+    private store: Store<AppState>,
+    public fb: FormBuilder
+  ) {
+    this.title = this.route.snapshot.params.id;
+    this.optionForm = this.fb.group({
+      quantity: [1, Validators.required],
+      hinged: ['left']
+    });
+    this.qnt = 1;
+  }
 
   ngOnInit() {
-     this.itemSrv.getPantry(this.itemPantry.$key).subscribe(pantry => this.pantry = pantry );
+    this.itemSrv
+      .getPantry(this.itemPantry.$key)
+      .subscribe(pantry => (this.pantry = pantry));
   }
   addPantry(value) {
     // console.log(value);
-    let content = 'You have succesfully added ' + this.itemPantry.$key + ' to your order.';
+    let content =
+      'You have succesfully added ' + this.itemPantry.$key + ' to your order.';
     let style = 'success';
     this.toast.sendMessage(content, style);
     let cal = this.qnt * this.pantry.price;
@@ -123,17 +134,21 @@ export class PantryViewComponent implements OnInit {
   add() {
     if (this.qnt === 2) {
       return;
-    } else { this.qnt++; }
+    } else {
+      this.qnt++;
+    }
   }
 
   less() {
     if (this.qnt === 0) {
       return;
-    } else { this.qnt--; }
+    } else {
+      this.qnt--;
+    }
   }
 
   openModal() {
-      this.modalPantry = true;
+    this.modalPantry = true;
   }
 
   closeModal() {

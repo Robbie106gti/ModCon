@@ -1,0 +1,14 @@
+.navbar-default {
+  background-color: #2C3E50 !important;
+  border: solid 3px #2C3E50 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #fff !important;
+}
