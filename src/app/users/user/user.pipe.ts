@@ -4,12 +4,13 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'user'
 })
 export class UserPipe implements PipeTransform {
-
   transform(value) {
-    if (!value) { return; }
+    if (!value) {
+      return;
+    }
     value = value.sort(function(a, b) {
-      let nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      let nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      let nameA = a.name ? a.name.toLowerCase() : ''; // ignore upper and lowercase
+      let nameB = b.name ? b.name.toLowerCase() : ''; // ignore upper and lowercase
       if (nameA < nameB) {
         return -1;
       }
@@ -21,5 +22,4 @@ export class UserPipe implements PipeTransform {
     });
     return value;
   }
-
 }
